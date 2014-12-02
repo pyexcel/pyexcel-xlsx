@@ -51,7 +51,7 @@ Write to an xl file
     ...     from StringIO import StringIO
     ... else:
     ...     from io import BytesIO as StringIO
-    >>> from pyexcel_xlsx.xlbook import OrderedDict
+    >>> from pyexcel.ioext import OrderedDict
 
 Here's the sample code to write a dictionary to an xlsx file::
 

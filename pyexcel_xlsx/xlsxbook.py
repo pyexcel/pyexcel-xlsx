@@ -8,17 +8,12 @@
     :license: GPL v3
 """
 import sys
-import datetime
 import openpyxl
+from pyexcel.ioext import SheetReader, BookReader, SheetWriter, BookWriter
 if sys.version_info[0] < 3:
     from StringIO import StringIO
 else:
     from io import BytesIO as StringIO
-if sys.version_info[0] == 2 and sys.version_info[1] < 7:
-    from ordereddict import OrderedDict
-else:
-    from collections import OrderedDict
-
 
 COLUMNS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 COLUMN_LENGTH = 26
@@ -30,15 +25,12 @@ def get_columns(index):
         return get_columns(index/COLUMN_LENGTH) + COLUMNS[index%COLUMN_LENGTH]
     
 
-class XLSXSheet:
+class XLSXSheet(SheetReader):
     """
     xls sheet
 
     Currently only support first sheet in the file
     """
-    def __init__(self, sheet):
-        self.worksheet = sheet
-
     def number_of_rows(self):
         """
         Number of rows in the xls sheet
@@ -58,83 +50,48 @@ class XLSXSheet:
         actual_row = row + 1
         return self.worksheet.cell("%s%d" % (get_columns(column), actual_row)).value
 
-
-def to_array(sheet):
-    array = []
-    for r in range(0, sheet.number_of_rows()):
-        row = []
-        for c in range(0, sheet.number_of_columns()):
-            row.append(sheet.cell_value(r, c))
-        array.append(row)
-    return array
-
-
-class XLSXBook:
+class XLSXBook(BookReader):
     """
     XLSBook reader
 
     It reads xls, xlsm, xlsx work book
     """
+    def getSheet(self, nativeSheet):
+        return XLSXSheet(nativeSheet)
 
-    def __init__(self, filename, file_content=None, **keywords):
-        if file_content:
-            self.workbook = openpyxl.load_workbook(filename=StringIO(file_content))
-        else:
-            self.workbook = openpyxl.load_workbook(filename)
-        self.mysheets = OrderedDict()
-        for sheet in self.workbook:
-            data = to_array(XLSXSheet(sheet))
-            self.mysheets[sheet.title] = data
+    def load_from_memory(self, file_content):
+        return openpyxl.load_workbook(filename=StringIO(file_content))
 
-    def sheets(self):
-        """Get sheets in a dictionary"""
-        return self.mysheets
+    def load_from_file(self, filename):
+        return openpyxl.load_workbook(filename)
+
+    def sheetIterator(self):
+        return self.workbook
 
 
-class XLSXSheetWriter:
+class XLSXSheetWriter(SheetWriter):
     """
     xls, xlsx and xlsm sheet writer
     """
-    def __init__(self, sheet, name):
-        if name:
-            sheet_name = name
-        else:
-            sheet_name = "pyexcel_sheet1"
-        self.ws = sheet
-        self.ws.title = sheet_name
+    def set_sheet_name(self, name):
+        self.sheet.title = name
         self.current_row = 1
-
-    def set_size(self, size):
-        pass
 
     def write_row(self, array):
         """
         write a row into the file
         """
         for i in range(0, len(array)):
-            value = array[i]
-            style = None
-            tmp_array = []
-            self.ws.cell("%s%d" % (get_columns(i), self.current_row)).value = value
+            self.sheet.cell("%s%d" % (get_columns(i), self.current_row)).value = array[i]
         self.current_row += 1
 
-    def write_array(self, table):
-        for r in table:
-            self.write_row(r)
 
-    def close(self):
-        """
-        This call actually save the file
-        """
-        pass
-
-
-class XLSXWriter:
+class XLSXWriter(BookWriter):
     """
     xls, xlsx and xlsm writer
     """
     def __init__(self, file):
-        self.file = file
+        BookWriter.__init__(self, file)
         self.wb = openpyxl.Workbook()
         self.current_sheet = 0
 
@@ -145,18 +102,6 @@ class XLSXWriter:
         else:
             
             return XLSXSheetWriter(self.wb.create_sheet(), name)
-            
-
-    def write(self, sheet_dicts):
-        """Write a dictionary to a multi-sheet file
-
-        Requirements for the dictionary is: key is the sheet name,
-        its value must be two dimensional array
-        """
-        keys = sheet_dicts.keys()
-        for name in keys:
-            sheet = self.create_sheet(name)
-            sheet.write_array(sheet_dicts[name])
 
     def close(self):
         """
