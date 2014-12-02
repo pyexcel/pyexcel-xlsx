@@ -55,8 +55,6 @@ Write to an xlsx file
 
 Here's the sample code to write a dictionary to an xlsx file::
 
-.. code:: python
-
     >>> from pyexcel_xlsx import XLSXWriter
     >>> data = OrderedDict() # from collections import OrderedDict
     >>> data.update({"Sheet 1": [[1, 2, 3], [4, 5, 6]]})
@@ -69,8 +67,6 @@ Read from an xlsx file
 **********************
 
 Here's the sample code::
-
-.. code:: python
 
     >>> from pyexcel_xlsx import XLSXBook
 
@@ -86,8 +82,6 @@ Write an xlsx to memory
 **********************
 
 Here's the sample code to write a dictionary to an xlsx file::
-
-.. code:: python
 
     >>> from pyexcel_xlsx import XLSXWriter
     >>> data = OrderedDict()
@@ -106,8 +100,6 @@ Read from an xlsx from memory
 *****************************
 
 Continue from previous example::
-
-.. code:: python
 
     >>> # This is just an illustration
     >>> # In reality, you might deal with xlsx file upload
@@ -131,8 +123,6 @@ Reading from an xlsx file
 
 Here is the sample code::
 
-.. code:: python
-
     >>> import pyexcel as pe
     >>> from pyexcel.ext import xlsx
     
@@ -155,16 +145,12 @@ Writing to an xlsx file
 
 Here is the sample code::
 
-.. code:: python
-
     >>> sheet.save_as("another_file.xlsx")
 
 Reading from a IO instance
 ================================
 
 You got to wrap the binary content with stream to get xlsx working::
-
-.. code:: python
 
     >>> # This is just an illustration
     >>> # In reality, you might deal with xlsx file upload
@@ -191,8 +177,6 @@ Writing to a StringIO instance
 ================================
 
 You need to pass a StringIO instance to Writer::
-
-.. code:: python
 
     >>> data = [
     ...     [1, 2, 3],
