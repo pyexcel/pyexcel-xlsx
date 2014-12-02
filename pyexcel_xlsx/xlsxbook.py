@@ -22,7 +22,7 @@ def get_columns(index):
     if index < COLUMN_LENGTH:
         return COLUMNS[index]
     else:
-        return get_columns(index/COLUMN_LENGTH) + COLUMNS[index%COLUMN_LENGTH]
+        return get_columns(int(index/COLUMN_LENGTH)) + COLUMNS[index%COLUMN_LENGTH]
     
 
 class XLSXSheet(SheetReader):

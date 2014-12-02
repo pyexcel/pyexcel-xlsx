@@ -134,8 +134,6 @@ class PyexcelMultipleSheetBase:
         x = pyexcel.BookReader(self.testfile2)
         for s in x:
             data = pyexcel.utils.to_array(s)
-            print(data)
-            print(self.content[s.name])
             assert self.content[s.name] == data
 
     def test_random_access_operator(self):
