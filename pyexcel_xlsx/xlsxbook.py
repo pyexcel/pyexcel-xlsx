@@ -31,24 +31,28 @@ class XLSXSheet(SheetReader):
 
     Currently only support first sheet in the file
     """
+    def __init__(self, sheet):
+        SheetReader.__init__(self, sheet)
+        self.name = sheet.title
+
     def number_of_rows(self):
         """
         Number of rows in the xls sheet
         """
-        return self.worksheet.get_highest_row()
+        return self.native_sheet.get_highest_row()
 
     def number_of_columns(self):
         """
         Number of columns in the xls sheet
         """
-        return self.worksheet.get_highest_column()
+        return self.native_sheet.get_highest_column()
 
     def cell_value(self, row, column):
         """
         Random access to the xls cells
         """
         actual_row = row + 1
-        return self.worksheet.cell("%s%d" % (get_columns(column), actual_row)).value
+        return self.native_sheet.cell("%s%d" % (get_columns(column), actual_row)).value
 
 class XLSXBook(BookReader):
     """
@@ -66,7 +70,7 @@ class XLSXBook(BookReader):
         return openpyxl.load_workbook(filename)
 
     def sheetIterator(self):
-        return self.workbook
+        return self.native_book
 
 
 class XLSXSheetWriter(SheetWriter):
@@ -74,7 +78,7 @@ class XLSXSheetWriter(SheetWriter):
     xls, xlsx and xlsm sheet writer
     """
     def set_sheet_name(self, name):
-        self.sheet.title = name
+        self.native_sheet.title = name
         self.current_row = 1
 
     def write_row(self, array):
@@ -82,7 +86,7 @@ class XLSXSheetWriter(SheetWriter):
         write a row into the file
         """
         for i in range(0, len(array)):
-            self.sheet.cell("%s%d" % (get_columns(i), self.current_row)).value = array[i]
+            self.native_sheet.cell("%s%d" % (get_columns(i), self.current_row)).value = array[i]
         self.current_row += 1
 
 
@@ -92,19 +96,18 @@ class XLSXWriter(BookWriter):
     """
     def __init__(self, file):
         BookWriter.__init__(self, file)
-        self.wb = openpyxl.Workbook()
+        self.native_book = openpyxl.Workbook()
         self.current_sheet = 0
 
     def create_sheet(self, name):
         if self.current_sheet == 0:
             self.current_sheet = 1
-            return XLSXSheetWriter(self.wb.active, name)
+            return XLSXSheetWriter(self.native_book, self.native_book.active, name)
         else:
-            
-            return XLSXSheetWriter(self.wb.create_sheet(), name)
+            return XLSXSheetWriter(self.native_book, self.native_book.create_sheet(), name)
 
     def close(self):
         """
         This call actually save the file
         """
-        self.wb.save(filename=self.file)
+        self.native_book.save(filename=self.file)
