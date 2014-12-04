@@ -111,3 +111,22 @@ class XLSXWriter(BookWriter):
         This call actually save the file
         """
         self.native_book.save(filename=self.file)
+
+
+try:
+    from pyexcel.io import READERS
+    from pyexcel.io import WRITERS
+
+    READERS.update({
+        "xlsm": XLSXBook,
+        "xlsx": XLSXBook
+    })
+    WRITERS.update({
+        "xlsm": XLSXWriter,
+        "xlsx": XLSXWriter
+    })
+except:
+    # to allow this module to function independently
+    pass
+
+__VERSION__ = "0.0.1"
