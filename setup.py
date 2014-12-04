@@ -27,7 +27,6 @@ setup(
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
     include_package_data=True,
     long_description=README_txt,
-    namespace_packages=['pyexcel'],
     zip_safe=False,
     tests_require=['nose'],
     classifiers=[

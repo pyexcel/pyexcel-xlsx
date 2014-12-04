@@ -55,7 +55,7 @@ Write to an xlsx file
 
 Here's the sample code to write a dictionary to an xlsx file::
 
-    >>> from pyexcel_xlsx import XLSXWriter
+    >>> from pyexcel.ext.xlsx import XLSXWriter
     >>> data = OrderedDict() # from collections import OrderedDict
     >>> data.update({"Sheet 1": [[1, 2, 3], [4, 5, 6]]})
     >>> data.update({"Sheet 2": [["row 1", "row 2", "row 3"]]})
@@ -68,7 +68,7 @@ Read from an xlsx file
 
 Here's the sample code::
 
-    >>> from pyexcel_xlsx import XLSXBook
+    >>> from pyexcel.ext.xlsx import XLSXBook
 
     >>> book = XLSXBook("your_file.xlsx")
     >>> # book.sheets() returns a dictionary of all sheet content
@@ -83,7 +83,7 @@ Write an xlsx to memory
 
 Here's the sample code to write a dictionary to an xlsx file::
 
-    >>> from pyexcel_xlsx import XLSXWriter
+    >>> from pyexcel.ext.xlsx import XLSXWriter
     >>> data = OrderedDict()
     >>> data.update({"Sheet 1": [[1, 2, 3], [4, 5, 6]]})
     >>> data.update({"Sheet 2": [[7, 8, 9], [10, 11, 12]]})
