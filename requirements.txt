@@ -1,2 +1,1 @@
-xlrd
-xlwt-future
+openpyxl
