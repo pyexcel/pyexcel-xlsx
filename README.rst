@@ -2,11 +2,11 @@
 pyexcel-xl
 ===========
 
-.. image:: https://travis-ci.org/chfw/pyexcel-xlsx.svg?branch=v0.0.1-rc1
-    :target: https://travis-ci.org/chfw/pyexcel-xlsx/builds/41641140
+.. image:: https://travis-ci.org/chfw/pyexcel-xlsx.svg
+    :target: https://travis-ci.org/chfw/pyexcel-xlsx
 
-.. image:: https://coveralls.io/repos/chfw/pyexcel-xlsx/badge.png?branch=v0.0.1-rc1 
-    :target: https://coveralls.io/r/chfw/pyexcel-xlsx?branch=v0.0.1-rc1 
+.. image:: https://coveralls.io/repos/chfw/pyexcel-xlsx/badge.png?branch=master
+    :target: https://coveralls.io/r/chfw/pyexcel-xlsx?branch=master
 
 .. image:: https://pypip.in/d/pyexcel-xlsx/badge.png
     :target: https://pypi.python.org/pypi/pyexcel-xlsx
