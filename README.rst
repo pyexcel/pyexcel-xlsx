@@ -1,6 +1,6 @@
-===========
-pyexcel-xl
-===========
+=============
+pyexcel-xlsx
+=============
 
 .. image:: https://travis-ci.org/chfw/pyexcel-xlsx.svg
     :target: https://travis-ci.org/chfw/pyexcel-xlsx
@@ -17,7 +17,7 @@ pyexcel-xl
 .. image:: https://pypip.in/implementation/pyexcel-xlsx/badge.png
     :target: https://pypi.python.org/pypi/pyexcel-xlsx
 
-**pyexcel-xlsx** is a tiny wrapper library to read, manipulate and write data in xls, xlsx and xlsm fromat. You are likely to use it with `pyexcel <https://github.com/chfw/pyexcel>`__. 
+**pyexcel-xlsx** is a tiny wrapper library to read, manipulate and write data in xlsx and xlsm fromat using openpyxl. You are likely to use it with `pyexcel <https://github.com/chfw/pyexcel>`__. 
 
 Installation
 ============
