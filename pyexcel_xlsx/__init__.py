@@ -63,13 +63,13 @@ class XLSXBook(BookReader):
 
     It reads xls, xlsm, xlsx work book
     """
-    def getSheet(self, nativeSheet):
+    def getSheet(self, nativeSheet, **keywords):
         return XLSXSheet(nativeSheet)
 
-    def load_from_memory(self, file_content):
+    def load_from_memory(self, file_content, **keywords):
         return openpyxl.load_workbook(filename=StringIO(file_content))
 
-    def load_from_file(self, filename):
+    def load_from_file(self, filename, **keywords):
         return openpyxl.load_workbook(filename)
 
     def sheetIterator(self):
