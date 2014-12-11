@@ -29,10 +29,7 @@ class XLSXSheet(SheetReader):
     """
     xls sheet
 
-    Currently only support first sheet in the file
     """
-    def __init__(self, sheet):
-        SheetReader.__init__(self, sheet)
 
     @property
     def name(self):
@@ -97,8 +94,8 @@ class XLSXWriter(BookWriter):
     """
     xls, xlsx and xlsm writer
     """
-    def __init__(self, file):
-        BookWriter.__init__(self, file)
+    def __init__(self, file, **keywords):
+        BookWriter.__init__(self, file, **keywords)
         self.native_book = openpyxl.Workbook()
         self.current_sheet = 0
 
