@@ -28,9 +28,7 @@ def get_columns(index):
 class XLSXSheet(SheetReader):
     """
     xls sheet
-
     """
-
     @property
     def name(self):
         return self.native_sheet.title
@@ -60,13 +58,13 @@ class XLSXBook(BookReader):
 
     It reads xls, xlsm, xlsx work book
     """
-    def getSheet(self, nativeSheet, **keywords):
+    def getSheet(self, nativeSheet):
         return XLSXSheet(nativeSheet)
 
-    def load_from_memory(self, file_content, **keywords):
+    def load_from_memory(self, file_content):
         return openpyxl.load_workbook(filename=StringIO(file_content))
 
-    def load_from_file(self, filename, **keywords):
+    def load_from_file(self, filename):
         return openpyxl.load_workbook(filename)
 
     def sheetIterator(self):
