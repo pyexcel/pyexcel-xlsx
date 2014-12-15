@@ -79,7 +79,7 @@ Here's the sample code::
     {"Sheet 1": [[1, 2, 3], [4, 5, 6]], "Sheet 2": [["row 1", "row 2", "row 3"]]}
 
 Write an xlsx to memory
-**********************
+*************************
 
 Here's the sample code to write a dictionary to an xlsx file::
 
@@ -119,7 +119,7 @@ Import it in your file to enable this plugin::
 Please note only pyexcel version 0.0.4+ support this.
 
 Reading from an xlsx file
-************************
+**************************
 
 Here is the sample code::
 
@@ -141,7 +141,7 @@ Here is the sample code::
     +-------+-------+-------+
 
 Writing to an xlsx file
-**********************
+************************
 
 Here is the sample code::
 
