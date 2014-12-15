@@ -15,15 +15,18 @@ if sys.version_info[0] < 3:
 else:
     from io import BytesIO as StringIO
 
+
 COLUMNS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 COLUMN_LENGTH = 26
+
 
 def get_columns(index):
     if index < COLUMN_LENGTH:
         return COLUMNS[index]
     else:
-        return get_columns(int(index/COLUMN_LENGTH)) + COLUMNS[index%COLUMN_LENGTH]
-    
+        return (get_columns(int(index / COLUMN_LENGTH)) +
+                COLUMNS[index % COLUMN_LENGTH])
+
 
 class XLSXSheet(SheetReader):
     """
@@ -50,7 +53,9 @@ class XLSXSheet(SheetReader):
         Random access to the xls cells
         """
         actual_row = row + 1
-        return self.native_sheet.cell("%s%d" % (get_columns(column), actual_row)).value
+        cell_location = "%s%d" % (get_columns(column), actual_row)
+        return self.native_sheet.cell(cell_location).value
+
 
 class XLSXBook(BookReader):
     """
@@ -84,7 +89,8 @@ class XLSXSheetWriter(SheetWriter):
         write a row into the file
         """
         for i in range(0, len(array)):
-            self.native_sheet.cell("%s%d" % (get_columns(i), self.current_row)).value = array[i]
+            cell_location = "%s%d" % (get_columns(i), self.current_row)
+            self.native_sheet.cell(cell_location).value = array[i]
         self.current_row += 1
 
 
@@ -100,9 +106,11 @@ class XLSXWriter(BookWriter):
     def create_sheet(self, name):
         if self.current_sheet == 0:
             self.current_sheet = 1
-            return XLSXSheetWriter(self.native_book, self.native_book.active, name)
+            return XLSXSheetWriter(self.native_book,
+                                   self.native_book.active, name)
         else:
-            return XLSXSheetWriter(self.native_book, self.native_book.create_sheet(), name)
+            return XLSXSheetWriter(self.native_book,
+                                   self.native_book.create_sheet(), name)
 
     def close(self):
         """
@@ -126,4 +134,4 @@ except:
     # to allow this module to function independently
     pass
 
-__VERSION__ = "0.0.1"
+__VERSION__ = "0.0.2"
