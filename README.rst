@@ -17,6 +17,9 @@ pyexcel-xlsx
 .. image:: https://pypip.in/implementation/pyexcel-xlsx/badge.png
     :target: https://pypi.python.org/pypi/pyexcel-xlsx
 
+.. image:: http://img.shields.io/gittip/chfw.svg
+    :target: https://gratipay.com/chfw/
+
 **pyexcel-xlsx** is a tiny wrapper library to read, manipulate and write data in xlsx and xlsm fromat using openpyxl. You are likely to use it with `pyexcel <https://github.com/chfw/pyexcel>`__. 
 
 Installation
