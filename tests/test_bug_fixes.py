@@ -48,6 +48,9 @@ class TestBugFix:
             print("Testing %s" % column_name)
             column_index = _excel_column_index(column_name)
             new_column_name = get_columns(column_index)
+            print(column_index)
+            print(column_name)
+            print(new_column_name)
             assert new_column_name == column_name
 
     def test_pyexcel_issue_5(self):
@@ -60,5 +63,6 @@ class TestBugFix:
                                  "test-date-format.xls"))
         s.save_as("issue5.xlsx")
         s2 = pe.load("issue5.xlsx")
+        print(s[0,0])
         assert s[0,0] == datetime.datetime(2015, 11, 11, 11, 12, 0)
         assert s2[0,0] == datetime.datetime(2015, 11, 11, 11, 12, 0)
