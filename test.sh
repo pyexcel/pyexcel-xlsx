@@ -1,1 +1,1 @@
-nosetests --rednose --with-cov --with-doctest --doctest-extension=.rst
+nosetests --with-cov --with-doctest --doctest-extension=.rst tests README.rst
