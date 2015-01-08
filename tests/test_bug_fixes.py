@@ -1,3 +1,9 @@
+"""
+
+  This file keeps all fixes for issues found
+
+"""
+
 import os
 import pyexcel as pe
 import pyexcel.ext.xls
@@ -5,6 +11,7 @@ import pyexcel.ext.xlsx
 import datetime
 from pyexcel.ext.xlsx import get_columns
 from pyexcel.sheets.matrix import _excel_column_index
+
 
 class TestBugFix:
     def test_pyexcel_issue_4(self):
