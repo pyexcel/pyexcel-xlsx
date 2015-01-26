@@ -1,6 +1,6 @@
-=============
-pyexcel-xlsx
-=============
+==============================================================
+pyexcel-xlsx - Let you focus on data, instead of xlsx format
+==============================================================
 
 .. image:: https://travis-ci.org/chfw/pyexcel-xlsx.svg
     :target: https://travis-ci.org/chfw/pyexcel-xlsx
@@ -21,6 +21,11 @@ pyexcel-xlsx
     :target: https://gratipay.com/chfw/
 
 **pyexcel-xlsx** is a tiny wrapper library to read, manipulate and write data in xlsx and xlsm fromat using openpyxl. You are likely to use it with `pyexcel <https://github.com/chfw/pyexcel>`__. 
+
+Known constraints
+==================
+
+Fonts, colors and charts are not supported. 
 
 Installation
 ============
