@@ -3,11 +3,11 @@
   This file keeps all fixes for issues found
 
 """
-
 import os
 import pyexcel as pe
 import pyexcel.ext.xls
 import pyexcel.ext.xlsx
+from textwrap import dedent
 import datetime
 from pyexcel.ext.xlsx import get_columns
 from pyexcel.sheets.matrix import _excel_column_index
@@ -66,3 +66,53 @@ class TestBugFix:
         print(s[0,0])
         assert s[0,0] == datetime.datetime(2015, 11, 11, 11, 12, 0)
         assert s2[0,0] == datetime.datetime(2015, 11, 11, 11, 12, 0)
+
+    def test_pyexcel_issue_8_with_physical_file(self):
+        """pyexcel issue #8
+
+        formular got lost
+        """
+        tmp_file = "issue_8_save_as.xlsx"
+        s = pe.load(os.path.join("tests",
+                                 "test-fixtures",
+                                 "test8.xlsx"))
+        s.save_as(tmp_file)
+        s2 = pe.load(tmp_file)
+        assert str(s) == str(s2)
+        content = dedent("""
+        Sheet Name: CNY
+        +----------+----------+------+---+--------+
+        | 01/09/13 | 02/09/13 | 1000 | 5 | 13.890 |
+        +----------+----------+------+---+--------+
+        | 02/09/13 | 03/09/13 | 2000 | 6 | 33.330 |
+        +----------+----------+------+---+--------+
+        | 03/09/13 | 04/09/13 | 3000 | 7 | 58.330 |
+        +----------+----------+------+---+--------+""").strip("\n")
+        assert str(s2) == content
+        os.unlink(tmp_file)
+
+    def test_pyexcel_issue_8_with_memory_file(self):
+        """pyexcel issue #8
+
+        formular got lost
+        """
+        tmp_file = "issue_8_save_as.xlsx"
+        f = open(os.path.join("tests",
+                              "test-fixtures",
+                              "test8.xlsx"),
+                 "rb")
+        s = pe.load_from_memory('xlsx', f.read())
+        s.save_as(tmp_file)
+        s2 = pe.load(tmp_file)
+        assert str(s) == str(s2)
+        content = dedent("""
+        Sheet Name: CNY
+        +----------+----------+------+---+--------+
+        | 01/09/13 | 02/09/13 | 1000 | 5 | 13.890 |
+        +----------+----------+------+---+--------+
+        | 02/09/13 | 03/09/13 | 2000 | 6 | 33.330 |
+        +----------+----------+------+---+--------+
+        | 03/09/13 | 04/09/13 | 3000 | 7 | 58.330 |
+        +----------+----------+------+---+--------+""").strip("\n")
+        assert str(s2) == content
+        os.unlink(tmp_file)

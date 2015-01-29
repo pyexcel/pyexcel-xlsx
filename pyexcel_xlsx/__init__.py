@@ -66,10 +66,11 @@ class XLSXBook(BookReader):
         return XLSXSheet(nativeSheet)
 
     def load_from_memory(self, file_content):
-        return openpyxl.load_workbook(filename=StringIO(file_content))
+        return openpyxl.load_workbook(filename=StringIO(file_content),
+                                      data_only=True)
 
     def load_from_file(self, filename):
-        return openpyxl.load_workbook(filename)
+        return openpyxl.load_workbook(filename=filename, data_only=True)
 
     def sheetIterator(self):
         return self.native_book
