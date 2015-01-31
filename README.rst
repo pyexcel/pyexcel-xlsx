@@ -8,6 +8,9 @@ pyexcel-xlsx - Let you focus on data, instead of xlsx format
 .. image:: https://coveralls.io/repos/chfw/pyexcel-xlsx/badge.png?branch=master
     :target: https://coveralls.io/r/chfw/pyexcel-xlsx?branch=master
 
+.. image:: https://pypip.in/version/pyexcel-xlsx/badge.png
+    :target: https://pypi.python.org/pypi/pyexcel-xlsx
+
 .. image:: https://pypip.in/d/pyexcel-xlsx/badge.png
     :target: https://pypi.python.org/pypi/pyexcel-xlsx
 
@@ -202,6 +205,7 @@ Dependencies
 ============
 
 1. openpyxl
+2. pyexcel-io >= 0.0.2
 
 .. testcode::
    :hide:
