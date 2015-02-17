@@ -49,7 +49,7 @@ class TestAddBooks:
         w.close()
 
     def setUp(self):
-        self.testfile = "multiple1.xlsm"
+        self.testfile = "multiple3.xlsx"
         self.testfile2 = "multiple1.xlsx"
         self.testfile3 = "multiple2.xlsx"
         self.content = {
@@ -59,6 +59,16 @@ class TestAddBooks:
         }
         self._write_test_file(self.testfile)
         self._write_test_file(self.testfile2)
+
+    def test_load_a_single_sheet(self):
+        b1 = pyexcel.load_book(self.testfile, sheet_name="Sheet1")
+        assert len(b1.sheet_names()) == 1
+        assert b1['Sheet1'].to_array() == self.content['Sheet1']
+
+    def test_load_a_single_sheet2(self):
+        b1 = pyexcel.load_book(self.testfile, sheet_index=0)
+        assert len(b1.sheet_names()) == 1
+        assert b1['Sheet1'].to_array() == self.content['Sheet1']
 
     def test_delete_sheets(self):
         b1 = pyexcel.load_book(self.testfile)

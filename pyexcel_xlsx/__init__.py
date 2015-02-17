@@ -65,15 +65,22 @@ class XLSXBook(BookReader):
     def getSheet(self, nativeSheet):
         return XLSXSheet(nativeSheet)
 
-    def load_from_memory(self, file_content):
+    def load_from_memory(self, file_content, **keywords):
         return openpyxl.load_workbook(filename=StringIO(file_content),
                                       data_only=True)
 
-    def load_from_file(self, filename):
-        return openpyxl.load_workbook(filename=filename, data_only=True)
+    def load_from_file(self, filename, **keywords):
+        return openpyxl.load_workbook(filename=filename,
+                                      data_only=True)
 
     def sheetIterator(self):
-        return self.native_book
+        if self.sheet_name is not None:
+            return [self.native_book.get_sheet_by_name(self.sheet_name)]
+        elif self.sheet_index is not None:
+            names = self.native_book.sheetnames
+            return [self.native_book.get_sheet_by_name(names[0])]
+        else:
+            return self.native_book
 
 
 class XLSXSheetWriter(SheetWriter):
@@ -134,4 +141,4 @@ except:
     # to allow this module to function independently
     pass
 
-__VERSION__ = "0.0.5"
+__VERSION__ = "0.0.6"
