@@ -2,6 +2,12 @@ from base import PyexcelMultipleSheetBase
 import pyexcel
 import os
 from pyexcel.ext import xlsx
+import sys
+
+if sys.version_info[0] == 2 and sys.version_info[1] < 7:
+    from ordereddict import OrderedDict
+else:
+    from collections import OrderedDict
 
 
 class TestXlsmNxlsMultipleSheets(PyexcelMultipleSheetBase):
@@ -23,11 +29,10 @@ class TestXlsNXlsxMultipleSheets(PyexcelMultipleSheetBase):
     def setUp(self):
         self.testfile = "multiple1.xlsm"
         self.testfile2 = "multiple1.xlsx"
-        self.content = {
-            "Sheet1": [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3]],
-            "Sheet2": [[4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6]],
-            "Sheet3": [[u'X', u'Y', u'Z'], [1, 4, 7], [2, 5, 8], [3, 6, 9]]
-        }
+        self.content = OrderedDict()
+        self.content.update({"Sheet1": [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3]]})
+        self.content.update({"Sheet2": [[4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6]]})
+        self.content.update({"Sheet3": [[u'X', u'Y', u'Z'], [1, 4, 7], [2, 5, 8], [3, 6, 9]]})
         self._write_test_file(self.testfile)
 
     def tearDown(self):

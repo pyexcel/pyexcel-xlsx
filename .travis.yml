@@ -10,10 +10,10 @@ python:
   - 3.4
   - pypy
 install:
+  - if [[ $TRAVIS_PYTHON_VERSION == "2.6" ]]; then pip install ordereddict; fi
   - pip install git+https://github.com/chfw/pyexcel-io.git
   - pip install git+https://github.com/chfw/pyexcel.git
   - pip install git+https://github.com/chfw/pyexcel-xls.git
-  - python setup.py install
   - pip install -r tests/requirements.txt
 script:
   make test
