@@ -62,7 +62,7 @@ class XLSXBook(BookReader):
 
     It reads xls, xlsm, xlsx work book
     """
-    def getSheet(self, nativeSheet):
+    def get_sheet(self, nativeSheet):
         return XLSXSheet(nativeSheet)
 
     def load_from_memory(self, file_content, **keywords):
@@ -73,7 +73,7 @@ class XLSXBook(BookReader):
         return openpyxl.load_workbook(filename=filename,
                                       data_only=True)
 
-    def sheetIterator(self):
+    def sheet_iterator(self):
         if self.sheet_name is not None:
             sheet = self.native_book.get_sheet_by_name(self.sheet_name)
             if sheet is None:
