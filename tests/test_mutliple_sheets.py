@@ -2,6 +2,7 @@ from base import PyexcelMultipleSheetBase
 import pyexcel
 import os
 from pyexcel.ext import xlsx
+from nose.tools import raises
 import sys
 
 if sys.version_info[0] == 2 and sys.version_info[1] < 7:
@@ -70,9 +71,17 @@ class TestAddBooks:
         assert b1['Sheet1'].to_array() == self.content['Sheet1']
 
     def test_load_a_single_sheet2(self):
-        b1 = pyexcel.load_book(self.testfile, sheet_index=0)
+        b1 = pyexcel.load_book(self.testfile, sheet_index=1)
         assert len(b1.sheet_names()) == 1
-        assert b1['Sheet1'].to_array() == self.content['Sheet1']
+        assert b1['Sheet2'].to_array() == self.content['Sheet2']
+
+    @raises(IndexError)
+    def test_load_a_single_sheet3(self):
+        pyexcel.load_book(self.testfile, sheet_index=10000)
+        
+    @raises(ValueError)
+    def test_load_a_single_sheet4(self):
+        pyexcel.load_book(self.testfile, sheet_name="Not exist")
 
     def test_delete_sheets(self):
         b1 = pyexcel.load_book(self.testfile)

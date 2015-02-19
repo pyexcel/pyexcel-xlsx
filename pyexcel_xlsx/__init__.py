@@ -75,10 +75,19 @@ class XLSXBook(BookReader):
 
     def sheetIterator(self):
         if self.sheet_name is not None:
-            return [self.native_book.get_sheet_by_name(self.sheet_name)]
+            sheet = self.native_book.get_sheet_by_name(self.sheet_name)
+            if sheet is None:
+                raise ValueError("%s cannot be found" % self.sheet_name)
+            else:
+                return [sheet]
         elif self.sheet_index is not None:
             names = self.native_book.sheetnames
-            return [self.native_book.get_sheet_by_name(names[0])]
+            length = len(names)
+            if self.sheet_index < length:
+                return [self.native_book.get_sheet_by_name(names[self.sheet_index])]
+            else:
+                raise IndexError("Index %d of out bound %d" %(self.sheet_index,
+                                                              length))
         else:
             return self.native_book
 
@@ -141,4 +150,4 @@ except:
     # to allow this module to function independently
     pass
 
-__VERSION__ = "0.0.6"
+__VERSION__ = "0.0.5"
