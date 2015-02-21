@@ -2,10 +2,10 @@
     pyexcel.ext.xlsx
     ~~~~~~~~~~~~~~~~~~~
 
-    The lower level xls/xlsx/xlsm file format handler using xlrd/xlwt
+    The lower level xlsx file format handler using xlrd/xlwt
 
-    :copyright: (c) 2014 by C. W.
-    :license: GPL v3
+    :copyright: (c) 2015 by Onni Software Ltd.
+    :license: New BSD License
 """
 import sys
 import openpyxl
