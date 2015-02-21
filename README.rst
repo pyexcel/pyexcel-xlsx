@@ -209,7 +209,7 @@ Dependencies
 ============
 
 1. openpyxl
-2. pyexcel-io >= 0.0.2
+2. pyexcel-io >= 0.0.3
 
 .. testcode::
    :hide:
