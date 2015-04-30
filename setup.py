@@ -10,8 +10,8 @@ with open("README.rst", 'r') as readme:
     README_txt = readme.read()
 
 dependencies = [
-    'openpyxl==2.2.1',
-    'pyexcel-io>=0.0.3'
+    'openpyxl',
+    'pyexcel-io>=0.0.4'
 ]
 
 if sys.version_info[0] == 2 and sys.version_info[1] < 7:
@@ -20,7 +20,7 @@ if sys.version_info[0] == 2 and sys.version_info[1] < 7:
 setup(
     name='pyexcel-xlsx',
     author="C. W.",
-    version='0.0.5',
+    version='0.0.6',
     author_email="wangc_2011@hotmail.com",
     url="https://github.com/chfw/pyexcel-xlsx",
     description='A wrapper library to read, manipulate and write data in xlsx and xlsm format',

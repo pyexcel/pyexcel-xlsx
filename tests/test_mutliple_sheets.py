@@ -79,7 +79,7 @@ class TestAddBooks:
     def test_load_a_single_sheet3(self):
         pyexcel.load_book(self.testfile, sheet_index=10000)
         
-    @raises(ValueError)
+    @raises(KeyError)
     def test_load_a_single_sheet4(self):
         pyexcel.load_book(self.testfile, sheet_name="Not exist")
 

@@ -1,15 +1,22 @@
 """
-    pyexcel.ext.xlsx
+    pyexcel_xlsx
     ~~~~~~~~~~~~~~~~~~~
 
-    The lower level xlsx file format handler using xlrd/xlwt
+    The lower level xlsx file format handler using openpyxl
 
     :copyright: (c) 2015 by Onni Software Ltd.
     :license: New BSD License
 """
 import sys
 import openpyxl
-from pyexcel_io import SheetReader, BookReader, SheetWriter, BookWriter
+from pyexcel_io import (
+    SheetReader,
+    BookReader,
+    SheetWriter,
+    BookWriter,
+    READERS,
+    WRITERS
+)
 if sys.version_info[0] < 3:
     from StringIO import StringIO
 else:
@@ -134,20 +141,15 @@ class XLSXWriter(BookWriter):
         """
         self.native_book.save(filename=self.file)
 
-try:
-    from pyexcel.io import READERS
-    from pyexcel.io import WRITERS
 
-    READERS.update({
-        "xlsm": XLSXBook,
-        "xlsx": XLSXBook
-    })
-    WRITERS.update({
-        "xlsm": XLSXWriter,
-        "xlsx": XLSXWriter
-    })
-except:
-    # to allow this module to function independently
-    pass
+READERS.update({
+    "xlsm": XLSXBook,
+    "xlsx": XLSXBook
+})
+WRITERS.update({
+    "xlsm": XLSXWriter,
+    "xlsx": XLSXWriter
+})
 
-__VERSION__ = "0.0.5"
+    
+__VERSION__ = "0.0.6"
