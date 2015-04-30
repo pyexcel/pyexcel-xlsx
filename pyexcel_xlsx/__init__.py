@@ -17,6 +17,10 @@ from pyexcel_io import (
     READERS,
     WRITERS
 )
+if sys.version_info[0] == 2 and sys.version_info[1] < 7:
+    from ordereddict import OrderedDict
+else:
+    from collections import OrderedDict
 if sys.version_info[0] < 3:
     from StringIO import StringIO
 else:
