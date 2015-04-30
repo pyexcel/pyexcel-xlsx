@@ -14,7 +14,6 @@ class TestDateFormat:
         0.0      0.0        
         """
         r = pe.Reader(os.path.join("tests", "fixtures", "date_field.xlsx"))
-        import pdb; pdb.set_trace()
         assert isinstance(r[1,0], datetime.date) == True
         assert r[1,0].strftime("%d/%m/%y") == "25/12/14"
         assert isinstance(r[1,1], datetime.time) == True
