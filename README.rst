@@ -62,31 +62,25 @@ Write to an xlsx file
     ...     from StringIO import StringIO
     ... else:
     ...     from io import BytesIO as StringIO
-    >>> from pyexcel_xlsx import OrderedDict
+    >>> from pyexcel_io import OrderedDict
 
 Here's the sample code to write a dictionary to an xlsx file::
 
-    >>> from pyexcel_xlsx import XLSXWriter
+    >>> from pyexcel_xlsx import store_data
     >>> data = OrderedDict() # from collections import OrderedDict
     >>> data.update({"Sheet 1": [[1, 2, 3], [4, 5, 6]]})
     >>> data.update({"Sheet 2": [["row 1", "row 2", "row 3"]]})
-    >>> writer = XLSXWriter("your_file.xlsx")
-    >>> writer.write(data)
-    >>> writer.close()
+    >>> store_data("your_file.xlsx", data)
 
 Read from an xlsx file
 **********************
 
 Here's the sample code::
 
-    >>> from pyexcel_xlsx import XLSXBook
-
-    >>> book = XLSXBook("your_file.xlsx")
-    >>> # book.sheets() returns a dictionary of all sheet content
-    >>> #   the keys represents sheet names
-    >>> #   the values are two dimensional array
+    >>> from pyexcel_xlsx import load_data
+    >>> data = load_data("your_file.xlsx")
     >>> import json
-    >>> print(json.dumps(book.sheets()))
+    >>> print(json.dumps(data))
     {"Sheet 1": [[1, 2, 3], [4, 5, 6]], "Sheet 2": [["row 1", "row 2", "row 3"]]}
 
 Write an xlsx to memory
@@ -94,15 +88,13 @@ Write an xlsx to memory
 
 Here's the sample code to write a dictionary to an xlsx file::
 
-    >>> from pyexcel_xlsx import XLSXWriter
+    >>> from pyexcel_xlsx import store_data
     >>> data = OrderedDict()
     >>> data.update({"Sheet 1": [[1, 2, 3], [4, 5, 6]]})
     >>> data.update({"Sheet 2": [[7, 8, 9], [10, 11, 12]]})
     >>> io = StringIO()
-    >>> writer = XLSXWriter(io)
-    >>> writer.write(data)
-    >>> writer.close()
-    >>> # do something witht the io
+    >>> store_data(io, data)
+    >>> # do something with the io
     >>> # In reality, you might give it to your http response
     >>> # object for downloading
 
@@ -115,8 +107,8 @@ Continue from previous example::
     >>> # This is just an illustration
     >>> # In reality, you might deal with xlsx file upload
     >>> # where you will read from requests.FILES['YOUR_XLSX_FILE']
-    >>> book = XLSXBook(None, io.getvalue())
-    >>> print(json.dumps(book.sheets()))
+    >>> data = load_data(io)
+    >>> print(json.dumps(data))
     {"Sheet 1": [[1, 2, 3], [4, 5, 6]], "Sheet 2": [[7, 8, 9], [10, 11, 12]]}
 
 
@@ -169,7 +161,7 @@ You got to wrap the binary content with stream to get xlsx working::
     >>> xlsxfile = "another_file.xlsx"
     >>> with open(xlsxfile, "rb") as f:
     ...     content = f.read()
-    ...     r = pe.get_book(file_type="xlsx", content=content)
+    ...     r = pe.get_book(file_type="xlsx", file_content=content)
     ...     print(r)
     ...
     Sheet Name: Sheet 1

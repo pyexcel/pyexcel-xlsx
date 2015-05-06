@@ -15,17 +15,13 @@ from pyexcel_io import (
     SheetWriter,
     BookWriter,
     READERS,
-    WRITERS
+    WRITERS,
+    isstream,
+    load_data as read_data,
+    store_data as write_data
 )
-if sys.version_info[0] == 2 and sys.version_info[1] < 7:
-    from ordereddict import OrderedDict
-else:
-    from collections import OrderedDict
-if sys.version_info[0] < 3:
-    from StringIO import StringIO
-else:
-    from io import BytesIO as StringIO
-
+PY2 = sys.version_info[0] == 2
+    
 
 COLUMNS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 COLUMN_LENGTH = 26
@@ -77,7 +73,7 @@ class XLSXBook(BookReader):
         return XLSXSheet(nativeSheet)
 
     def load_from_memory(self, file_content, **keywords):
-        return openpyxl.load_workbook(filename=StringIO(file_content),
+        return openpyxl.load_workbook(filename=file_content,
                                       data_only=True)
 
     def load_from_file(self, filename, **keywords):
@@ -155,5 +151,28 @@ WRITERS.update({
     "xlsx": XLSXWriter
 })
 
-    
+def is_string(atype):
+    """find out if a type is str or not"""
+    if atype == str:
+            return True
+    elif PY2:
+        if atype == unicode:
+            return True
+        elif atype == str:
+            return True
+    return False
+
+
+def store_data(afile, data, file_type=None, **keywords):
+    if isstream(afile) and file_type is None:
+        file_type='xlsx'
+    write_data(afile, data, file_type=file_type, **keywords)
+
+
+def load_data(afile, file_type=None, **keywords):
+    if isstream(afile) and file_type is None:
+        file_type='xlsx'
+    return read_data(afile, file_type=file_type, **keywords)
+
+
 __VERSION__ = "0.0.6"
