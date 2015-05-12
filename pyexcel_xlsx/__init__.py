@@ -17,6 +17,7 @@ from pyexcel_io import (
     READERS,
     WRITERS,
     isstream,
+    is_string,
     load_data as read_data,
     store_data as write_data
 )
@@ -151,25 +152,13 @@ WRITERS.update({
     "xlsx": XLSXWriter
 })
 
-def is_string(atype):
-    """find out if a type is str or not"""
-    if atype == str:
-            return True
-    elif PY2:
-        if atype == unicode:
-            return True
-        elif atype == str:
-            return True
-    return False
-
-
-def store_data(afile, data, file_type=None, **keywords):
+def save_data(afile, data, file_type=None, **keywords):
     if isstream(afile) and file_type is None:
         file_type='xlsx'
     write_data(afile, data, file_type=file_type, **keywords)
 
 
-def load_data(afile, file_type=None, **keywords):
+def get_data(afile, file_type=None, **keywords):
     if isstream(afile) and file_type is None:
         file_type='xlsx'
     return read_data(afile, file_type=file_type, **keywords)
