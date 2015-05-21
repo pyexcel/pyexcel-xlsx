@@ -201,7 +201,7 @@ Dependencies
 ============
 
 1. openpyxl
-2. pyexcel-io >= 0.0.3
+2. pyexcel-io >= 0.0.4
 
 .. testcode::
    :hide:
@@ -209,4 +209,3 @@ Dependencies
    >>> import os
    >>> os.unlink("your_file.xlsx")
    >>> os.unlink("another_file.xlsx")
-
