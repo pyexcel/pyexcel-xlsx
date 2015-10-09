@@ -116,3 +116,8 @@ class TestBugFix:
         +----------+----------+------+---+--------+""").strip("\n")
         assert str(s2) == content
         os.unlink(tmp_file)
+
+    def test_excessive_columns(self):
+        tmp_file = "date_field.xlsx"
+        s = pe.get_sheet(file_name=os.path.join("tests", "fixtures", tmp_file))
+        assert s.number_of_columns() == 2
