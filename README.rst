@@ -8,21 +8,6 @@ pyexcel-xlsx - Let you focus on data, instead of xlsx format
 .. image:: https://coveralls.io/repos/chfw/pyexcel-xlsx/badge.png?branch=master
     :target: https://coveralls.io/r/chfw/pyexcel-xlsx?branch=master
 
-.. image:: https://pypip.in/version/pyexcel-xlsx/badge.png
-    :target: https://pypi.python.org/pypi/pyexcel-xlsx
-
-.. image:: https://pypip.in/d/pyexcel-xlsx/badge.png
-    :target: https://pypi.python.org/pypi/pyexcel-xlsx
-
-.. image:: https://pypip.in/py_versions/pyexcel-xlsx/badge.png
-    :target: https://pypi.python.org/pypi/pyexcel-xlsx
-
-.. image:: https://pypip.in/implementation/pyexcel-xlsx/badge.png
-    :target: https://pypi.python.org/pypi/pyexcel-xlsx
-
-.. image:: http://img.shields.io/gittip/chfw.svg
-    :target: https://gratipay.com/chfw/
-
 **pyexcel-xlsx** is a tiny wrapper library to read, manipulate and write data in xlsx and xlsm fromat using openpyxl. You are likely to use it with `pyexcel <https://github.com/chfw/pyexcel>`__. 
 
 Known constraints
@@ -33,12 +18,16 @@ Fonts, colors and charts are not supported.
 Installation
 ============
 
-You can install it via pip::
+You can install it via pip:
+
+.. code-block:: bash
 
     $ pip install pyexcel-xlsx
 
 
-or clone it and install it::
+or clone it and install it:
+
+.. code-block:: bash
 
     $ git clone http://github.com/chfw/pyexcel-xlsx.git
     $ cd pyexcel-xlsx
@@ -64,7 +53,9 @@ Write to an xlsx file
     ...     from io import BytesIO as StringIO
     >>> from pyexcel_io import OrderedDict
 
-Here's the sample code to write a dictionary to an xlsx file::
+Here's the sample code to write a dictionary to an xlsx file:
+
+.. code-block:: python
 
     >>> from pyexcel_xlsx import save_data
     >>> data = OrderedDict() # from collections import OrderedDict
@@ -75,7 +66,9 @@ Here's the sample code to write a dictionary to an xlsx file::
 Read from an xlsx file
 **********************
 
-Here's the sample code::
+Here's the sample code:
+
+.. code-block:: python
 
     >>> from pyexcel_xlsx import get_data
     >>> data = get_data("your_file.xlsx")
@@ -86,7 +79,9 @@ Here's the sample code::
 Write an xlsx to memory
 *************************
 
-Here's the sample code to write a dictionary to an xlsx file::
+Here's the sample code to write a dictionary to an xlsx file:
+
+.. code-block:: python
 
     >>> from pyexcel_xlsx import save_data
     >>> data = OrderedDict()
@@ -102,7 +97,9 @@ Here's the sample code to write a dictionary to an xlsx file::
 Read from an xlsx from memory
 *****************************
 
-Continue from previous example::
+Continue from previous example:
+
+.. code-block:: python
 
     >>> # This is just an illustration
     >>> # In reality, you might deal with xlsx file upload
@@ -115,7 +112,9 @@ Continue from previous example::
 As a pyexcel plugin
 --------------------
 
-Import it in your file to enable this plugin::
+Import it in your file to enable this plugin:
+
+.. code-block:: python
 
     from pyexcel.ext import xlsx
 
@@ -124,12 +123,12 @@ Please note only pyexcel version 0.0.4+ support this.
 Reading from an xlsx file
 **************************
 
-Here is the sample code::
+Here is the sample code:
+
+.. code-block:: python
 
     >>> import pyexcel as pe
     >>> from pyexcel.ext import xlsx
-    
-    # "example.xlsx"
     >>> sheet = pe.get_book(file_name="your_file.xlsx")
     >>> sheet
     Sheet Name: Sheet 1
@@ -143,17 +142,22 @@ Here is the sample code::
     | row 1 | row 2 | row 3 |
     +-------+-------+-------+
 
+
 Writing to an xlsx file
 ************************
 
-Here is the sample code::
+Here is the sample code:
+
+.. code-block:: python
 
     >>> sheet.save_as("another_file.xlsx")
 
 Reading from a IO instance
 ================================
 
-You got to wrap the binary content with stream to get xlsx working::
+You got to wrap the binary content with stream to get xlsx working:
+
+.. code-block:: python
 
     >>> # This is just an illustration
     >>> # In reality, you might deal with xlsx file upload
@@ -179,7 +183,9 @@ You got to wrap the binary content with stream to get xlsx working::
 Writing to a StringIO instance
 ================================
 
-You need to pass a StringIO instance to Writer::
+You need to pass a StringIO instance to Writer:
+
+.. code-block:: python
 
     >>> data = [
     ...     [1, 2, 3],
@@ -201,7 +207,7 @@ Dependencies
 ============
 
 1. openpyxl
-2. pyexcel-io >= 0.0.4
+2. pyexcel-io >= 0.0.8
 
 .. testcode::
    :hide:
