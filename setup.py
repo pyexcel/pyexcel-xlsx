@@ -30,7 +30,7 @@ setup(
     long_description=README_txt,
     zip_safe=False,
     tests_require=['nose'],
-    license='General Publice License version 3',
+    license='New BSD',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Topic :: Office/Business',
