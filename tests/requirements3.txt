@@ -1,7 +1,0 @@
-lxml
-pyexcel-ods3
-nose
-rednose
-nose-cov
-codecov
-coverage
