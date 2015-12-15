@@ -1,2 +1,3 @@
 openpyxl==2.2.2
 pyexcel-io>=0.0.8
+pyexcel>=0.1.5
