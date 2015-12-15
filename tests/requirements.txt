@@ -3,3 +3,4 @@ rednose
 nose-cov
 python-coveralls
 coverage
+pyexcel-xls

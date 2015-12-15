@@ -9,10 +9,13 @@ import sys
 with open("README.rst", 'r') as readme:
     README_txt = readme.read()
 
-dependencies = [
-    'openpyxl==2.2.2',
-    'pyexcel-io>=0.0.8'
-]
+with open("requirements.txt", 'r') as requirements_txt:
+    lines = requirements_txt.readlines()
+    lines = map(lambda x: x.rstrip(), lines)
+    dependencies = lines
+
+with open("VERSION", "r") as version:
+    version_txt = version.read().rstrip()
 
 if sys.version_info[0] == 2 and sys.version_info[1] < 7:
     dependencies.append('ordereddict')
@@ -20,7 +23,7 @@ if sys.version_info[0] == 2 and sys.version_info[1] < 7:
 setup(
     name='pyexcel-xlsx',
     author="C. W.",
-    version='0.0.7',
+    version=version_txt,
     author_email="wangc_2011@hotmail.com",
     url="https://github.com/chfw/pyexcel-xlsx",
     description='A wrapper library to read, manipulate and write data in xlsx and xlsm format',
