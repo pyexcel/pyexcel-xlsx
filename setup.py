@@ -9,10 +9,11 @@ import sys
 with open("README.rst", 'r') as readme:
     README_txt = readme.read()
 
-with open("requirements.txt", 'r') as requirements_txt:
-    lines = requirements_txt.readlines()
-    lines = map(lambda x: x.rstrip(), lines)
-    dependencies = lines
+dependencies = [
+    'openpyxl==2.2.2',
+    'pyexcel-io>=0.0.8',
+    'pyexcel>=0.1.5'
+]
 
 with open("VERSION", "r") as version:
     version_txt = version.read().rstrip()
