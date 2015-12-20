@@ -18,7 +18,7 @@ from pyexcel_io import (
     WRITERS,
     isstream,
     is_string,
-    load_data as read_data,
+    get_data as read_data,
     store_data as write_data
 )
 PY2 = sys.version_info[0] == 2

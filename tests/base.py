@@ -3,14 +3,12 @@ import os
 
 
 def create_sample_file1(file):
-    w = pyexcel.Writer(file)
     data=['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 1.1, 1]
     table = []
     table.append(data[:4])
     table.append(data[4:8])
     table.append(data[8:12])
-    w.write_array(table)
-    w.close()
+    pyexcel.save_as(array=table, dest_file_name=file)
 
 
 class PyexcelHatWriterBase:
@@ -24,10 +22,8 @@ class PyexcelHatWriterBase:
     }
     
     def test_series_table(self):
-        w = pyexcel.Writer(self.testfile)
-        w.write_dict(self.content)
-        w.close()
-        r = pyexcel.SeriesReader(self.testfile)
+        pyexcel.save_as(adict=self.content, dest_file_name=self.testfile)
+        r = pyexcel.get_sheet(file_name=self.testfile, name_columns_by_row=0)
         actual = pyexcel.utils.to_dict(r)
         assert actual == self.content
     
@@ -47,40 +43,19 @@ class PyexcelWriterBase:
     ]
 
     def _create_a_file(self, file):
-        w = pyexcel.Writer(file)
-        w.write_array(self.content)
-        w.close()
+        pyexcel.save_as(dest_file_name=file,array=self.content)
     
     def test_write_array(self):
         self._create_a_file(self.testfile)
-        r = pyexcel.Reader(self.testfile)
+        r = pyexcel.get_sheet(file_name=self.testfile)
         actual = pyexcel.utils.to_array(r.rows())
-        assert actual == self.content
-
-    def test_write_reader(self):
-        """
-        Use reader as data container
-
-        this test case shows the file written by pyexcel
-        can be read back by itself
-        """
-        self._create_a_file(self.testfile)
-        r = pyexcel.Reader(self.testfile)
-        w2 = pyexcel.Writer(self.testfile2)
-        w2.write_reader(r)
-        w2.close()
-        r2 = pyexcel.Reader(self.testfile2)
-        r2.format(int)
-        actual = pyexcel.utils.to_array(r2.rows())
         assert actual == self.content
 
 
 class PyexcelMultipleSheetBase:
 
     def _write_test_file(self, filename):
-        w = pyexcel.BookWriter(filename)
-        w.write_book_from_dict(self.content)
-        w.close()
+        pyexcel.save_book_as(bookdict=self.content, dest_file_name=filename)
 
     def _clean_up(self):
         if os.path.exists(self.testfile2):
@@ -119,20 +94,6 @@ class PyexcelMultipleSheetBase:
             assert self.content[s.name] == data
         si = pyexcel.iterators.SheetIterator(b)
         for s in si:
-            data = pyexcel.utils.to_array(s)
-            assert self.content[s.name] == data
-
-    def test_write_a_book_reader(self):
-        b = pyexcel.BookReader(self.testfile)
-        bw = pyexcel.BookWriter(self.testfile2)
-        for s in b:
-            data = pyexcel.utils.to_array(s)
-            sheet = bw.create_sheet(s.name)
-            sheet.write_array(data)
-            sheet.close()
-        bw.close()
-        x = pyexcel.BookReader(self.testfile2)
-        for s in x:
             data = pyexcel.utils.to_array(s)
             assert self.content[s.name] == data
 

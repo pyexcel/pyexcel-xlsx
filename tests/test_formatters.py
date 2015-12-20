@@ -26,10 +26,8 @@ class TestDateFormat:
         excel_filename = "testdateformat.xlsx"
         data = [[datetime.date(2014,12,25),
                 datetime.time(11,11,11),
-                datetime.datetime(2014,12,25,11,11,11)]]
-        w = pe.Writer(excel_filename)
-        w.write_rows(data)
-        w.close()
+                 datetime.datetime(2014,12,25,11,11,11)]]
+        pe.save_as(dest_file_name=excel_filename, array=data)
         r = pe.Reader(excel_filename)
         assert isinstance(r[0,0], datetime.date) == True
         assert r[0,0].strftime("%d/%m/%y") == "25/12/14"
