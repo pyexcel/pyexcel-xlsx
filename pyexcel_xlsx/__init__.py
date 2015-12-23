@@ -4,7 +4,7 @@
 
     The lower level xlsx file format handler using openpyxl
 
-    :copyright: (c) 2015 by Onni Software Ltd.
+    :copyright: (c) 2015-2016 by Onni Software Ltd & its contributors
     :license: New BSD License
 """
 import sys
@@ -17,7 +17,6 @@ from pyexcel_io import (
     READERS,
     WRITERS,
     isstream,
-    is_string,
     get_data as read_data,
     store_data as write_data
 )
