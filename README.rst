@@ -5,8 +5,8 @@ pyexcel-xlsx - Let you focus on data, instead of xlsx format
 .. image:: https://travis-ci.org/pyexcel/pyexcel-xlsx.svg
     :target: https://travis-ci.org/pyexcel/pyexcel-xlsx
 
-.. image:: https://codecov.io/github/pyexcel/pyexcel-xls/coverage.png
-    :target: https://codecov.io/github/pyexcel/pyexcel-xls
+.. image:: https://codecov.io/github/pyexcel/pyexcel-xlsx/coverage.png
+    :target: https://codecov.io/github/pyexcel/pyexcel-xlsx
 
 **pyexcel-xlsx** is a tiny wrapper library to read, manipulate and write data in xlsx and xlsm fromat using openpyxl. You are likely to use it with `pyexcel <https://github.com/pyexcel/pyexcel>`__. 
 
@@ -35,6 +35,12 @@ or clone it and install it:
 
 Usage
 =====
+
+New feature
+-----------------
+
+1. Passing "streaming=True" to get_data, you will get the two dimensional array as a generator
+2. Passing "data=your_generator" to save_data is acceptable too.
 
 
 As a standalone library

@@ -11,8 +11,7 @@ with open("README.rst", 'r') as readme:
 
 dependencies = [
     'openpyxl==2.2.2',
-    'pyexcel-io>=0.0.8',
-    'pyexcel>=0.1.5'
+    'pyexcel-io>=0.1.0'
 ]
 
 with open("VERSION", "r") as version:
