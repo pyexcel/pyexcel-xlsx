@@ -2,13 +2,13 @@
 pyexcel-xlsx - Let you focus on data, instead of xlsx format
 ==============================================================
 
-.. image:: https://travis-ci.org/chfw/pyexcel-xlsx.svg
-    :target: https://travis-ci.org/chfw/pyexcel-xlsx
+.. image:: https://travis-ci.org/pyexcel/pyexcel-xlsx.svg
+    :target: https://travis-ci.org/pyexcel/pyexcel-xlsx
 
-.. image:: https://coveralls.io/repos/chfw/pyexcel-xlsx/badge.png?branch=master
-    :target: https://coveralls.io/r/chfw/pyexcel-xlsx?branch=master
+.. image:: https://codecov.io/github/pyexcel/pyexcel-xls/coverage.png
+    :target: https://codecov.io/github/pyexcel/pyexcel-xls
 
-**pyexcel-xlsx** is a tiny wrapper library to read, manipulate and write data in xlsx and xlsm fromat using openpyxl. You are likely to use it with `pyexcel <https://github.com/chfw/pyexcel>`__. 
+**pyexcel-xlsx** is a tiny wrapper library to read, manipulate and write data in xlsx and xlsm fromat using openpyxl. You are likely to use it with `pyexcel <https://github.com/pyexcel/pyexcel>`__. 
 
 Known constraints
 ==================
@@ -29,7 +29,7 @@ or clone it and install it:
 
 .. code-block:: bash
 
-    $ git clone http://github.com/chfw/pyexcel-xlsx.git
+    $ git clone http://github.com/pyexcel/pyexcel-xlsx.git
     $ cd pyexcel-xlsx
     $ python setup.py install
 

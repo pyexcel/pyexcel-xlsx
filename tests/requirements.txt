@@ -1,6 +1,6 @@
 nose
 rednose
 nose-cov
-python-coveralls
-coverage==3.7.1
+codecov
+coverage
 pyexcel-xls
