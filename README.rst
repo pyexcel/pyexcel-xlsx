@@ -209,12 +209,6 @@ License
 
 New BSD License
 
-Dependencies
-============
-
-1. openpyxl
-2. pyexcel-io >= 0.0.8
-
 .. testcode::
    :hide:
 
