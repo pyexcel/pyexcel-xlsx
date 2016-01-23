@@ -12,6 +12,7 @@ python:
   - 3.5
   - pypy
 install:
+  - rm applymoban.py
   - pip install -r requirements.txt
   - pip install -r tests/requirements.txt
 script:
