@@ -1,29 +1,28 @@
-==============================================================
+================================================================================
 pyexcel-xlsx - Let you focus on data, instead of xlsx format
-==============================================================
+================================================================================
 
-.. image:: https://travis-ci.org/pyexcel/pyexcel-xlsx.svg
-    :target: https://travis-ci.org/pyexcel/pyexcel-xlsx
+.. image:: https://api.travis-ci.org/pyexcel/pyexcel-xlsx.png
+    :target: http://travis-ci.org/pyexcel/pyexcel-xlsx
 
 .. image:: https://codecov.io/github/pyexcel/pyexcel-xlsx/coverage.png
     :target: https://codecov.io/github/pyexcel/pyexcel-xlsx
 
-**pyexcel-xlsx** is a tiny wrapper library to read, manipulate and write data in xlsx and xlsm fromat using openpyxl. You are likely to use it with `pyexcel <https://github.com/pyexcel/pyexcel>`__. 
+**pyexcel-xlsx** is a tiny wrapper library to read, manipulate and write data in xlsx and xlsm fromat using openpyxl. You are likely to use it with `pyexcel <https://github.com/pyexcel/pyexcel>`__.
 
 Known constraints
-==================
+================================================================================
 
 Fonts, colors and charts are not supported. 
 
 Installation
-============
+================================================================================
 
 You can install it via pip:
 
 .. code-block:: bash
 
     $ pip install pyexcel-xlsx
-
 
 or clone it and install it:
 
@@ -34,20 +33,21 @@ or clone it and install it:
     $ python setup.py install
 
 Usage
-=====
+================================================================================
 
 New feature
------------------
+--------------------------------------------------------------------------------
+
 
 1. Passing "streaming=True" to get_data, you will get the two dimensional array as a generator
 2. Passing "data=your_generator" to save_data is acceptable too.
 
 
 As a standalone library
-------------------------
+--------------------------------------------------------------------------------
 
 Write to an xlsx file
-*********************
+********************************************************************************
 
 .. testcode::
    :hide:
@@ -58,6 +58,7 @@ Write to an xlsx file
     ... else:
     ...     from io import BytesIO as StringIO
     >>> from pyexcel_io import OrderedDict
+
 
 Here's the sample code to write a dictionary to an xlsx file:
 
@@ -70,7 +71,7 @@ Here's the sample code to write a dictionary to an xlsx file:
     >>> save_data("your_file.xlsx", data)
 
 Read from an xlsx file
-**********************
+********************************************************************************
 
 Here's the sample code:
 
@@ -83,7 +84,7 @@ Here's the sample code:
     {"Sheet 1": [[1, 2, 3], [4, 5, 6]], "Sheet 2": [["row 1", "row 2", "row 3"]]}
 
 Write an xlsx to memory
-*************************
+********************************************************************************
 
 Here's the sample code to write a dictionary to an xlsx file:
 
@@ -99,9 +100,10 @@ Here's the sample code to write a dictionary to an xlsx file:
     >>> # In reality, you might give it to your http response
     >>> # object for downloading
 
-    
+
+
 Read from an xlsx from memory
-*****************************
+********************************************************************************
 
 Continue from previous example:
 
@@ -116,7 +118,7 @@ Continue from previous example:
 
 
 As a pyexcel plugin
---------------------
+--------------------------------------------------------------------------------
 
 Import it in your file to enable this plugin:
 
@@ -127,7 +129,7 @@ Import it in your file to enable this plugin:
 Please note only pyexcel version 0.0.4+ support this.
 
 Reading from an xlsx file
-**************************
+********************************************************************************
 
 Here is the sample code:
 
@@ -148,9 +150,8 @@ Here is the sample code:
     | row 1 | row 2 | row 3 |
     +-------+-------+-------+
 
-
 Writing to an xlsx file
-************************
+********************************************************************************
 
 Here is the sample code:
 
@@ -159,7 +160,7 @@ Here is the sample code:
     >>> sheet.save_as("another_file.xlsx")
 
 Reading from a IO instance
-================================
+================================================================================
 
 You got to wrap the binary content with stream to get xlsx working:
 
@@ -187,7 +188,7 @@ You got to wrap the binary content with stream to get xlsx working:
 
 
 Writing to a StringIO instance
-================================
+================================================================================
 
 You need to pass a StringIO instance to Writer:
 
@@ -205,9 +206,10 @@ You need to pass a StringIO instance to Writer:
     >>> # object for downloading
 
 License
-==========
+================================================================================
 
 New BSD License
+
 
 .. testcode::
    :hide:
