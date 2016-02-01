@@ -13,7 +13,7 @@ dependencies = [
     'pyexcel-io>=0.1.0',
 ]
 
-extra_dependencies = {}
+extras = {}
 
 
 setup(
