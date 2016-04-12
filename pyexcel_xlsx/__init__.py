@@ -9,17 +9,18 @@
 """
 import sys
 import openpyxl
-from pyexcel_io import (
-    SheetReader,
-    BookReader,
-    SheetWriter,
-    BookWriter,
-    isstream,
-    get_data as read_data,
-    store_data as write_data
-)
+
+from pyexcel_io.io import get_data as read_data, isstream, store_data as write_data
+from pyexcel_io.book import BookReader, BookWriter
+from pyexcel_io.sheet import SheetReader, SheetWriter
+from pyexcel_io.manager import RWManager
+
 PY2 = sys.version_info[0] == 2
-    
+if PY2 and sys.version_info[1] < 7:
+    from ordereddict import OrderedDict
+else:
+    from collections import OrderedDict    
+
 
 COLUMNS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 COLUMN_LENGTH = 26
@@ -60,6 +61,18 @@ class XLSXSheet(SheetReader):
         cell_location = "%s%d" % (get_columns(column), actual_row)
         return self.native_sheet.cell(cell_location).value
 
+    def to_array(self):
+        for r in range(0, self.number_of_rows()):
+            row = []
+            tmp_row = []
+            for c in range(0, self.number_of_columns()):
+                cell_value = self.cell_value(r, c)
+                tmp_row.append(cell_value)
+                if cell_value is not None and cell_value != '':
+                    row += tmp_row
+                    tmp_row = []
+            yield row
+
 
 class XLSXBook(BookReader):
     """
@@ -67,34 +80,50 @@ class XLSXBook(BookReader):
 
     It reads xls, xlsm, xlsx work book
     """
-    def get_sheet(self, nativeSheet):
-        return XLSXSheet(nativeSheet)
+    def __init__(self):
+        BookReader.__init__(self, 'xlsx')
+        self.book = None
 
-    def load_from_memory(self, file_content, **keywords):
-        return openpyxl.load_workbook(filename=file_content,
-                                      data_only=True)
+    def open(self, file_name, **keywords):
+        BookReader.open(self, file_name, **keywords)
+        self._load_from_file()
 
-    def load_from_file(self, filename, **keywords):
-        return openpyxl.load_workbook(filename=filename,
-                                      data_only=True)
+    def open_stream(self, file_stream, **keywords):
+        BookReader.open_stream(self, file_stream, **keywords)
+        self._load_from_memory()
 
-    def sheet_iterator(self):
-        if self.sheet_name is not None:
-            sheet = self.native_book.get_sheet_by_name(self.sheet_name)
-            if sheet is None:
-                raise ValueError("%s cannot be found" % self.sheet_name)
-            else:
-                return [sheet]
-        elif self.sheet_index is not None:
-            names = self.native_book.sheetnames
-            length = len(names)
-            if self.sheet_index < length:
-                return [self.native_book.get_sheet_by_name(names[self.sheet_index])]
-            else:
-                raise IndexError("Index %d of out bound %d" %(self.sheet_index,
-                                                              length))
+    def read_sheet_by_name(self, sheet_name):
+        sheet = self.book.get_sheet_by_name(sheet_name)
+        if sheet is None:
+            raise ValueError("%s cannot be found" % sheet_name)
         else:
-            return self.native_book
+            sheet = XLSXSheet(sheet)
+            return {sheet_name: sheet.to_array()}
+
+    def read_sheet_by_index(self, sheet_index):
+        names = self.book.sheetnames
+        length = len(names)
+        if sheet_index < length:
+            return self.read_sheet_by_name(names[sheet_index])
+        else:
+            raise IndexError("Index %d of out bound %d" %(
+                sheet_index,
+                length))
+
+    def read_all(self):
+        result = OrderedDict()
+        for sheet in self.book:
+            sheet = XLSXSheet(sheet)
+            result[sheet.name] = sheet.to_array()
+        return result
+        
+    def _load_from_memory(self):
+        self.book =  openpyxl.load_workbook(filename=self.file_stream,
+                                            data_only=True)
+
+    def _load_from_file(self):
+        self.book = openpyxl.load_workbook(filename=self.file_name,
+                                           data_only=True)
 
 
 class XLSXSheetWriter(SheetWriter):
@@ -119,10 +148,14 @@ class XLSXWriter(BookWriter):
     """
     xls, xlsx and xlsm writer
     """
-    def __init__(self, file, **keywords):
-        BookWriter.__init__(self, file, **keywords)
-        self.native_book = openpyxl.Workbook()
+    def __init__(self):
+        BookWriter.__init__(self, 'xlsx')
         self.current_sheet = 0
+        self.native_book = None
+
+    def open(self, file_name, **keywords):
+        BookWriter.open(self, file_name, **keywords)
+        self.native_book = openpyxl.Workbook()
 
     def create_sheet(self, name):
         if self.current_sheet == 0:
@@ -137,14 +170,7 @@ class XLSXWriter(BookWriter):
         """
         This call actually save the file
         """
-        self.native_book.save(filename=self.file)
-
-
-def extend_pyexcel(ReaderFactory, WriterFactory):
-    ReaderFactory.add_factory("xlsm", XLSXBook)
-    ReaderFactory.add_factory("xlsx", XLSXBook)
-    WriterFactory.add_factory("xlsm", XLSXWriter)
-    WriterFactory.add_factory("xlsx", XLSXWriter)
+        self.native_book.save(filename=self.file_alike_object)
 
 
 def save_data(afile, data, file_type=None, **keywords):
@@ -158,3 +184,17 @@ def get_data(afile, file_type=None, **keywords):
         file_type='xlsx'
     return read_data(afile, file_type=file_type, **keywords)
 
+
+
+RWManager.register_readers(
+    {
+        "xlsm": XLSXBook,
+        "xlsx": XLSXBook
+    })
+RWManager.register_writers(
+    {
+        "xlsm": XLSXWriter,
+        "xlsx": XLSXWriter
+    })
+RWManager.register_file_type_as_binary_stream('xlsm')
+RWManager.register_file_type_as_binary_stream('xlsx')

@@ -11,11 +11,13 @@ class TestNativeXLWriter:
             "Sheet3": [[u'X', u'Y', u'Z'], [1, 4, 7], [2, 5, 8], [3, 6, 9]]
         }
         self.testfile = "xlwriter.xlsx"
-        writer = xlsx.XLSXWriter(self.testfile)
+        writer = xlsx.XLSXWriter()
+        writer.open(self.testfile)
         writer.write(self.content)
         writer.close()
-        reader = xlsx.XLSXBook(self.testfile)
-        content = reader.sheets()
+        reader = xlsx.XLSXBook()
+        reader.open(self.testfile)
+        content = reader.read_all()
         for key in content.keys():
             content[key] = list(content[key])
         assert content == self.content
