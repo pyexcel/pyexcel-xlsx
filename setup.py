@@ -8,6 +8,9 @@ except ImportError:
 with open("README.rst", 'r') as readme:
     README_txt = readme.read()
 
+with open("CHANGELOG.rst", 'r') as changelog:
+    README_txt += changelog.read()
+
 dependencies = [
     'openpyxl==2.2.2',
     'pyexcel-io>=0.1.0',

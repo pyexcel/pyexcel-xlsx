@@ -62,7 +62,7 @@ Write to an xlsx file
     >>> if PY2 and sys.version_info[1] < 7:
     ...      from ordereddict import OrderedDict
     ... else:
-    ...     from collections import OrderedDict    
+    ...     from collections import OrderedDict
 
 
 Here's the sample code to write a dictionary to an xlsx file:
@@ -70,7 +70,7 @@ Here's the sample code to write a dictionary to an xlsx file:
 .. code-block:: python
 
     >>> from pyexcel_xlsx import save_data
-    >>> data = OrderedDict()
+    >>> data = OrderedDict() # from collections import OrderedDict
     >>> data.update({"Sheet 1": [[1, 2, 3], [4, 5, 6]]})
     >>> data.update({"Sheet 2": [["row 1", "row 2", "row 3"]]})
     >>> save_data("your_file.xlsx", data)
