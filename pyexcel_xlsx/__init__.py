@@ -113,8 +113,8 @@ class XLSXBook(BookReader):
     def read_all(self):
         result = OrderedDict()
         for sheet in self.book:
-            sheet = XLSXSheet(sheet)
-            result[sheet.name] = sheet.to_array()
+            xlsx_sheet = XLSXSheet(sheet)
+            result[xlsx_sheet.name] = xlsx_sheet.to_array()
         return result
         
     def _load_from_memory(self):
