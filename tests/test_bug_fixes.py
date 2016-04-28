@@ -4,16 +4,15 @@
 
 """
 import os
-import pyexcel as pe
-import pyexcel.ext.xls
-import pyexcel.ext.xlsx
-from textwrap import dedent
 import datetime
-from pyexcel.ext.xlsx import get_columns
+from textwrap import dedent
+from unittest import TestCase
+import pyexcel as pe
+from pyexcel_xlsx.xlsx import get_columns
 from pyexcel.sheets.matrix import _excel_column_index
 
 
-class TestBugFix:
+class TestBugFix(TestCase):
     def test_pyexcel_issue_4(self):
         """pyexcel issue #4"""
         indices = [
@@ -78,17 +77,17 @@ class TestBugFix:
                                  "test8.xlsx"))
         s.save_as(tmp_file)
         s2 = pe.load(tmp_file)
-        assert str(s) == str(s2)
+        self.assertEqual(str(s), str(s2))
         content = dedent("""
         Sheet Name: CNY
-        +----------+----------+------+---+--------+
-        | 01/09/13 | 02/09/13 | 1000 | 5 | 13.890 |
-        +----------+----------+------+---+--------+
-        | 02/09/13 | 03/09/13 | 2000 | 6 | 33.330 |
-        +----------+----------+------+---+--------+
-        | 03/09/13 | 04/09/13 | 3000 | 7 | 58.330 |
-        +----------+----------+------+---+--------+""").strip("\n")
-        assert str(s2) == content
+        +----------+----------+------+---+-------+
+        | 01/09/13 | 02/09/13 | 1000 | 5 | 13.89 |
+        +----------+----------+------+---+-------+
+        | 02/09/13 | 03/09/13 | 2000 | 6 | 33.33 |
+        +----------+----------+------+---+-------+
+        | 03/09/13 | 04/09/13 | 3000 | 7 | 58.33 |
+        +----------+----------+------+---+-------+""").strip("\n")
+        self.assertEqual(str(s2), content)
         os.unlink(tmp_file)
 
     def test_pyexcel_issue_8_with_memory_file(self):
@@ -104,17 +103,17 @@ class TestBugFix:
         s = pe.load_from_memory('xlsx', f.read())
         s.save_as(tmp_file)
         s2 = pe.load(tmp_file)
-        assert str(s) == str(s2)
+        self.assertEqual(str(s), str(s2))
         content = dedent("""
         Sheet Name: CNY
-        +----------+----------+------+---+--------+
-        | 01/09/13 | 02/09/13 | 1000 | 5 | 13.890 |
-        +----------+----------+------+---+--------+
-        | 02/09/13 | 03/09/13 | 2000 | 6 | 33.330 |
-        +----------+----------+------+---+--------+
-        | 03/09/13 | 04/09/13 | 3000 | 7 | 58.330 |
-        +----------+----------+------+---+--------+""").strip("\n")
-        assert str(s2) == content
+        +----------+----------+------+---+-------+
+        | 01/09/13 | 02/09/13 | 1000 | 5 | 13.89 |
+        +----------+----------+------+---+-------+
+        | 02/09/13 | 03/09/13 | 2000 | 6 | 33.33 |
+        +----------+----------+------+---+-------+
+        | 03/09/13 | 04/09/13 | 3000 | 7 | 58.33 |
+        +----------+----------+------+---+-------+""").strip("\n")
+        self.assertEqual(str(s2), content)
         os.unlink(tmp_file)
 
     def test_excessive_columns(self):
