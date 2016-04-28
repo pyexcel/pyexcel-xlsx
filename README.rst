@@ -125,6 +125,12 @@ Continue from previous example:
 As a pyexcel plugin
 --------------------------------------------------------------------------------
 
+No longer, explicit import is needed since pyexcel version 0.2.2. Instead,
+this library is auto-loaded. So if you want to read data in xlsx format,
+installing it is enough.
+
+Any version under pyexcel 0.2.2, you have to keep doing the following:
+
 Import it in your file to enable this plugin:
 
 .. code-block:: python
@@ -141,7 +147,7 @@ Here is the sample code:
 .. code-block:: python
 
     >>> import pyexcel as pe
-    >>> from pyexcel.ext import xlsx
+    >>> # from pyexcel.ext import xlsx
     >>> sheet = pe.get_book(file_name="your_file.xlsx")
     >>> sheet
     Sheet Name: Sheet 1
