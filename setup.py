@@ -5,53 +5,72 @@ except ImportError:
     use_setuptools()
     from setuptools import setup, find_packages
 
-with open("README.rst", 'r') as readme:
-    README_txt = readme.read()
+NAME = 'pyexcel-xlsx'
+AUTHOR = 'C.W.'
+VERSION = '0.2.0'
+EMAIL = 'wangc_2011 (at) hotmail.com'
+LICENSE = 'New BSD'
+PACKAGES = find_packages(exclude=['ez_setup', 'examples', 'tests'])
+DESCRIPTION = 'A wrapper library to read, manipulate and write data in xlsx and xlsm format'
+KEYWORDS = [
+   'excel',
+   'python',
+   'pyexcel',
+        'xlsx'
+]
 
-with open("CHANGELOG.rst", 'r') as changelog:
-    README_txt += changelog.read()
-
-dependencies = [
+INSTALL_REQUIRES = [
     'openpyxl==2.2.2',
     'pyexcel-io>=0.1.0',
 ]
 
-extras = {}
+EXTRAS_REQUIRE = {}
 
-
-setup(
-    name='pyexcel-xlsx',
-    author='C.W.',
-    version='0.2.0',
-    author_email='wangc_2011 (at) hotmail.com',
-    url='https://github.com/pyexcel/pyexcel-xlsx',
-    description='A wrapper library to read, manipulate and write data in xlsx and xlsm format',
-    install_requires=dependencies,
-    extras_require=extras,
-    packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
-    include_package_data=True,
-    long_description=README_txt,
-    zip_safe=False,
-    tests_require=['nose'],
-    keywords=[
-        'excel',
-        'python',
-        'pyexcel',
-        'xlsx'
-    ],
-    license='New BSD',
-    classifiers=[
-        'Topic :: Office/Business',
-        'Topic :: Utilities',
-        'Topic :: Software Development :: Libraries',
-        'Programming Language :: Python',
-        'License :: OSI Approved :: BSD License',
-        'Intended Audience :: Developers',
+CLASSIFIERS = [
+    'Topic :: Office/Business',
+    'Topic :: Utilities',
+    'Topic :: Software Development :: Libraries',
+    'Programming Language :: Python',
+    'License :: OSI Approved :: BSD License',
+    'Intended Audience :: Developers',
         'Development Status :: 3 - Alpha',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: Implementation :: PyPy'
-    ]
-)
+]
+
+
+def read_files(*files):
+    """Read files into setup"""
+    text = ""
+    for single_file in files:
+        text = text + read(single_file) + "\n"
+    return text
+
+
+def read(afile):
+    """Read a file into setup"""
+    with open(afile, 'r') as opened_file:
+        return opened_file.read()
+
+
+if __name__ == '__main__':
+    setup(
+        name=NAME,
+        author=AUTHOR,
+        version=VERSION,
+        author_email=EMAIL,
+        description=DESCRIPTION,
+        install_requires=INSTALL_REQUIRES,
+        keywords=KEYWORDS,
+        extras_require=EXTRAS_REQUIRE,
+        packages=PACKAGES,
+        include_package_data=True,
+        long_description=read_files('README.rst', 'CHANGELOG.rst'),
+        zip_safe=False,
+        tests_require=['nose'],
+        license=LICENSE,
+        classifiers=CLASSIFIERS
+    )
