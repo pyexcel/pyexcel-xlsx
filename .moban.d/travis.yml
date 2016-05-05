@@ -6,8 +6,5 @@
   - pypy
 {%endblock%}
 
-{%block custom_install %}
-  - pip install https://github.com/pyexcel/pyexcel-io/archive/master.zip
-  - pip install https://github.com/pyexcel/pyexcel-xls/archive/master.zip
-  - pip install https://github.com/pyexcel/pyexcel/archive/master.zip
+{%block custom_install %}  - if [[ $TRAVIS_PYTHON_VERSION == "2.6" ]]; then pip install ordereddict; fi
 {%endblock%}
