@@ -150,13 +150,13 @@ Here is the sample code:
     >>> # from pyexcel.ext import xlsx
     >>> sheet = pe.get_book(file_name="your_file.xlsx")
     >>> sheet
-    Sheet Name: Sheet 1
+    Sheet 1:
     +---+---+---+
     | 1 | 2 | 3 |
     +---+---+---+
     | 4 | 5 | 6 |
     +---+---+---+
-    Sheet Name: Sheet 2
+    Sheet 2:
     +-------+-------+-------+
     | row 1 | row 2 | row 3 |
     +-------+-------+-------+
@@ -186,13 +186,13 @@ You got to wrap the binary content with stream to get xlsx working:
     ...     r = pe.get_book(file_type="xlsx", file_content=content)
     ...     print(r)
     ...
-    Sheet Name: Sheet 1
+    Sheet 1:
     +---+---+---+
     | 1 | 2 | 3 |
     +---+---+---+
     | 4 | 5 | 6 |
     +---+---+---+
-    Sheet Name: Sheet 2
+    Sheet 2:
     +-------+-------+-------+
     | row 1 | row 2 | row 3 |
     +-------+-------+-------+
@@ -220,6 +220,39 @@ License
 ================================================================================
 
 New BSD License
+
+Developer guide
+==================
+
+Development steps for code changes
+
+#. git clone https://github.com/pyexcel/pyexcel-xlsx.git
+#. cd pyexcel-xlsx
+#. pip install -r requirements.txt
+#. pip install -r tests/requirements.txt
+
+
+In order to update test envrionment, and documentation, additional setps are
+required:
+
+#. pip install moban
+#. git clone https://github.com/pyexcel/pyexel-commons.git
+#. make your changes in `.moban.d` directory, then issue command `moban`
+
+
+How to test your contribution
+------------------------------
+
+Although `nose` and `doctest` are both used in code testing, it is adviable that unit tests are put in tests. `doctest` is incorporated only to make sure the code examples in documentation remain valid across different development releases.
+
+On Linux/Unix systems, please launch your tests like this::
+
+    $ make test
+
+On Windows systems, please issue this command::
+
+    > test.bat
+
 
 
 .. testcode::

@@ -79,7 +79,7 @@ class TestBugFix(TestCase):
         s2 = pe.load(tmp_file)
         self.assertEqual(str(s), str(s2))
         content = dedent("""
-        Sheet Name: CNY
+        CNY:
         +----------+----------+------+---+-------+
         | 01/09/13 | 02/09/13 | 1000 | 5 | 13.89 |
         +----------+----------+------+---+-------+
@@ -105,7 +105,7 @@ class TestBugFix(TestCase):
         s2 = pe.load(tmp_file)
         self.assertEqual(str(s), str(s2))
         content = dedent("""
-        Sheet Name: CNY
+        CNY:
         +----------+----------+------+---+-------+
         | 01/09/13 | 02/09/13 | 1000 | 5 | 13.89 |
         +----------+----------+------+---+-------+

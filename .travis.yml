@@ -14,6 +14,7 @@ before_install:
   - pip install https://github.com/pyexcel/pyexcel-io/archive/master.zip
   - pip install https://github.com/pyexcel/pyexcel-xls/archive/master.zip
   - pip install https://github.com/pyexcel/pyexcel/archive/master.zip
+  - if [[ -f rnd_requirements.txt ]]; then pip install -r rnd_requirements.txt; fi
   - pip install -r tests/requirements.txt
 script:
   make test
