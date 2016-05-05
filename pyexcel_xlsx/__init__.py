@@ -7,10 +7,12 @@
     :copyright: (c) 2015-2016 by Onni Software Ltd & its contributors
     :license: New BSD License
 """
-from pyexcel_io.io import get_data as read_data, isstream, store_data as write_data
-
-
+# this line has to be place above all else
+# because of dynamic import
 __pyexcel_io_plugins__ = ['xlsx']
+
+
+from pyexcel_io.io import get_data as read_data, isstream, store_data as write_data
 
 
 def save_data(afile, data, file_type=None, **keywords):

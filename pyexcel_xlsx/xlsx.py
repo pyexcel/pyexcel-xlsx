@@ -175,14 +175,16 @@ _xlsx_registry = {
     "file_type": "xlsx",
     "reader": XLSXBook,
     "writer": XLSXWriter,
-    "stream_type": "binary"
+    "stream_type": "binary",
+    "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 }
 
 _xlsm_registry = {
     "file_type": "xlsm",
     "reader": XLSXBook,
     "writer": XLSXWriter,
-    "stream_type": "binary"
+    "stream_type": "binary",
+    "mime_type": "application/vnd.ms-excel.sheet.macroenabled.12"
 }
 
 exports = (_xlsx_registry, _xlsm_registry)
