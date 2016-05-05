@@ -11,9 +11,7 @@ python:
   - 3.4
   - 3.5
 before_install:
-  - pip install https://github.com/pyexcel/pyexcel-io/archive/master.zip
-  - pip install https://github.com/pyexcel/pyexcel-xls/archive/master.zip
-  - pip install https://github.com/pyexcel/pyexcel/archive/master.zip
+  - if [[ $TRAVIS_PYTHON_VERSION == "2.6" ]]; then pip install ordereddict; fi
   - if [[ -f rnd_requirements.txt ]]; then pip install -r rnd_requirements.txt; fi
   - pip install -r tests/requirements.txt
 script:
