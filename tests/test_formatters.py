@@ -12,7 +12,7 @@ class TestDateFormat:
         01/01/15 13:13:13
         0.0      0.0        
         """
-        r = pe.Reader(os.path.join("tests", "fixtures", "date_field.xlsx"))
+        r = pe.get_sheet(file_name=os.path.join("tests", "fixtures", "date_field.xlsx"), library="openpyxl")
         assert isinstance(r[1,0], datetime.date) == True
         assert r[1,0].strftime("%d/%m/%y") == "25/12/14"
         assert isinstance(r[1,1], datetime.time) == True
@@ -27,7 +27,7 @@ class TestDateFormat:
                 datetime.time(11,11,11),
                  datetime.datetime(2014,12,25,11,11,11)]]
         pe.save_as(dest_file_name=excel_filename, array=data)
-        r = pe.Reader(excel_filename)
+        r = pe.get_sheet(file_name=excel_filename, library="openpyxl")
         assert isinstance(r[0,0], datetime.date) == True
         assert r[0,0].strftime("%d/%m/%y") == "25/12/14"
         assert isinstance(r[0,1], datetime.time) == True

@@ -1,9 +1,10 @@
-from base import PyexcelMultipleSheetBase
-import pyexcel
 import os
-from pyexcel.ext import xlsx
-from nose.tools import raises
 import sys
+from nose.tools import raises
+
+import pyexcel
+
+from base import PyexcelMultipleSheetBase
 
 if sys.version_info[0] == 2 and sys.version_info[1] < 7:
     from ordereddict import OrderedDict
@@ -64,12 +65,12 @@ class TestAddBooks:
         self._write_test_file(self.testfile2)
 
     def test_load_a_single_sheet(self):
-        b1 = pyexcel.load_book(self.testfile, sheet_name="Sheet1")
+        b1 = pyexcel.get_book(file_name=self.testfile, sheet_name="Sheet1", library="openpyxl")
         assert len(b1.sheet_names()) == 1
         assert b1['Sheet1'].to_array() == self.content['Sheet1']
 
     def test_load_a_single_sheet2(self):
-        b1 = pyexcel.load_book(self.testfile, sheet_index=1)
+        b1 = pyexcel.get_book(file_name=self.testfile, sheet_index=1, library="openpyxl")
         assert len(b1.sheet_names()) == 1
         assert b1['Sheet2'].to_array() == self.content['Sheet2']
 
@@ -79,7 +80,7 @@ class TestAddBooks:
         
     @raises(KeyError)
     def test_load_a_single_sheet4(self):
-        pyexcel.load_book(self.testfile, sheet_name="Not exist")
+        pyexcel.get_book(file_name=self.testfile, sheet_name="Not exist", library="openpyxl")
 
     def test_delete_sheets(self):
         b1 = pyexcel.load_book(self.testfile)

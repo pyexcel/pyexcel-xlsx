@@ -176,7 +176,8 @@ _xlsx_registry = {
     "reader": XLSXBook,
     "writer": XLSXWriter,
     "stream_type": "binary",
-    "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "library": "openpyxl"
 }
 
 _xlsm_registry = {
@@ -184,7 +185,8 @@ _xlsm_registry = {
     "reader": XLSXBook,
     "writer": XLSXWriter,
     "stream_type": "binary",
-    "mime_type": "application/vnd.ms-excel.sheet.macroenabled.12"
+    "mime_type": "application/vnd.ms-excel.sheet.macroenabled.12",
+    "library": "openpyxl"
 }
 
 exports = (_xlsx_registry, _xlsm_registry)
