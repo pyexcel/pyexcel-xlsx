@@ -10,6 +10,20 @@ python:
   - 3.3
   - 3.4
   - 3.5
+matrix:
+  include:
+    - python: 2.7
+      dist: trusty
+      sudo: required
+      virtualenv:
+        system_site_packages: true
+      addons:
+        apt:
+          sources:
+            - debian-sid  # openpyxl 2.3.0
+          packages:
+            - python-openpyxl
+
 before_install:
   - if [[ $TRAVIS_PYTHON_VERSION == "2.6" ]]; then pip install ordereddict; fi
   - if [[ -f rnd_requirements.txt ]]; then pip install -r rnd_requirements.txt; fi
