@@ -24,4 +24,5 @@ matrix:
 {%endblock%}
 
 {%block custom_install %}  - if [[ $TRAVIS_PYTHON_VERSION == "2.6" ]]; then pip install ordereddict; fi
+  - pip install --upgrade pip>8 setuptools>21
 {%endblock%}
