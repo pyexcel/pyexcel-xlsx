@@ -13,7 +13,7 @@ pyexcel-xlsx - Let you focus on data, instead of xlsx format
 Known constraints
 ==================
 
-Fonts, colors and charts are not supported. 
+Fonts, colors and charts are not supported.
 
 Installation
 ================================================================================
@@ -252,7 +252,6 @@ On Linux/Unix systems, please launch your tests like this::
 On Windows systems, please issue this command::
 
     > test.bat
-
 
 
 .. testcode::

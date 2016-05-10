@@ -24,7 +24,8 @@ INSTALL_REQUIRES = [
     'pyexcel-io>=0.1.0',
 ]
 
-EXTRAS_REQUIRE = {}
+EXTRAS_REQUIRE = {
+}
 
 CLASSIFIERS = [
     'Topic :: Office/Business',
