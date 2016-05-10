@@ -26,6 +26,7 @@ matrix:
 
 before_install:
   - if [[ $TRAVIS_PYTHON_VERSION == "2.6" ]]; then pip install ordereddict; fi
+  - pip install --upgrade pip>8 setuptools>21
   - if [[ -f rnd_requirements.txt ]]; then pip install -r rnd_requirements.txt; fi
   - pip install -r tests/requirements.txt
 script:
