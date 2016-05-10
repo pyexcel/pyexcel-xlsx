@@ -254,7 +254,6 @@ On Windows systems, please issue this command::
     > test.bat
 
 
-
 .. testcode::
    :hide:
 

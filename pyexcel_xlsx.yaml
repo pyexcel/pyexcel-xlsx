@@ -4,7 +4,6 @@ nick_name: xlsx
 version: 0.2.0
 file_type: xlsx
 dependencies:
-  - openpyxl==2.2.2
+  - openpyxl>=2.2.2
   - pyexcel-io>=0.1.0
-description: |
-  A wrapper library to read, manipulate and write data in xlsx and xlsm format
+description: A wrapper library to read, manipulate and write data in xlsx and xlsm format
