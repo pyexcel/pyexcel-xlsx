@@ -20,7 +20,7 @@ KEYWORDS = [
 ]
 
 INSTALL_REQUIRES = [
-    'openpyxl==2.2.2',
+    'openpyxl>=2.2.2',
     'pyexcel-io>=0.1.0',
 ]
 
