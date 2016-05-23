@@ -65,12 +65,12 @@ class TestAddBooks:
         self._write_test_file(self.testfile2)
 
     def test_load_a_single_sheet(self):
-        b1 = pyexcel.get_book(file_name=self.testfile, sheet_name="Sheet1", library="openpyxl")
+        b1 = pyexcel.get_book(file_name=self.testfile, sheet_name="Sheet1", library="pyexcel-xlsx")
         assert len(b1.sheet_names()) == 1
         assert b1['Sheet1'].to_array() == self.content['Sheet1']
 
     def test_load_a_single_sheet2(self):
-        b1 = pyexcel.get_book(file_name=self.testfile, sheet_index=1, library="openpyxl")
+        b1 = pyexcel.get_book(file_name=self.testfile, sheet_index=1, library="pyexcel-xlsx")
         assert len(b1.sheet_names()) == 1
         assert b1['Sheet2'].to_array() == self.content['Sheet2']
 
@@ -80,7 +80,7 @@ class TestAddBooks:
         
     @raises(KeyError)
     def test_load_a_single_sheet4(self):
-        pyexcel.get_book(file_name=self.testfile, sheet_name="Not exist", library="openpyxl")
+        pyexcel.get_book(file_name=self.testfile, sheet_name="Not exist", library="pyexcel-xlsx")
 
     def test_delete_sheets(self):
         b1 = pyexcel.load_book(self.testfile)

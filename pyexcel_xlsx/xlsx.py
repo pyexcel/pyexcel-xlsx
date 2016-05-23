@@ -8,16 +8,15 @@
     :license: New BSD License
 """
 import sys
-import openpyxl
-
 from pyexcel_io.book import BookReader, BookWriter
 from pyexcel_io.sheet import SheetReader, SheetWriter
+import openpyxl
 
-PY2 = sys.version_info[0] == 2
-if PY2 and sys.version_info[1] < 7:
+PY27_BELOW = sys.version_info[0] == 2 and sys.version_info[1] < 7
+if PY27_BELOW:
     from ordereddict import OrderedDict
 else:
-    from collections import OrderedDict    
+    from collections import OrderedDict
 
 
 COLUMNS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -25,10 +24,14 @@ COLUMN_LENGTH = 26
 
 
 def get_columns(index):
+    """
+    Convert column index to column name
+    """
     if index < COLUMN_LENGTH:
         return COLUMNS[index]
     else:
-        return (get_columns(int(index // COLUMN_LENGTH) - 1) + COLUMNS[index % COLUMN_LENGTH])
+        return (get_columns(int(index // COLUMN_LENGTH) - 1) +
+                COLUMNS[index % COLUMN_LENGTH])
 
 
 class XLSXSheet(SheetReader):
@@ -37,6 +40,7 @@ class XLSXSheet(SheetReader):
     """
     @property
     def name(self):
+        """sheet name"""
         return self.native_sheet.title
 
     def number_of_rows(self):
@@ -60,16 +64,16 @@ class XLSXSheet(SheetReader):
         return self.native_sheet.cell(cell_location).value
 
     def to_array(self):
-        for r in range(0, self.number_of_rows()):
-            row = []
+        for row in range(0, self.number_of_rows()):
+            return_row = []
             tmp_row = []
-            for c in range(0, self.number_of_columns()):
-                cell_value = self.cell_value(r, c)
+            for column in range(0, self.number_of_columns()):
+                cell_value = self.cell_value(row, column)
                 tmp_row.append(cell_value)
                 if cell_value is not None and cell_value != '':
-                    row += tmp_row
+                    return_row += tmp_row
                     tmp_row = []
-            yield row
+            yield return_row
 
 
 class XLSXBook(BookReader):
@@ -78,10 +82,6 @@ class XLSXBook(BookReader):
 
     It reads xls, xlsm, xlsx work book
     """
-    def __init__(self):
-        BookReader.__init__(self)
-        self.book = None
-
     def open(self, file_name, **keywords):
         BookReader.open(self, file_name, **keywords)
         self._load_from_file()
@@ -91,37 +91,40 @@ class XLSXBook(BookReader):
         self._load_from_memory()
 
     def read_sheet_by_name(self, sheet_name):
-        sheet = self.book.get_sheet_by_name(sheet_name)
+        sheet = self.native_book.get_sheet_by_name(sheet_name)
         if sheet is None:
             raise ValueError("%s cannot be found" % sheet_name)
         else:
-            sheet = XLSXSheet(sheet)
-            return {sheet_name: sheet.to_array()}
+            return self.read_sheet(sheet)
 
     def read_sheet_by_index(self, sheet_index):
-        names = self.book.sheetnames
+        names = self.native_book.sheetnames
         length = len(names)
         if sheet_index < length:
             return self.read_sheet_by_name(names[sheet_index])
         else:
-            raise IndexError("Index %d of out bound %d" %(
+            raise IndexError("Index %d of out bound %d" % (
                 sheet_index,
                 length))
 
     def read_all(self):
         result = OrderedDict()
-        for sheet in self.book:
-            sheet = XLSXSheet(sheet)
-            result[sheet.name] = sheet.to_array()
+        for sheet in self.native_book:
+            data_dict = self.read_sheet(sheet)
+            result.update(data_dict)
         return result
-        
+
+    def read_sheet(self, native_sheet):
+        sheet = XLSXSheet(native_sheet, **self.keywords)
+        return {sheet.name: sheet.to_array()}
+
     def _load_from_memory(self):
-        self.book =  openpyxl.load_workbook(filename=self.file_stream,
-                                            data_only=True)
+        self.native_book = openpyxl.load_workbook(filename=self.file_stream,
+                                                  data_only=True)
 
     def _load_from_file(self):
-        self.book = openpyxl.load_workbook(filename=self.file_name,
-                                           data_only=True)
+        self.native_book = openpyxl.load_workbook(filename=self.file_name,
+                                                  data_only=True)
 
 
 class XLSXSheetWriter(SheetWriter):
@@ -177,7 +180,7 @@ _xlsx_registry = {
     "writer": XLSXWriter,
     "stream_type": "binary",
     "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    "library": "openpyxl"
+    "library": "pyexcel-xlsx"
 }
 
 _xlsm_registry = {
@@ -186,7 +189,7 @@ _xlsm_registry = {
     "writer": XLSXWriter,
     "stream_type": "binary",
     "mime_type": "application/vnd.ms-excel.sheet.macroenabled.12",
-    "library": "openpyxl"
+    "library": "pyexcel-xlsx"
 }
 
 exports = (_xlsx_registry, _xlsm_registry)
