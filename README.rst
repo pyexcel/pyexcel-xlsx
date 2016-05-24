@@ -36,14 +36,6 @@ or clone it and install it:
 Usage
 ================================================================================
 
-New feature
---------------------------------------------------------------------------------
-
-
-1. Passing "streaming=True" to get_data, you will get the two dimensional array as a generator
-2. Passing "data=your_generator" to save_data is acceptable too.
-
-
 As a standalone library
 --------------------------------------------------------------------------------
 
