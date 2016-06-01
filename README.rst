@@ -203,7 +203,7 @@ You need to pass a StringIO instance to Writer:
     ... ]
     >>> io = StringIO()
     >>> sheet = pe.Sheet(data)
-    >>> sheet.save_to_memory("xlsx", io)
+    >>> io = sheet.save_to_memory("xlsx", io)
     >>> # then do something with io
     >>> # In reality, you might give it to your http response
     >>> # object for downloading
@@ -220,6 +220,7 @@ Development steps for code changes
 
 #. git clone https://github.com/pyexcel/pyexcel-xlsx.git
 #. cd pyexcel-xlsx
+#. pip install -r rnd_requirements.txt # if such a file exists
 #. pip install -r requirements.txt
 #. pip install -r tests/requirements.txt
 
@@ -231,6 +232,20 @@ required:
 #. git clone https://github.com/pyexcel/pyexcel-commons.git
 #. make your changes in `.moban.d` directory, then issue command `moban`
 
+What is rnd_requirements.txt
+-------------------------------
+
+Usually, it is created when a depdent library is not released. Once the dependecy is installed(will be released), the future version of the dependency in the requirements.txt will be valid.
+
+What is pyexcel-commons
+---------------------------------
+
+Many information that are shared across pyexcel projects, such as: this developer guide, license info, etc. are stored in `pyexcel-commons` project.
+
+What is .moban.d
+---------------------------------
+
+`.moban.d` stores the specific meta data for the library.
 
 How to test your contribution
 ------------------------------
