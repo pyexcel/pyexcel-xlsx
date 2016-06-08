@@ -173,13 +173,16 @@ class XLSXWriter(BookWriter):
         """
         self.native_book.save(filename=self.file_alike_object)
 
+_XLSX_MIME = (
+    "application/" +
+    "vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 
 _xlsx_registry = {
     "file_type": "xlsx",
     "reader": XLSXBook,
     "writer": XLSXWriter,
     "stream_type": "binary",
-    "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "mime_type": _XLSX_MIME,
     "library": "pyexcel-xlsx"
 }
 

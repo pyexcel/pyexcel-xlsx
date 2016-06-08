@@ -11,11 +11,15 @@ VERSION = '0.2.0'
 EMAIL = 'wangc_2011 (at) hotmail.com'
 LICENSE = 'New BSD'
 PACKAGES = find_packages(exclude=['ez_setup', 'examples', 'tests'])
-DESCRIPTION = 'A wrapper library to read, manipulate and write data in xlsx and xlsm format'
+DESCRIPTION = (
+    'A wrapper library to read, manipulate and write data in xlsx and xlsm ' +
+    'format' +
+    ''
+)
 KEYWORDS = [
-   'excel',
-   'python',
-   'pyexcel',
+    'excel',
+    'python',
+    'pyexcel',
         'xlsx'
 ]
 

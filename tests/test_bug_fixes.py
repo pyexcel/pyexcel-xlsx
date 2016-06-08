@@ -62,9 +62,8 @@ class TestBugFix(TestCase):
                                  "test-date-format.xls"))
         s.save_as("issue5.xlsx")
         s2 = pe.load("issue5.xlsx")
-        print(s[0,0])
-        assert s[0,0] == datetime.datetime(2015, 11, 11, 11, 12, 0)
-        assert s2[0,0] == datetime.datetime(2015, 11, 11, 11, 12, 0)
+        assert s[0, 0] == datetime.datetime(2015, 11, 11, 11, 12, 0)
+        assert s2[0, 0] == datetime.datetime(2015, 11, 11, 11, 12, 0)
 
     def test_pyexcel_issue_8_with_physical_file(self):
         """pyexcel issue #8

@@ -29,8 +29,8 @@ class TestNativeXLWriter:
 
 class TestXLSnCSVWriter(PyexcelWriterBase):
     def setUp(self):
-        self.testfile="test.xlsx"
-        self.testfile2="test.csv"
+        self.testfile = "test.xlsx"
+        self.testfile2 = "test.csv"
 
     def tearDown(self):
         if os.path.exists(self.testfile):
@@ -41,7 +41,7 @@ class TestXLSnCSVWriter(PyexcelWriterBase):
 
 class TestXLSHatWriter(PyexcelHatWriterBase):
     def setUp(self):
-        self.testfile="test.xlsx"
+        self.testfile = "test.xlsx"
 
     def tearDown(self):
         if os.path.exists(self.testfile):

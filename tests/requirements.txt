@@ -1,5 +1,6 @@
 nose
 codecov
 coverage
+flake8
 pyexcel
 pyexcel-xls
