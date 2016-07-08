@@ -107,8 +107,8 @@ class TestAddBooks:
         """
         test this scenario: book3 = book1 + book2
         """
-        b1 = pyexcel.BookReader(self.testfile)
-        b2 = pyexcel.BookReader(self.testfile2)
+        b1 = pyexcel.get_book(file_name=self.testfile)
+        b2 = pyexcel.get_book(file_name=self.testfile2)
         b3 = b1 + b2
         content = pyexcel.utils.to_dict(b3)
         sheet_names = content.keys()
