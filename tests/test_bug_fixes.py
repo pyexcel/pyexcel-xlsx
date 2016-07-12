@@ -123,14 +123,16 @@ class TestBugFix(TestCase):
 
     def test_issue_8_hidden_sheet(self):
         test_file = os.path.join("tests", "fixtures", "hidden_sheets.xlsx")
-        book_dict = pe.get_book_dict(file_name=test_file, library="pyexcel-xlsx")
+        book_dict = pe.get_book_dict(file_name=test_file,
+                                     library="pyexcel-xlsx")
         assert "hidden" not in book_dict
         eq_(book_dict['shown'], [['A', 'B']])
 
     def test_issue_8_hidden_sheet_2(self):
         test_file = os.path.join("tests", "fixtures", "hidden_sheets.xlsx")
         book_dict = pe.get_book_dict(file_name=test_file,
-                                     skip_hidden_sheets=False, library="pyexcel-xlsx")
+                                     skip_hidden_sheets=False,
+                                     library="pyexcel-xlsx")
         assert "hidden" in book_dict
         eq_(book_dict['shown'], [['A', 'B']])
         eq_(book_dict['hidden'], [['a', 'b']])

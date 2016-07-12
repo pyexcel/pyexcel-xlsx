@@ -1,6 +1,15 @@
 Change log
 ================================================================================
 
+0.2.1 - unreleased
+--------------------------------------------------------------------------------
+
+Added
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+#. `#8 <https://github.com/pyexcel/pyexcel-xlsx/issues/8>`_, `skip_hidden_sheets` is added. By default, hidden sheets are skipped when reading all sheets. Reading sheet by name or by index are not affected.
+
+
 0.2.0 - 01.06.2016
 --------------------------------------------------------------------------------
 

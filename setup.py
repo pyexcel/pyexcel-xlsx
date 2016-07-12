@@ -7,7 +7,7 @@ except ImportError:
 
 NAME = 'pyexcel-xlsx'
 AUTHOR = 'C.W.'
-VERSION = '0.2.0'
+VERSION = '0.2.1'
 EMAIL = 'wangc_2011 (at) hotmail.com'
 LICENSE = 'New BSD'
 PACKAGES = find_packages(exclude=['ez_setup', 'examples', 'tests'])
