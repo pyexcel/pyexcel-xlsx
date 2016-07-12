@@ -10,6 +10,7 @@ from unittest import TestCase
 import pyexcel as pe
 from pyexcel_xlsx.xlsx import get_columns
 from pyexcel.sheets.matrix import _excel_column_index
+from nose.tools import eq_
 
 
 class TestBugFix(TestCase):
@@ -119,3 +120,17 @@ class TestBugFix(TestCase):
         tmp_file = "date_field.xlsx"
         s = pe.get_sheet(file_name=os.path.join("tests", "fixtures", tmp_file))
         assert s.number_of_columns() == 2
+
+    def test_issue_8_hidden_sheet(self):
+        test_file = os.path.join("tests", "fixtures", "hidden_sheets.xlsx")
+        book_dict = pe.get_book_dict(file_name=test_file, library="pyexcel-xlsx")
+        assert "hidden" not in book_dict
+        eq_(book_dict['shown'], [['A', 'B']])
+
+    def test_issue_8_hidden_sheet_2(self):
+        test_file = os.path.join("tests", "fixtures", "hidden_sheets.xlsx")
+        book_dict = pe.get_book_dict(file_name=test_file,
+                                     skip_hidden_sheets=False, library="pyexcel-xlsx")
+        assert "hidden" in book_dict
+        eq_(book_dict['shown'], [['A', 'B']])
+        eq_(book_dict['hidden'], [['a', 'b']])

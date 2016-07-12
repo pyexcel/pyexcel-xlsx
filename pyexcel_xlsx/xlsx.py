@@ -84,10 +84,12 @@ class XLSXBook(BookReader):
     """
     def open(self, file_name, **keywords):
         BookReader.open(self, file_name, **keywords)
+        self._get_params()
         self._load_from_file()
 
     def open_stream(self, file_stream, **keywords):
         BookReader.open_stream(self, file_stream, **keywords)
+        self._get_params()
         self._load_from_memory()
 
     def read_sheet_by_name(self, sheet_name):
@@ -110,6 +112,8 @@ class XLSXBook(BookReader):
     def read_all(self):
         result = OrderedDict()
         for sheet in self.native_book:
+            if self.skip_hidden_sheets and sheet.sheet_state == 'hidden':
+                continue
             data_dict = self.read_sheet(sheet)
             result.update(data_dict)
         return result
@@ -125,6 +129,9 @@ class XLSXBook(BookReader):
     def _load_from_file(self):
         self.native_book = openpyxl.load_workbook(filename=self.file_name,
                                                   data_only=True)
+
+    def _get_params(self):
+        self.skip_hidden_sheets = self.keywords.get('skip_hidden_sheets', True)
 
 
 class XLSXSheetWriter(SheetWriter):
