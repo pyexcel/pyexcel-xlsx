@@ -92,7 +92,7 @@ class PyexcelMultipleSheetBase:
         for s in b:
             data = pyexcel.utils.to_array(s)
             assert self.content[s.name] == data
-        si = pyexcel.iterators.SheetIterator(b)
+        si = pyexcel.sheets.iterators.SheetIterator(b)
         for s in si:
             data = pyexcel.utils.to_array(s)
             assert self.content[s.name] == data
