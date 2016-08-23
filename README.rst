@@ -121,6 +121,51 @@ Continue from previous example:
     {"Sheet 1": [[1, 2, 3], [4, 5, 6]], "Sheet 2": [[7, 8, 9], [10, 11, 12]]}
 
 
+Pagination feature
+********************************************************************************
+
+Let's assume the following file is a huge xlsx file:
+
+   >>> huge_data = [
+   ...     [1, 21, 31],
+   ...     [2, 22, 32],
+   ...     [3, 23, 33],
+   ...     [4, 24, 34],
+   ...     [5, 25, 35],
+   ...     [6, 26, 36]
+   ... ]
+   >>> sheetx = {
+   ...     "huge": huge_data
+   ... }
+   >>> save_data("huge_file.xlsx", sheetx)
+
+And let's pretend to read partial data:
+
+.. code-block:: python
+
+   >>> partial_data = get_data("huge_file.xlsx", start_row=2, row_limit=3)
+   >>> partial_data['huge']
+   [[3, 23, 33], [4, 24, 34], [5, 25, 35]]
+
+And you could as well do the same for columns:
+
+.. code-block:: python
+
+   >>> partial_data = get_data("huge_file.xlsx", start_column=1, column_limit=2)
+   >>> partial_data['huge']
+   [[21, 31], [22, 32], [23, 33], [24, 34], [25, 35], [26, 36]]
+
+Obvious, you could do both at the same time:
+
+.. code-block:: python
+
+   >>> partial_data = get_data("huge_file.xlsx",
+   ...     start_row=2, row_limit=3)
+   ...     start_column=1, column_limit=2)
+   >>> partial_data['huge']
+   [[3, 23, 33], [4, 24, 34], [5, 25, 35]]
+
+
 As a pyexcel plugin
 --------------------------------------------------------------------------------
 
@@ -273,4 +318,5 @@ On Windows systems, please issue this command::
 
    >>> import os
    >>> os.unlink("your_file.xlsx")
+   >>> os.unlink("huge_file.xlsx")
    >>> os.unlink("another_file.xlsx")
