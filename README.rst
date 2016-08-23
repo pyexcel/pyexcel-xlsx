@@ -160,7 +160,7 @@ Obvious, you could do both at the same time:
 .. code-block:: python
 
    >>> partial_data = get_data("huge_file.xlsx",
-   ...     start_row=2, row_limit=3)
+   ...     start_row=2, row_limit=3,
    ...     start_column=1, column_limit=2)
    >>> partial_data['huge']
    [[3, 23, 33], [4, 24, 34], [5, 25, 35]]
