@@ -55,34 +55,13 @@ class XLSXSheet(SheetReader):
         """
         return self.native_sheet.max_column
 
-    def cell_value(self, row, column):
+    def _cell_value(self, row, column):
         """
         Random access to the xls cells
         """
         actual_row = row + 1
         cell_location = "%s%d" % (get_columns(column), actual_row)
         return self.native_sheet.cell(cell_location).value
-
-    def to_array(self):
-        for row in range(0, self.number_of_rows()):
-            return_row = []
-            tmp_row = []
-            if self.skip_row(row, self.start_row, self.row_limit):
-                continue
-
-            for column in range(0, self.number_of_columns()):
-                skip_column = self.skip_column(column,
-                                               self.start_column,
-                                               self.column_limit)
-                if skip_column:
-                    continue
-
-                cell_value = self.cell_value(row, column)
-                tmp_row.append(cell_value)
-                if cell_value is not None and cell_value != '':
-                    return_row += tmp_row
-                    tmp_row = []
-            yield return_row
 
 
 class XLSXBook(BookReader):
