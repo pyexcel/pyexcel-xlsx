@@ -52,6 +52,7 @@ Write to an xlsx file
 .. testcode::
    :hide:
 
+    >>> import os
     >>> import sys
     >>> if sys.version_info[0] < 3:
     ...     from StringIO import StringIO
@@ -86,6 +87,7 @@ Here's the sample code:
     >>> import json
     >>> print(json.dumps(data))
     {"Sheet 1": [[1, 2, 3], [4, 5, 6]], "Sheet 2": [["row 1", "row 2", "row 3"]]}
+
 
 Write an xlsx to memory
 ********************************************************************************
@@ -126,6 +128,8 @@ Pagination feature
 
 Let's assume the following file is a huge xlsx file:
 
+.. code-block:: python
+
    >>> huge_data = [
    ...     [1, 21, 31],
    ...     [2, 22, 32],
@@ -144,16 +148,16 @@ And let's pretend to read partial data:
 .. code-block:: python
 
    >>> partial_data = get_data("huge_file.xlsx", start_row=2, row_limit=3)
-   >>> partial_data['huge']
-   [[3, 23, 33], [4, 24, 34], [5, 25, 35]]
+   >>> print(json.dumps(partial_data))
+   {"huge": [[3, 23, 33], [4, 24, 34], [5, 25, 35]]}
 
 And you could as well do the same for columns:
 
 .. code-block:: python
 
    >>> partial_data = get_data("huge_file.xlsx", start_column=1, column_limit=2)
-   >>> partial_data['huge']
-   [[21, 31], [22, 32], [23, 33], [24, 34], [25, 35], [26, 36]]
+   >>> print(json.dumps(partial_data))
+   {"huge": [[21, 31], [22, 32], [23, 33], [24, 34], [25, 35], [26, 36]]}
 
 Obvious, you could do both at the same time:
 
@@ -162,8 +166,13 @@ Obvious, you could do both at the same time:
    >>> partial_data = get_data("huge_file.xlsx",
    ...     start_row=2, row_limit=3,
    ...     start_column=1, column_limit=2)
-   >>> partial_data['huge']
-   [[23, 33], [24, 34], [25, 35]]
+   >>> print(json.dumps(partial_data))
+   {"huge": [[23, 33], [24, 34], [25, 35]]}
+
+.. testcode::
+   :hide:
+
+   >>> os.unlink("huge_file.xlsx")
 
 
 As a pyexcel plugin
@@ -182,6 +191,7 @@ Import it in your file to enable this plugin:
     from pyexcel.ext import xlsx
 
 Please note only pyexcel version 0.0.4+ support this.
+
 
 Reading from an xlsx file
 ********************************************************************************
@@ -205,6 +215,7 @@ Here is the sample code:
     | row 1 | row 2 | row 3 |
     +-------+-------+-------+
 
+
 Writing to an xlsx file
 ********************************************************************************
 
@@ -214,8 +225,9 @@ Here is the sample code:
 
     >>> sheet.save_as("another_file.xlsx")
 
+
 Reading from a IO instance
-================================================================================
+********************************************************************************
 
 You got to wrap the binary content with stream to get xlsx working:
 
@@ -243,7 +255,7 @@ You got to wrap the binary content with stream to get xlsx working:
 
 
 Writing to a StringIO instance
-================================================================================
+********************************************************************************
 
 You need to pass a StringIO instance to Writer:
 
@@ -318,5 +330,4 @@ On Windows systems, please issue this command::
 
    >>> import os
    >>> os.unlink("your_file.xlsx")
-   >>> os.unlink("huge_file.xlsx")
    >>> os.unlink("another_file.xlsx")
