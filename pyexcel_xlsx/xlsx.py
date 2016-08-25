@@ -134,10 +134,7 @@ class XLSXSheetWriter(SheetWriter):
         """
         write a row into the file
         """
-        for i in range(0, len(array)):
-            cell_location = "%s%d" % (get_columns(i), self.current_row)
-            self.native_sheet.cell(cell_location).value = array[i]
-        self.current_row += 1
+        self.native_sheet.append(array)
 
 
 class XLSXWriter(BookWriter):
@@ -151,16 +148,11 @@ class XLSXWriter(BookWriter):
 
     def open(self, file_name, **keywords):
         BookWriter.open(self, file_name, **keywords)
-        self.native_book = openpyxl.Workbook()
+        self.native_book = openpyxl.Workbook(write_only=True)
 
     def create_sheet(self, name):
-        if self.current_sheet == 0:
-            self.current_sheet = 1
-            return XLSXSheetWriter(self.native_book,
-                                   self.native_book.active, name)
-        else:
-            return XLSXSheetWriter(self.native_book,
-                                   self.native_book.create_sheet(), name)
+        return XLSXSheetWriter(self.native_book,
+                               self.native_book.create_sheet(), name)
 
     def close(self):
         """
