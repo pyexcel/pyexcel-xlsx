@@ -28,6 +28,7 @@ INSTALL_REQUIRES = [
     'pyexcel-io>=0.2.2',
 ]
 
+
 EXTRAS_REQUIRE = {
 }
 
