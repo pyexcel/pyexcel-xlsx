@@ -1,9 +1,7 @@
 import os
 import sys
-from nose.tools import raises
-
 import pyexcel
-
+from nose.tools import raises
 from base import PyexcelMultipleSheetBase
 
 if sys.version_info[0] == 2 and sys.version_info[1] < 7:
@@ -44,7 +42,8 @@ class TestAddBooks:
         3,3,3,3
         """
         self.rows = 3
-        pyexcel.save_book_as(bookdict=self.content, dest_file_name=file)
+        pyexcel.save_book_as(bookdict=self.content,
+                             dest_file_name=file)
 
     def setUp(self):
         self.testfile = "multiple3.xlsx"
@@ -68,7 +67,7 @@ class TestAddBooks:
 
     @raises(IndexError)
     def test_load_a_single_sheet3(self):
-        pyexcel.load_book(self.testfile, sheet_index=10000)
+        pyexcel.get_book(file_name=self.testfile, sheet_index=10000)
 
     @raises(KeyError)
     def test_load_a_single_sheet4(self):
@@ -110,7 +109,7 @@ class TestAddBooks:
         b1 = pyexcel.get_book(file_name=self.testfile)
         b2 = pyexcel.get_book(file_name=self.testfile2)
         b3 = b1 + b2
-        content = pyexcel.utils.to_dict(b3)
+        content = b3.dict
         sheet_names = content.keys()
         assert len(sheet_names) == 6
         for name in sheet_names:
@@ -123,12 +122,12 @@ class TestAddBooks:
 
     def test_add_book1_in_place(self):
         """
-        test this scenario book1 +=  book2
+        test this scenario: book1 +=  book2
         """
         b1 = pyexcel.BookReader(self.testfile)
         b2 = pyexcel.BookReader(self.testfile2)
         b1 += b2
-        content = pyexcel.utils.to_dict(b1)
+        content = b1.dict
         sheet_names = content.keys()
         assert len(sheet_names) == 6
         for name in sheet_names:
@@ -141,12 +140,12 @@ class TestAddBooks:
 
     def test_add_book2(self):
         """
-        test this scenario book3 = book1 + sheet3
+        test this scenario: book3 = book1 + sheet3
         """
         b1 = pyexcel.BookReader(self.testfile)
         b2 = pyexcel.BookReader(self.testfile2)
         b3 = b1 + b2["Sheet3"]
-        content = pyexcel.utils.to_dict(b3)
+        content = b3.dict
         sheet_names = content.keys()
         assert len(sheet_names) == 4
         for name in sheet_names:
@@ -159,12 +158,12 @@ class TestAddBooks:
 
     def test_add_book2_in_place(self):
         """
-        test this scenario book3 = book1 + sheet3
+        test this scenario: book3 = book1 + sheet3
         """
         b1 = pyexcel.BookReader(self.testfile)
         b2 = pyexcel.BookReader(self.testfile2)
         b1 += b2["Sheet3"]
-        content = pyexcel.utils.to_dict(b1)
+        content = b1.dict
         sheet_names = content.keys()
         assert len(sheet_names) == 4
         for name in sheet_names:
@@ -177,12 +176,12 @@ class TestAddBooks:
 
     def test_add_book3(self):
         """
-        test this scenario book3 = sheet1 + sheet2
+        test this scenario: book3 = sheet1 + sheet2
         """
         b1 = pyexcel.BookReader(self.testfile)
         b2 = pyexcel.BookReader(self.testfile2)
         b3 = b1["Sheet1"] + b2["Sheet3"]
-        content = pyexcel.utils.to_dict(b3)
+        content = b3.dict
         sheet_names = content.keys()
         assert len(sheet_names) == 2
         assert content["Sheet3"] == self.content["Sheet3"]
@@ -190,12 +189,12 @@ class TestAddBooks:
 
     def test_add_book4(self):
         """
-        test this scenario book3 = sheet1 + book
+        test this scenario: book3 = sheet1 + book
         """
         b1 = pyexcel.BookReader(self.testfile)
         b2 = pyexcel.BookReader(self.testfile2)
         b3 = b1["Sheet1"] + b2
-        content = pyexcel.utils.to_dict(b3)
+        content = b3.dict
         sheet_names = content.keys()
         assert len(sheet_names) == 4
         for name in sheet_names:

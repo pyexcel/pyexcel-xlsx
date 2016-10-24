@@ -9,7 +9,7 @@ from textwrap import dedent
 from unittest import TestCase
 import pyexcel as pe
 from pyexcel_xlsx.xlsx import get_columns
-from pyexcel.sheets.matrix import _excel_column_index
+from pyexcel.sheets._shared import excel_column_index
 from nose.tools import eq_
 
 
@@ -46,7 +46,7 @@ class TestBugFix(TestCase):
         ]
         for column_name in indices:
             print("Testing %s" % column_name)
-            column_index = _excel_column_index(column_name)
+            column_index = excel_column_index(column_name)
             new_column_name = get_columns(column_index)
             print(column_index)
             print(column_name)
