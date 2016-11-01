@@ -61,7 +61,7 @@ class XLSXSheet(SheetReader):
         """
         actual_row = row + 1
         cell_location = "%s%d" % (get_columns(column), actual_row)
-        return self.native_sheet.cell(cell_location).value
+        return self.native_sheet[cell_location].value
 
 
 class XLSXBook(BookReader):
