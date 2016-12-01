@@ -41,19 +41,19 @@ class XLSXSheet(SheetReader):
     @property
     def name(self):
         """sheet name"""
-        return self.native_sheet.title
+        return self._native_sheet.title
 
     def number_of_rows(self):
         """
         Number of rows in the xls sheet
         """
-        return self.native_sheet.max_row
+        return self._native_sheet.max_row
 
     def number_of_columns(self):
         """
         Number of columns in the xls sheet
         """
-        return self.native_sheet.max_column
+        return self._native_sheet.max_column
 
     def _cell_value(self, row, column):
         """
@@ -61,7 +61,7 @@ class XLSXSheet(SheetReader):
         """
         actual_row = row + 1
         cell_location = "%s%d" % (get_columns(column), actual_row)
-        return self.native_sheet[cell_location].value
+        return self._native_sheet[cell_location].value
 
 
 class XLSXBook(BookReader):
@@ -81,14 +81,14 @@ class XLSXBook(BookReader):
         self._load_from_memory()
 
     def read_sheet_by_name(self, sheet_name):
-        sheet = self.native_book.get_sheet_by_name(sheet_name)
+        sheet = self._native_book.get_sheet_by_name(sheet_name)
         if sheet is None:
             raise ValueError("%s cannot be found" % sheet_name)
         else:
             return self.read_sheet(sheet)
 
     def read_sheet_by_index(self, sheet_index):
-        names = self.native_book.sheetnames
+        names = self._native_book.sheetnames
         length = len(names)
         if sheet_index < length:
             return self.read_sheet_by_name(names[sheet_index])
@@ -99,7 +99,7 @@ class XLSXBook(BookReader):
 
     def read_all(self):
         result = OrderedDict()
-        for sheet in self.native_book:
+        for sheet in self._native_book:
             if self.skip_hidden_sheets and sheet.sheet_state == 'hidden':
                 continue
             data_dict = self.read_sheet(sheet)
@@ -107,19 +107,20 @@ class XLSXBook(BookReader):
         return result
 
     def read_sheet(self, native_sheet):
-        sheet = XLSXSheet(native_sheet, **self.keywords)
+        sheet = XLSXSheet(native_sheet, **self._keywords)
         return {sheet.name: sheet.to_array()}
 
     def _load_from_memory(self):
-        self.native_book = openpyxl.load_workbook(filename=self.file_stream,
-                                                  data_only=True)
+        self._native_book = openpyxl.load_workbook(
+            filename=self._file_stream, data_only=True)
 
     def _load_from_file(self):
-        self.native_book = openpyxl.load_workbook(filename=self.file_name,
-                                                  data_only=True)
+        self._native_book = openpyxl.load_workbook(
+            filename=self._file_name, data_only=True)
 
     def _get_params(self):
-        self.skip_hidden_sheets = self.keywords.get('skip_hidden_sheets', True)
+        self.skip_hidden_sheets = self._keywords.get(
+            'skip_hidden_sheets', True)
 
 
 class XLSXSheetWriter(SheetWriter):
@@ -127,14 +128,14 @@ class XLSXSheetWriter(SheetWriter):
     xls, xlsx and xlsm sheet writer
     """
     def set_sheet_name(self, name):
-        self.native_sheet.title = name
+        self._native_sheet.title = name
         self.current_row = 1
 
     def write_row(self, array):
         """
         write a row into the file
         """
-        self.native_sheet.append(array)
+        self._native_sheet.append(array)
 
 
 class XLSXWriter(BookWriter):
@@ -144,21 +145,22 @@ class XLSXWriter(BookWriter):
     def __init__(self):
         BookWriter.__init__(self)
         self.current_sheet = 0
-        self.native_book = None
+        self._native_book = None
 
     def open(self, file_name, **keywords):
         BookWriter.open(self, file_name, **keywords)
-        self.native_book = openpyxl.Workbook(write_only=True)
+        self._native_book = openpyxl.Workbook(write_only=True)
 
     def create_sheet(self, name):
-        return XLSXSheetWriter(self.native_book,
-                               self.native_book.create_sheet(), name)
+        return XLSXSheetWriter(self._native_book,
+                               self._native_book.create_sheet(), name)
 
     def close(self):
         """
         This call actually save the file
         """
-        self.native_book.save(filename=self.file_alike_object)
+        self._native_book.save(filename=self._file_alike_object)
+
 
 _XLSX_MIME = (
     "application/" +
