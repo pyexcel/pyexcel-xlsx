@@ -13,7 +13,7 @@
 __FILE_TYPE__ = 'xlsx'
 __META__ = {
     'submodule': __FILE_TYPE__,
-    'file_types': [__FILE_TYPE__],
+    'file_types': [__FILE_TYPE__, 'xlsm'],
     'stream_type': 'binary'
 }
 
