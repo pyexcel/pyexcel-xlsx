@@ -43,25 +43,18 @@ class XLSXSheet(SheetReader):
         """sheet name"""
         return self._native_sheet.title
 
-    def number_of_rows(self):
+    def _iterate_rows(self):
         """
         Number of rows in the xls sheet
         """
-        return self._native_sheet.max_row
+        return self._native_sheet.rows
 
-    def number_of_columns(self):
+    def _iterate_columns(self, row):
         """
         Number of columns in the xls sheet
         """
-        return self._native_sheet.max_column
-
-    def _cell_value(self, row, column):
-        """
-        Random access to the xls cells
-        """
-        actual_row = row + 1
-        cell_location = "%s%d" % (get_columns(column), actual_row)
-        return self._native_sheet[cell_location].value
+        for cell in row:
+            yield cell.value
 
 
 class XLSXBook(BookReader):
@@ -73,12 +66,12 @@ class XLSXBook(BookReader):
     def open(self, file_name, **keywords):
         BookReader.open(self, file_name, **keywords)
         self._get_params()
-        self._load_from_file()
+        self._load_the_excel_file(file_name)
 
     def open_stream(self, file_stream, **keywords):
         BookReader.open_stream(self, file_stream, **keywords)
         self._get_params()
-        self._load_from_memory()
+        self._load_the_excel_file(file_stream)
 
     def read_sheet_by_name(self, sheet_name):
         sheet = self._native_book.get_sheet_by_name(sheet_name)
@@ -110,13 +103,9 @@ class XLSXBook(BookReader):
         sheet = XLSXSheet(native_sheet, **self._keywords)
         return {sheet.name: sheet.to_array()}
 
-    def _load_from_memory(self):
+    def _load_the_excel_file(self, file_alike_object):
         self._native_book = openpyxl.load_workbook(
-            filename=self._file_stream, data_only=True)
-
-    def _load_from_file(self):
-        self._native_book = openpyxl.load_workbook(
-            filename=self._file_name, data_only=True)
+            filename=file_alike_object, data_only=True, read_only=True)
 
     def _get_params(self):
         self.skip_hidden_sheets = self._keywords.get(

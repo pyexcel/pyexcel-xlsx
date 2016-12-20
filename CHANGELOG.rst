@@ -8,7 +8,8 @@ Updated
 ********************************************************************************
 
 #. Code refactoring with pyexcel-io v 0.3.0
-
+#. `#13 <https://github.com/pyexcel/pyexcel-xlsx/issues/13>`_, turn read_only
+   flag on openpyxl.
 
 0.2.3 - 05.11.2016
 --------------------------------------------------------------------------------
