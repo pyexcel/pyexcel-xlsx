@@ -43,13 +43,13 @@ class XLSXSheet(SheetReader):
         """sheet name"""
         return self._native_sheet.title
 
-    def _iterate_rows(self):
+    def row_iterator(self):
         """
         Number of rows in the xls sheet
         """
         return self._native_sheet.rows
 
-    def _iterate_columns(self, row):
+    def column_iterator(self, row):
         """
         Number of columns in the xls sheet
         """
