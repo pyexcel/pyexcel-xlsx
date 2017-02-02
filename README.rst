@@ -39,9 +39,6 @@ Usage
 As a standalone library
 --------------------------------------------------------------------------------
 
-Write to an xlsx file
-********************************************************************************
-
 .. testcode::
    :hide:
 
@@ -58,6 +55,11 @@ Write to an xlsx file
     ...     from collections import OrderedDict
 
 
+Write to an xlsx file
+********************************************************************************
+
+
+
 Here's the sample code to write a dictionary to an xlsx file:
 
 .. code-block:: python
@@ -67,6 +69,7 @@ Here's the sample code to write a dictionary to an xlsx file:
     >>> data.update({"Sheet 1": [[1, 2, 3], [4, 5, 6]]})
     >>> data.update({"Sheet 2": [["row 1", "row 2", "row 3"]]})
     >>> save_data("your_file.xlsx", data)
+
 
 Read from an xlsx file
 ********************************************************************************
@@ -101,6 +104,7 @@ Here's the sample code to write a dictionary to an xlsx file:
 
 
 
+
 Read from an xlsx from memory
 ********************************************************************************
 
@@ -118,6 +122,8 @@ Continue from previous example:
 
 Pagination feature
 ********************************************************************************
+
+
 
 Let's assume the following file is a huge xlsx file:
 
@@ -175,16 +181,6 @@ No longer, explicit import is needed since pyexcel version 0.2.2. Instead,
 this library is auto-loaded. So if you want to read data in xlsx format,
 installing it is enough.
 
-Any version under pyexcel 0.2.2, you have to keep doing the following:
-
-Import it in your file to enable this plugin:
-
-.. code-block:: python
-
-    from pyexcel.ext import xlsx
-
-Please note only pyexcel version 0.0.4+ support this.
-
 
 Reading from an xlsx file
 ********************************************************************************
@@ -194,7 +190,6 @@ Here is the sample code:
 .. code-block:: python
 
     >>> import pyexcel as pe
-    >>> # from pyexcel.ext import xlsx
     >>> sheet = pe.get_book(file_name="your_file.xlsx")
     >>> sheet
     Sheet 1:
@@ -265,6 +260,7 @@ You need to pass a StringIO instance to Writer:
     >>> # In reality, you might give it to your http response
     >>> # object for downloading
 
+
 License
 ================================================================================
 
@@ -293,7 +289,7 @@ In order to update test environment, and documentation, additional setps are
 required:
 
 #. pip install moban
-#. git clone https://github.com/pyexcel/pyexcel-commons.git
+#. git clone https://github.com/pyexcel/pyexcel-commons.git commons
 #. make your changes in `.moban.d` directory, then issue command `moban`
 
 What is rnd_requirements.txt

@@ -15,3 +15,8 @@ targets:
   - test.sh: test.sh.jj2
   - test.bat: test.sh.jj2
   - "tests/requirements.txt": "tests/requirements.txt"
+  - "tests/test_filter.py": "tests/test_filter.py.jj2"
+  - "tests/test_formatters.py": "tests/test_formatters.py.jj2"
+  - "tests/test_stringio.py": "tests/test_stringio.py.jj2"
+  - "tests/test_writer.py": "tests/test_writer.py.jj2"
+  - "tests/base.py": "tests/base.py"
