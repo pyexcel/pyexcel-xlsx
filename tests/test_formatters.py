@@ -67,23 +67,5 @@ class TestAutoDetectInt(TestCase):
         +---+---+-----+""").strip()
         self.assertEqual(str(book), expected)
 
-    def test_auto_detect_int_false(self):
-        sheet = pe.get_sheet(file_name=self.test_file, auto_detect_int=False)
-        expected = dedent("""
-        pyexcel_sheet1:
-        +-----+-----+-----+
-        | 1.0 | 2.0 | 3.1 |
-        +-----+-----+-----+""").strip()
-        self.assertEqual(str(sheet), expected)
-
-    def test_get_book_auto_detect_int_false(self):
-        book = pe.get_book(file_name=self.test_file, auto_detect_int=False)
-        expected = dedent("""
-        pyexcel_sheet1:
-        +-----+-----+-----+
-        | 1.0 | 2.0 | 3.1 |
-        +-----+-----+-----+""").strip()
-        self.assertEqual(str(book), expected)
-
     def tearDown(self):
         os.unlink(self.test_file)
