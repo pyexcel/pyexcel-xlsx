@@ -1,7 +1,7 @@
-import os # noqa
+import os  # noqa
 import pyexcel
-import datetime # noqa
-from nose.tools import raises, eq_ # noqa
+import datetime  # noqa
+from nose.tools import raises, eq_  # noqa
 
 
 def create_sample_file1(file):
