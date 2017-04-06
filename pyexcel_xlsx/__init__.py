@@ -12,6 +12,7 @@
 # because of dynamic import
 __FILE_TYPE__ = 'xlsx'
 __META__ = {
+    'plugin_type': 'pyexcel io plugin',
     'submodule': __FILE_TYPE__,
     'file_types': [__FILE_TYPE__, 'xlsm'],
     'stream_type': 'binary'
