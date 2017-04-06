@@ -9,7 +9,7 @@ from textwrap import dedent
 from unittest import TestCase
 import pyexcel as pe
 from pyexcel_xlsx.xlsx import get_columns
-from pyexcel.sheets._shared import excel_column_index
+from pyexcel.internal.sheets._shared import excel_column_index
 from nose.tools import eq_
 
 
