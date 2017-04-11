@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+DESCRIPTION = (
+    'A wrapper library to read, manipulate and write data in xlsx and xlsm ' +
+    'format' +
+    ''
+)
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
@@ -16,8 +21,8 @@ master_doc = 'index'
 
 project = u'pyexcel-xlsx'
 copyright = u'2015-2017 Onni Software Ltd.'
-version = '0.3.0'
-release = '0.3.1'
+version = '0.3.1'
+release = '0.4.0'
 exclude_patterns = []
 pygments_style = 'sphinx'
 html_theme = 'default'
@@ -25,15 +30,19 @@ html_static_path = ['_static']
 htmlhelp_basename = 'pyexcel-xlsxdoc'
 latex_elements = {}
 latex_documents = [
-    ('index', 'pyexcel-xlsx.tex', u'pyexcel-xlsx Documentation',
+    ('index', 'pyexcel-xlsx.tex',
+     'pyexcel-xlsx Documentation',
      'Onni Software Ltd.', 'manual'),
 ]
 man_pages = [
-    ('index', 'pyexcel-xlsx', u'pyexcel-xlsx Documentation',
+    ('index', 'pyexcel-xlsx',
+     'pyexcel-xlsx Documentation',
      [u'Onni Software Ltd.'], 1)
 ]
 texinfo_documents = [
-    ('index', 'pyexcel-xlsx', u'pyexcel-xlsx Documentation',
-     'Onni Software Ltd.', 'pyexcel-xlsx', 'One line description of project.',
+    ('index', 'pyexcel-xlsx',
+     'pyexcel-xlsx Documentation',
+     'Onni Software Ltd.', 'pyexcel-xlsx',
+     DESCRIPTION,
      'Miscellaneous'),
 ]

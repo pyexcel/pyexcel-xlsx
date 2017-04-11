@@ -278,7 +278,7 @@ Development steps for code changes
 
 Upgrade your setup tools and pip. They are needed for development and testing only:
 
-#. pip install --upgrade setuptools "pip==7.1"
+#. pip install --upgrade setuptools pip
 
 Then install relevant development requirements:
 
@@ -287,7 +287,7 @@ Then install relevant development requirements:
 #. pip install -r tests/requirements.txt
 
 
-In order to update test environment, and documentation, additional setps are
+In order to update test environment, and documentation, additional steps are
 required:
 
 #. pip install moban
@@ -316,7 +316,7 @@ Although `nose` and `doctest` are both used in code testing, it is adviable that
 
 On Linux/Unix systems, please launch your tests like this::
 
-    $ make test
+    $ make
 
 On Windows systems, please issue this command::
 

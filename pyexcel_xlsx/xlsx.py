@@ -63,6 +63,10 @@ class XLSXBook(BookReader):
 
     It reads xls, xlsm, xlsx work book
     """
+    file_types = ['xlsx', 'xlsm']
+    stream_type = 'binary'
+    library = 'pyexcel-xlsx'
+
     def open(self, file_name, **keywords):
         BookReader.open(self, file_name, **keywords)
         self._get_params()
@@ -131,6 +135,10 @@ class XLSXWriter(BookWriter):
     """
     xls, xlsx and xlsm writer
     """
+    file_types = ['xlsx', 'xlsm']
+    stream_type = 'binary'
+    library = 'pyexcel-xlsx'
+
     def __init__(self):
         BookWriter.__init__(self)
         self.current_sheet = 0
@@ -149,28 +157,3 @@ class XLSXWriter(BookWriter):
         This call actually save the file
         """
         self._native_book.save(filename=self._file_alike_object)
-
-
-_XLSX_MIME = (
-    "application/" +
-    "vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-
-_xlsx_registry = {
-    "file_type": "xlsx",
-    "reader": XLSXBook,
-    "writer": XLSXWriter,
-    "stream_type": "binary",
-    "mime_type": _XLSX_MIME,
-    "library": "pyexcel-xlsx"
-}
-
-_xlsm_registry = {
-    "file_type": "xlsm",
-    "reader": XLSXBook,
-    "writer": XLSXWriter,
-    "stream_type": "binary",
-    "mime_type": "application/vnd.ms-excel.sheet.macroenabled.12",
-    "library": "pyexcel-xlsx"
-}
-
-exports = (_xlsx_registry, _xlsm_registry)
