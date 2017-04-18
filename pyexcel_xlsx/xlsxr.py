@@ -1,15 +1,15 @@
 """
-    pyexcel_xlsx
+    pyexcel_xlsx.xlsxr
     ~~~~~~~~~~~~~~~~~~~
 
-    The lower level xlsx file format handler using openpyxl
+    Read xlsx file format using openpyxl
 
     :copyright: (c) 2015-2017 by Onni Software Ltd & its contributors
     :license: New BSD License
 """
 import sys
-from pyexcel_io.book import BookReader, BookWriter
-from pyexcel_io.sheet import SheetReader, SheetWriter
+from pyexcel_io.book import BookReader
+from pyexcel_io.sheet import SheetReader
 import openpyxl
 
 PY27_BELOW = sys.version_info[0] == 2 and sys.version_info[1] < 7
@@ -65,7 +65,6 @@ class XLSXBook(BookReader):
     """
     file_types = ['xlsx', 'xlsm']
     stream_type = 'binary'
-    library = 'pyexcel-xlsx'
 
     def open(self, file_name, **keywords):
         BookReader.open(self, file_name, **keywords)
@@ -114,46 +113,3 @@ class XLSXBook(BookReader):
     def _get_params(self):
         self.skip_hidden_sheets = self._keywords.get(
             'skip_hidden_sheets', True)
-
-
-class XLSXSheetWriter(SheetWriter):
-    """
-    xls, xlsx and xlsm sheet writer
-    """
-    def set_sheet_name(self, name):
-        self._native_sheet.title = name
-        self.current_row = 1
-
-    def write_row(self, array):
-        """
-        write a row into the file
-        """
-        self._native_sheet.append(array)
-
-
-class XLSXWriter(BookWriter):
-    """
-    xls, xlsx and xlsm writer
-    """
-    file_types = ['xlsx', 'xlsm']
-    stream_type = 'binary'
-    library = 'pyexcel-xlsx'
-
-    def __init__(self):
-        BookWriter.__init__(self)
-        self.current_sheet = 0
-        self._native_book = None
-
-    def open(self, file_name, **keywords):
-        BookWriter.open(self, file_name, **keywords)
-        self._native_book = openpyxl.Workbook(write_only=True)
-
-    def create_sheet(self, name):
-        return XLSXSheetWriter(self._native_book,
-                               self._native_book.create_sheet(), name)
-
-    def close(self):
-        """
-        This call actually save the file
-        """
-        self._native_book.save(filename=self._file_alike_object)
