@@ -1,5 +1,6 @@
 import os
-from pyexcel_xlsx.xlsx import XLSXWriter as Writer, XLSXBook as Reader
+from pyexcel_xlsx.xlsxw import XLSXWriter as Writer
+from pyexcel_xlsx.xlsxr import XLSXBook as Reader
 from base import PyexcelWriterBase, PyexcelHatWriterBase
 
 
