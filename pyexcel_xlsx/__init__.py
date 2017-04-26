@@ -15,12 +15,12 @@ from pyexcel_io.io import get_data as read_data, isstream, store_data as write_d
 
 
 __FILE_TYPE__ = 'xlsx'
-__pyexcel_io_plugins__ = IORegistry(__name__).add_a_reader(
-    submodule='xlsxr',
+IORegistry(__name__).add_a_reader(
+    submodule='xlsxr.XLSXBook',
     file_types=[__FILE_TYPE__, 'xlsm'],
     stream_type='binary'
 ).add_a_writer(
-    submodule='xlsxw',
+    submodule='xlsxw.XLSXWriter',
     file_types=[__FILE_TYPE__, 'xlsm'],
     stream_type='binary'
 )
