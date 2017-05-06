@@ -106,6 +106,10 @@ class XLSXBook(BookReader):
         sheet = XLSXSheet(native_sheet, **self._keywords)
         return {sheet.name: sheet.to_array()}
 
+    def close(self):
+        self._native_book.close()
+        self._native_book = None
+
     def _load_the_excel_file(self, file_alike_object):
         self._native_book = openpyxl.load_workbook(
             filename=file_alike_object, data_only=True, read_only=True)
