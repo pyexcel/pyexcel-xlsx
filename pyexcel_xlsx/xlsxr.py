@@ -63,9 +63,6 @@ class XLSXBook(BookReader):
 
     It reads xls, xlsm, xlsx work book
     """
-    file_types = ['xlsx', 'xlsm']
-    stream_type = 'binary'
-
     def open(self, file_name, **keywords):
         BookReader.open(self, file_name, **keywords)
         self._get_params()

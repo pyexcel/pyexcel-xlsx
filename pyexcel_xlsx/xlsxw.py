@@ -31,9 +31,6 @@ class XLSXWriter(BookWriter):
     """
     xls, xlsx and xlsm writer
     """
-    file_types = ['xlsx', 'xlsm']
-    stream_type = 'binary'
-
     def __init__(self):
         BookWriter.__init__(self)
         self.current_sheet = 0
