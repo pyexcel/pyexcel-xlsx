@@ -136,5 +136,47 @@ def test_issue_8_hidden_sheet_2():
     eq_(book_dict['hidden'], [['a', 'b']])
 
 
+def test_issue_14_xlsx_file_handle():
+    proc = psutil.Process()
+    test_file = os.path.join("tests", "fixtures", "hidden_sheets.xlsx")
+    open_files_l1 = proc.open_files()
+
+    # start with a csv file
+    data = pe.iget_array(file_name=test_file, library='pyexcel-xlsx')
+    open_files_l2 = proc.open_files()
+    delta = len(open_files_l2) - len(open_files_l1)
+    # interestingly, file is already open :)
+    assert delta == 1
+
+    # now the file handle get opened when we run through
+    # the generator
+    list(data)
+    open_files_l3 = proc.open_files()
+    delta = len(open_files_l3) - len(open_files_l1)
+    # caught an open file handle, the "fish" finally
+    assert delta == 1
+
+    # free the fish
+    pe.free_resource()
+    open_files_l4 = proc.open_files()
+    # this confirms that no more open file handle
+    eq_(open_files_l1, open_files_l4)
+
+
+def test_issue_83_file_handle_no_generator():
+    proc = psutil.Process()
+    test_files = [
+        os.path.join("tests", "fixtures", "hidden_sheets.xlsx")
+    ]
+    for test_file in test_files:
+        open_files_l1 = proc.open_files()
+        # start with a csv file
+        pe.get_array(file_name=test_file)
+        open_files_l2 = proc.open_files()
+        delta = len(open_files_l2) - len(open_files_l1)
+        # no open file handle should be left
+        assert delta == 0
+
+
 def get_fixtures(file_name):
     return os.path.join("tests", "fixtures", file_name)
