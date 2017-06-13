@@ -63,14 +63,14 @@ class XLSXBook(BookReader):
 
     It reads xls, xlsm, xlsx work book
     """
-    def open(self, file_name, **keywords):
+    def open(self, file_name, skip_hidden_sheets=True, **keywords):
         BookReader.open(self, file_name, **keywords)
-        self._get_params()
+        self.skip_hidden_sheets = skip_hidden_sheets
         self._load_the_excel_file(file_name)
 
-    def open_stream(self, file_stream, **keywords):
+    def open_stream(self, file_stream, skip_hidden_sheets=True, **keywords):
         BookReader.open_stream(self, file_stream, **keywords)
-        self._get_params()
+        self.skip_hidden_sheets = skip_hidden_sheets
         self._load_the_excel_file(file_stream)
 
     def read_sheet_by_name(self, sheet_name):
@@ -110,7 +110,3 @@ class XLSXBook(BookReader):
     def _load_the_excel_file(self, file_alike_object):
         self._native_book = openpyxl.load_workbook(
             filename=file_alike_object, data_only=True, read_only=True)
-
-    def _get_params(self):
-        self.skip_hidden_sheets = self._keywords.get(
-            'skip_hidden_sheets', True)

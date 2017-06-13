@@ -49,3 +49,4 @@ class XLSXWriter(BookWriter):
         This call actually save the file
         """
         self._native_book.save(filename=self._file_alike_object)
+        self._native_book = None

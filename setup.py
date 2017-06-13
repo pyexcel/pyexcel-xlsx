@@ -40,7 +40,7 @@ CLASSIFIERS = [
 
 INSTALL_REQUIRES = [
     'openpyxl>=2.4.4',
-    'pyexcel-io>=0.3.0',
+    'pyexcel-io>=0.4.0',
 ]
 
 
