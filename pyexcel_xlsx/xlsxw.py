@@ -7,9 +7,10 @@
     :copyright: (c) 2015-2017 by Onni Software Ltd & its contributors
     :license: New BSD License
 """
+import openpyxl
+
 from pyexcel_io.book import BookWriter
 from pyexcel_io.sheet import SheetWriter
-import openpyxl
 
 
 class XLSXSheetWriter(SheetWriter):
