@@ -7,7 +7,7 @@ except ImportError:
 
 NAME = 'pyexcel-xlsx'
 AUTHOR = 'C.W.'
-VERSION = '0.3.1'
+VERSION = '0.4.0'
 EMAIL = 'wangc_2011 (at) hotmail.com'
 LICENSE = 'New BSD'
 DESCRIPTION = (
@@ -39,8 +39,8 @@ CLASSIFIERS = [
 ]
 
 INSTALL_REQUIRES = [
-    'openpyxl>=2.2.2',
-    'pyexcel-io>=0.3.0',
+    'openpyxl>=2.4.4',
+    'pyexcel-io>=0.4.0',
 ]
 
 
