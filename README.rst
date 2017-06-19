@@ -350,10 +350,3 @@ On Windows systems, please issue this command::
    >>> import os
    >>> os.unlink("your_file.xlsx")
    >>> os.unlink("another_file.xlsx")
-
-Support the project
-================================================================================
-
-If your company has embedded pyexcel and its components into a revenue generating
-product, please `support me on patreon <https://www.patreon.com/pyexcel>`_ to
-maintain the project and develop it further.

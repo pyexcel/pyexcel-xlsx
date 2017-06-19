@@ -8,7 +8,7 @@ except ImportError:
 NAME = 'pyexcel-xlsx'
 AUTHOR = 'C.W.'
 VERSION = '0.4.0'
-EMAIL = 'wangc_2011 (at) hotmail.com'
+EMAIL = 'wangc_2011@hotmail.com'
 LICENSE = 'New BSD'
 DESCRIPTION = (
     'A wrapper library to read, manipulate and write data in xlsx and xlsm ' +
