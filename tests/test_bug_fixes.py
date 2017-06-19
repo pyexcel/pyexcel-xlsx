@@ -166,7 +166,7 @@ def test_issue_14_xlsx_file_handle():
     assert delta == 1
 
     # free the fish
-    pe.free_resource()
+    pe.free_resources()
     open_files_l4 = proc.open_files()
     # this confirms that no more open file handle
     eq_(open_files_l1, open_files_l4)
