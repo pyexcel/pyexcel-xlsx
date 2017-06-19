@@ -15,7 +15,7 @@ from nose.tools import eq_
 from platform import python_implementation
 
 
-PY36_ABOVE = sys.version_info[0] == 2 and sys.version_info[1] >= 6
+PY36_ABOVE = sys.version_info[0] == 3 and sys.version_info[1] >= 6
 
 
 def test_pyexcel_issue_4():
