@@ -11,6 +11,7 @@ import pyexcel as pe
 from pyexcel_xlsx.xlsxr import get_columns
 from pyexcel.internal.sheets._shared import excel_column_index
 from nose.tools import eq_
+from platform import python_implementation
 
 
 def test_pyexcel_issue_4():
@@ -137,6 +138,8 @@ def test_issue_8_hidden_sheet_2():
 
 
 def test_issue_14_xlsx_file_handle():
+    if python_implementation == 'PyPy':
+        return
     proc = psutil.Process()
     test_file = os.path.join("tests", "fixtures", "hidden_sheets.xlsx")
     open_files_l1 = proc.open_files()
@@ -164,6 +167,8 @@ def test_issue_14_xlsx_file_handle():
 
 
 def test_issue_83_file_handle_no_generator():
+    if python_implementation == 'PyPy':
+        return
     proc = psutil.Process()
     test_files = [
         os.path.join("tests", "fixtures", "hidden_sheets.xlsx")
