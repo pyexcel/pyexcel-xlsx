@@ -4,6 +4,7 @@
 
 """
 import os
+import sys
 import datetime
 import psutil
 from textwrap import dedent
@@ -12,6 +13,9 @@ from pyexcel_xlsx.xlsxr import get_columns
 from pyexcel.internal.sheets._shared import excel_column_index
 from nose.tools import eq_
 from platform import python_implementation
+
+
+PY36_ABOVE = sys.version_info[0] == 2 && sys.version_info[1] >= 6
 
 
 def test_pyexcel_issue_4():
@@ -139,6 +143,8 @@ def test_issue_8_hidden_sheet_2():
 
 def test_issue_14_xlsx_file_handle():
     if python_implementation == 'PyPy':
+        return
+    if PY36_ABOVE:
         return
     proc = psutil.Process()
     test_file = os.path.join("tests", "fixtures", "hidden_sheets.xlsx")
