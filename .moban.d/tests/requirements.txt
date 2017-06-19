@@ -1,6 +1,5 @@
 {% extends 'tests/requirements.txt.jj2' %}
 {%block extras %}
-psutil
 pyexcel
 pyexcel-xls
 {%endblock%}
