@@ -15,7 +15,7 @@ from pyexcel_io.sheet import SheetWriter
 
 class XLSXSheetWriter(SheetWriter):
     """
-    xls, xlsx and xlsm sheet writer
+    Write data into xlsx sheet
     """
     def set_sheet_name(self, name):
         self._native_sheet.title = name
@@ -30,7 +30,7 @@ class XLSXSheetWriter(SheetWriter):
 
 class XLSXWriter(BookWriter):
     """
-    xls, xlsx and xlsm writer
+    Write data in write only mode
     """
     def __init__(self):
         BookWriter.__init__(self)

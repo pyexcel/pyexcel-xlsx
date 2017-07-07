@@ -14,24 +14,9 @@ from pyexcel_io.sheet import SheetReader
 from pyexcel_io._compact import OrderedDict
 
 
-COLUMNS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-COLUMN_LENGTH = 26
-
-
-def get_columns(index):
-    """
-    Convert column index to column name
-    """
-    if index < COLUMN_LENGTH:
-        return COLUMNS[index]
-    else:
-        return (get_columns(int(index // COLUMN_LENGTH) - 1) +
-                COLUMNS[index % COLUMN_LENGTH])
-
-
 class XLSXSheet(SheetReader):
     """
-    xls sheet
+    Iterate through rows
     """
     @property
     def name(self):
@@ -40,13 +25,15 @@ class XLSXSheet(SheetReader):
 
     def row_iterator(self):
         """
-        Number of rows in the xls sheet
+        openpyxl row iterator
+
+        http://openpyxl.readthedocs.io/en/default/optimized.html
         """
         return self._native_sheet.rows
 
     def column_iterator(self, row):
         """
-        Number of columns in the xls sheet
+        a generator for the values in a row
         """
         for cell in row:
             yield cell.value
@@ -54,9 +41,7 @@ class XLSXSheet(SheetReader):
 
 class XLSXBook(BookReader):
     """
-    XLSBook reader
-
-    It reads xls, xlsm, xlsx work book
+    Open xlsx as read only mode
     """
     def open(self, file_name, skip_hidden_sheets=True, **keywords):
         BookReader.open(self, file_name, **keywords)

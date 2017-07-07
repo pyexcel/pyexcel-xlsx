@@ -8,52 +8,10 @@ import sys
 import datetime
 from textwrap import dedent
 import pyexcel as pe
-from pyexcel_xlsx.xlsxr import get_columns
-from pyexcel.internal.sheets._shared import excel_column_index
 from nose.tools import eq_
 
 
 PY36_ABOVE = sys.version_info[0] == 3 and sys.version_info[1] >= 6
-
-
-def test_pyexcel_issue_4():
-    """pyexcel issue #4"""
-    indices = [
-        'A',
-        'AA',
-        'ABC',
-        'ABCD',
-        'ABCDE',
-        'ABCDEF',
-        'ABCDEFG',
-        'ABCDEFGH',
-        'ABCDEFGHI',
-        'ABCDEFGHIJ',
-        'ABCDEFGHIJK',
-        'ABCDEFGHIJKL',
-        'ABCDEFGHIJKLM',
-        'ABCDEFGHIJKLMN',
-        'ABCDEFGHIJKLMNO',
-        'ABCDEFGHIJKLMNOP',
-        'ABCDEFGHIJKLMNOPQ',
-        'ABCDEFGHIJKLMNOPQR',
-        'ABCDEFGHIJKLMNOPQRS',
-        'ABCDEFGHIJKLMNOPQRST',
-        'ABCDEFGHIJKLMNOPQRSTU',
-        'ABCDEFGHIJKLMNOPQRSTUV',
-        'ABCDEFGHIJKLMNOPQRSTUVW',
-        'ABCDEFGHIJKLMNOPQRSTUVWX',
-        'ABCDEFGHIJKLMNOPQRSTUVWXY',
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-    ]
-    for column_name in indices:
-        print("Testing %s" % column_name)
-        column_index = excel_column_index(column_name)
-        new_column_name = get_columns(column_index)
-        print(column_index)
-        print(column_name)
-        print(new_column_name)
-        assert new_column_name == column_name
 
 
 def test_pyexcel_issue_5():
