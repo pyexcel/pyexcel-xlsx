@@ -9,6 +9,9 @@ import datetime
 from textwrap import dedent
 import pyexcel as pe
 from nose.tools import eq_
+from nose import SkipTest
+
+IN_TRAVIS = 'TRAVIS' in os.environ
 
 
 PY36_ABOVE = sys.version_info[0] == 3 and sys.version_info[1] >= 6
@@ -95,6 +98,12 @@ def test_issue_8_hidden_sheet_2():
     assert "hidden" in book_dict
     eq_(book_dict['shown'], [['A', 'B']])
     eq_(book_dict['hidden'], [['a', 'b']])
+
+
+def test_issue_20():
+    #if not IN_TRAVIS:
+    #    raise SkipTest()
+    pe.get_book(url="https://github.com/pyexcel/pyexcel-xlsx/raw/master/tests/fixtures/file_with_an_empty_sheet.xlsx");  # flake8: noqa
 
 
 def get_fixtures(file_name):
