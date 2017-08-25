@@ -8,11 +8,10 @@
     :license: New BSD License
 """
 import openpyxl
-from io import UnsupportedOperation
 
 from pyexcel_io.book import BookReader
 from pyexcel_io.sheet import SheetReader
-from pyexcel_io._compact import OrderedDict, BytesIO
+from pyexcel_io._compact import OrderedDict
 
 
 class XLSXSheet(SheetReader):
@@ -50,16 +49,6 @@ class XLSXBook(BookReader):
         self._load_the_excel_file(file_name)
 
     def open_stream(self, file_stream, skip_hidden_sheets=True, **keywords):
-        if not hasattr(file_stream, 'seek'):
-            # python 2
-            # Hei zipfile in odfpy would do a seek
-            # but stream from urlib cannot do seek
-            file_stream = BytesIO(file_stream.read())
-        try:
-            file_stream.seek(0)
-        except UnsupportedOperation:
-            # python 3
-            file_stream = BytesIO(file_stream.read())
         BookReader.open_stream(self, file_stream, **keywords)
         self.skip_hidden_sheets = skip_hidden_sheets
         self._load_the_excel_file(file_stream)
