@@ -7,7 +7,7 @@ except ImportError:
 
 NAME = 'pyexcel-xlsx'
 AUTHOR = 'C.W.'
-VERSION = '0.5.0'
+VERSION = '0.5.0.1'
 EMAIL = 'wangc_2011@hotmail.com'
 LICENSE = 'New BSD'
 DESCRIPTION = (
@@ -16,7 +16,7 @@ DESCRIPTION = (
     ''
 )
 URL = 'https://github.com/pyexcel/pyexcel-xlsx'
-DOWNLOAD_URL = '%s/archive/0.5.0.tar.gz' % URL
+DOWNLOAD_URL = '%s/archive/0.5.0.1.tar.gz' % URL
 FILES = ['README.rst', 'CHANGELOG.rst']
 KEYWORDS = [
     'xlsx'
@@ -40,7 +40,7 @@ CLASSIFIERS = [
 
 INSTALL_REQUIRES = [
     'openpyxl>=2.4.4',
-    'pyexcel-io>=0.4.0',
+    'pyexcel-io>=0.5.0',
 ]
 
 
