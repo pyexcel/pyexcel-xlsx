@@ -29,7 +29,8 @@ Fonts, colors and charts are not supported.
 Installation
 ================================================================================
 
-You can install it via pip:
+
+You can install pyexcel-xlsx via pip:
 
 .. code-block:: bash
 
@@ -52,7 +53,7 @@ product, please `support me on patreon <https://www.patreon.com/bePatron?u=55376
 maintain the project and develop it further.
 
 If you are an individual, you are welcome to support me too on patreon and for however long
-you feel like to. As a patreon, you will receive
+you feel like. As a patreon, you will receive
 `early access to pyexcel related contents <https://www.patreon.com/pyexcel/posts>`_.
 
 With your financial support, I will be able to invest

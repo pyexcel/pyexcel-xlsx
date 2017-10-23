@@ -1,11 +1,11 @@
 overrides: "pyexcel.yaml"
 name: "pyexcel-xlsx"
 nick_name: xlsx
-version: 0.5.1
-current_version: 0.5.1
-release: 0.5.1
+version: 0.5.2
+current_version: 0.5.2
+release: 0.5.2
 file_type: xlsx
 dependencies:
   - openpyxl>=2.4.4
-  - pyexcel-io>=0.5.0
+  - pyexcel-io>=0.5.3
 description: A wrapper library to read, manipulate and write data in xlsx and xlsm format
