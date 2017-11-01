@@ -29,7 +29,8 @@ class XLSXSheet(SheetReader):
 
         http://openpyxl.readthedocs.io/en/default/optimized.html
         """
-        return self._native_sheet.rows
+        for row in self._native_sheet.rows:
+            yield row
 
     def column_iterator(self, row):
         """
@@ -37,6 +38,28 @@ class XLSXSheet(SheetReader):
         """
         for cell in row:
             yield cell.value
+
+
+class SlowSheet(XLSXSheet):
+    """
+    This sheet will be slower because it does not use readonly sheet
+    """
+    def row_iterator(self):
+        """
+        skip hidden rows
+        """
+        for row_index, row in enumerate(self._native_sheet.rows, 1):
+            if self._native_sheet.row_dimensions[row_index].hidden is False:
+                yield row
+
+    def column_iterator(self, row):
+        """
+        skip hidden columns
+        """
+        for column_index, cell in enumerate(row, 1):
+            letter = openpyxl.utils.get_column_letter(column_index)
+            if self._native_sheet.column_dimensions[letter].hidden is False:
+                yield cell.value
 
 
 class XLSXBook(BookReader):
@@ -80,7 +103,10 @@ class XLSXBook(BookReader):
         return result
 
     def read_sheet(self, native_sheet):
-        sheet = XLSXSheet(native_sheet, **self._keywords)
+        if self._keywords.get('skip_hidden_row_and_column', False) is True:
+            sheet = SlowSheet(native_sheet, **self._keywords)
+        else:
+            sheet = XLSXSheet(native_sheet, **self._keywords)
         return {sheet.name: sheet.to_array()}
 
     def close(self):
@@ -88,5 +114,9 @@ class XLSXBook(BookReader):
         self._native_book = None
 
     def _load_the_excel_file(self, file_alike_object):
+        read_only_flag = True
+        if self._keywords.get('skip_hidden_row_and_column', False) is True:
+            read_only_flag = False
         self._native_book = openpyxl.load_workbook(
-            filename=file_alike_object, data_only=True, read_only=True)
+            filename=file_alike_object, data_only=True,
+            read_only=read_only_flag)
