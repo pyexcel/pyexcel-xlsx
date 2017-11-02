@@ -66,14 +66,18 @@ class XLSXBook(BookReader):
     """
     Open xlsx as read only mode
     """
-    def open(self, file_name, skip_hidden_sheets=True, **keywords):
+    def open(self, file_name, skip_hidden_sheets=True,
+             skip_hidden_row_and_column=True, **keywords):
         BookReader.open(self, file_name, **keywords)
         self.skip_hidden_sheets = skip_hidden_sheets
+        self.skip_hidden_row_and_column = skip_hidden_row_and_column
         self._load_the_excel_file(file_name)
 
-    def open_stream(self, file_stream, skip_hidden_sheets=True, **keywords):
+    def open_stream(self, file_stream, skip_hidden_sheets=True,
+                    skip_hidden_row_and_column=True, **keywords):
         BookReader.open_stream(self, file_stream, **keywords)
         self.skip_hidden_sheets = skip_hidden_sheets
+        self.skip_hidden_row_and_column = skip_hidden_row_and_column
         self._load_the_excel_file(file_stream)
 
     def read_sheet_by_name(self, sheet_name):
@@ -103,7 +107,7 @@ class XLSXBook(BookReader):
         return result
 
     def read_sheet(self, native_sheet):
-        if self._keywords.get('skip_hidden_row_and_column', False) is True:
+        if self.skip_hidden_row_and_column:
             sheet = SlowSheet(native_sheet, **self._keywords)
         else:
             sheet = XLSXSheet(native_sheet, **self._keywords)
@@ -115,7 +119,7 @@ class XLSXBook(BookReader):
 
     def _load_the_excel_file(self, file_alike_object):
         read_only_flag = True
-        if self._keywords.get('skip_hidden_row_and_column', False) is True:
+        if self.skip_hidden_row_and_column:
             read_only_flag = False
         self._native_book = openpyxl.load_workbook(
             filename=file_alike_object, data_only=True,
