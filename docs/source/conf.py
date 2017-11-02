@@ -21,8 +21,8 @@ master_doc = 'index'
 
 project = u'pyexcel-xlsx'
 copyright = u'2015-2017 Onni Software Ltd.'
-version = '0.5.2'
-release = '0.6.0'
+version = '0.5.3'
+release = '0.5.3'
 exclude_patterns = []
 pygments_style = 'sphinx'
 html_theme = 'default'
