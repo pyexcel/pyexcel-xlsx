@@ -1,22 +1,5 @@
 {% extends "travis.yml.jj2" %}
 
-{%block extra_matrix %}
-matrix:
-  include:
-    - python: 2.7
-      dist: trusty
-      sudo: required
-      virtualenv:
-        system_site_packages: true
-      addons:
-        apt:
-          sources:
-            - debian-sid  # openpyxl 2.3.0
-          packages:
-            - python-openpyxl
-
-{%endblock%}
-
 {%block custom_install %}  - if [[ $TRAVIS_PYTHON_VERSION == "2.6" ]]; then pip install ordereddict; fi
   - pip install --upgrade pip>8 setuptools>21
 {%endblock%}
