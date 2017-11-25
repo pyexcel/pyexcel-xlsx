@@ -1,6 +1,6 @@
 import os
-from unittest import TestCase
 from textwrap import dedent
+from nose.tools import eq_
 
 import pyexcel as pe
 
@@ -10,7 +10,7 @@ class TestDateFormat:
         """
         date     time
         25/12/14 11:11:11
-        25/12/14 12:11:11
+        25/12/14 12:12:12
         01/01/15 13:13:13
         0.0      0.0
         """
@@ -18,13 +18,13 @@ class TestDateFormat:
         r = pe.get_sheet(file_name=os.path.join("tests", "fixtures",
                                                 "date_field.xlsx"),
                          library='pyexcel-xlsx')
-        assert isinstance(r[1, 0], datetime.date) is True
-        assert r[1, 0].strftime("%d/%m/%y") == "25/12/14"
+        assert isinstance(r[1, 0], datetime.date)
+        eq_(r[1, 0].strftime("%d/%m/%y"), "25/12/14")
         assert isinstance(r[1, 1], datetime.time) is True
         assert r[1, 1].strftime("%H:%M:%S") == "11:11:11"
         value = r[4, 0].isoformat()
-        assert value == "1899-12-30T00:00:00"
-        assert r[4, 1].isoformat() == "1899-12-30T00:00:00"
+        eq_(value, "1899-12-30T00:00:00")
+        eq_(r[4, 1].isoformat(), "1899-12-30T00:00:00")
 
     def test_writing_date_format(self):
         import datetime
@@ -43,29 +43,31 @@ class TestDateFormat:
         os.unlink(excel_filename)
 
 
-class TestAutoDetectInt(TestCase):
+class TestAutoDetectInt:
     def setUp(self):
         self.content = [[1, 2, 3.1]]
         self.test_file = "test_auto_detect_init.xlsx"
-        pe.save_as(array=self.content, dest_file_name=self.test_file)
+        pe.save_as(
+            array=self.content, dest_file_name=self.test_file
+         )
 
     def test_auto_detect_int(self):
-        sheet = pe.get_sheet(file_name=self.test_file)
+        sheet = pe.get_sheet(file_name=self.test_file, library="pyexcel-xlsx")
         expected = dedent("""
         pyexcel_sheet1:
         +---+---+-----+
         | 1 | 2 | 3.1 |
         +---+---+-----+""").strip()
-        self.assertEqual(str(sheet), expected)
+        eq_(str(sheet), expected)
 
     def test_get_book_auto_detect_int(self):
-        book = pe.get_book(file_name=self.test_file)
+        book = pe.get_book(file_name=self.test_file, library="pyexcel-xlsx")
         expected = dedent("""
         pyexcel_sheet1:
         +---+---+-----+
         | 1 | 2 | 3.1 |
         +---+---+-----+""").strip()
-        self.assertEqual(str(book), expected)
+        eq_(str(book), expected)
 
     def tearDown(self):
         os.unlink(self.test_file)
