@@ -11,7 +11,29 @@ import openpyxl
 
 from pyexcel_io.book import BookReader
 from pyexcel_io.sheet import SheetReader
-from pyexcel_io._compact import OrderedDict
+from pyexcel_io._compact import OrderedDict, irange
+
+
+class MergedCell(object):
+    def __init__(self, cell_ranges_str):
+        print(cell_ranges_str)
+        topleft, bottomright = cell_ranges_str.split(':')
+        self.__rl, self.__cl = convert_coordinate(topleft)
+        self.__rh, self.__ch = convert_coordinate(bottomright)
+        self.value = None
+
+    def register_cells(self, registry):
+        for rowx in irange(self.__rl, self.__rh+1):
+            for colx in irange(self.__cl, self.__ch+1):
+                key = "%s-%s" % (rowx, colx)
+                registry[key] = self
+
+
+def convert_coordinate(cell_coordinate_with_letter):
+    xy = openpyxl.utils.coordinate_from_string(cell_coordinate_with_letter)
+    col = openpyxl.utils.column_index_from_string(xy[0])
+    row = xy[1]
+    return row, col
 
 
 class XLSXSheet(SheetReader):
@@ -44,22 +66,40 @@ class SlowSheet(XLSXSheet):
     """
     This sheet will be slower because it does not use readonly sheet
     """
+    def __init__(self, sheet, **keywords):
+        SheetReader.__init__(self, sheet, **keywords)
+        print(sheet.max_row)
+        self.__merged_cells = {}
+        for ranges_str in sheet.merged_cell_ranges:
+            merged_cells = MergedCell(ranges_str)
+            merged_cells.register_cells(self.__merged_cells)
+
     def row_iterator(self):
         """
         skip hidden rows
         """
-        for row_index, row in enumerate(self._native_sheet.rows, 1):
+        for row_index, row in enumerate(self._native_sheet.iter_rows(), 1):
             if self._native_sheet.row_dimensions[row_index].hidden is False:
-                yield row
+                yield (row, row_index)
 
-    def column_iterator(self, row):
+    def column_iterator(self, row_struct):
         """
         skip hidden columns
         """
+        row, row_index = row_struct
         for column_index, cell in enumerate(row, 1):
             letter = openpyxl.utils.get_column_letter(column_index)
             if self._native_sheet.column_dimensions[letter].hidden is False:
-                yield cell.value
+                value = cell.value
+                if self.__merged_cells:
+                    merged_cell = self.__merged_cells.get("%s-%s" % (
+                        row_index, column_index))
+                    if merged_cell:
+                        if merged_cell.value:
+                            value = merged_cell.value
+                        else:
+                            merged_cell.value = value
+                yield value
 
 
 class XLSXBook(BookReader):
@@ -67,17 +107,21 @@ class XLSXBook(BookReader):
     Open xlsx as read only mode
     """
     def open(self, file_name, skip_hidden_sheets=True,
+             detect_merged_cells=False,
              skip_hidden_row_and_column=True, **keywords):
         BookReader.open(self, file_name, **keywords)
         self.skip_hidden_sheets = skip_hidden_sheets
         self.skip_hidden_row_and_column = skip_hidden_row_and_column
+        self.detect_merged_cells = detect_merged_cells
         self._load_the_excel_file(file_name)
 
     def open_stream(self, file_stream, skip_hidden_sheets=True,
+                    detect_merged_cells=False,
                     skip_hidden_row_and_column=True, **keywords):
         BookReader.open_stream(self, file_stream, **keywords)
         self.skip_hidden_sheets = skip_hidden_sheets
         self.skip_hidden_row_and_column = skip_hidden_row_and_column
+        self.detect_merged_cells = detect_merged_cells
         self._load_the_excel_file(file_stream)
 
     def read_sheet_by_name(self, sheet_name):
@@ -107,7 +151,7 @@ class XLSXBook(BookReader):
         return result
 
     def read_sheet(self, native_sheet):
-        if self.skip_hidden_row_and_column:
+        if self.skip_hidden_row_and_column or self.detect_merged_cells:
             sheet = SlowSheet(native_sheet, **self._keywords)
         else:
             sheet = XLSXSheet(native_sheet, **self._keywords)
