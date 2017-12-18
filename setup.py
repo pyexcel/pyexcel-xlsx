@@ -7,7 +7,7 @@ from setuptools import setup, find_packages, Command
 
 NAME = 'pyexcel-xlsx'
 AUTHOR = 'C.W.'
-VERSION = '0.5.4'
+VERSION = '0.5.5'
 EMAIL = 'wangc_2011@hotmail.com'
 LICENSE = 'New BSD'
 DESCRIPTION = (
