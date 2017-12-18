@@ -76,6 +76,8 @@ class SlowSheet(XLSXSheet):
         self.__merged_cells = {}
         self.max_row = 0
         self.max_column = 0
+        self.__sheet_max_row = sheet.max_row
+        self.__sheet_max_column = sheet.max_column
         for ranges_str in sheet.merged_cell_ranges:
             merged_cells = MergedCell(ranges_str)
             merged_cells.register_cells(self.__merged_cells)
@@ -91,9 +93,9 @@ class SlowSheet(XLSXSheet):
         for row_index, row in enumerate(self._native_sheet.rows, 1):
             if self._native_sheet.row_dimensions[row_index].hidden is False:
                 yield (row, row_index)
-        if self.max_row > self._native_sheet.max_row:
-            for i in range(self._native_sheet.max_row, self.max_row):
-                data = [None] * self._native_sheet.max_column
+        if self.max_row > self.__sheet_max_row:
+            for i in range(self.__sheet_max_row, self.max_row):
+                data = [None] * self.__sheet_max_column
                 yield (data, i)
 
     def column_iterator(self, row_struct):
@@ -108,27 +110,24 @@ class SlowSheet(XLSXSheet):
                     value = cell.value
                 else:
                     value = None
-                if self.__merged_cells:
-                    merged_cell = self.__merged_cells.get("%s-%s" % (
-                        row_index, column_index))
-                    if merged_cell:
-                        if merged_cell.value:
-                            value = merged_cell.value
-                        else:
-                            merged_cell.value = value
+                value = self._merged_cells(row_index, column_index, value)
                 yield value
-        if self.max_column > self._native_sheet.max_column:
-            for i in range(self._native_sheet.max_column, self.max_column):
-                value = None
-                if self.__merged_cells:
-                    merged_cell = self.__merged_cells.get("%s-%s" % (
-                        row_index, column_index))
-                    if merged_cell:
-                        if merged_cell.value:
-                            value = merged_cell.value
-                        else:
-                            merged_cell.value = value
+        if self.max_column > self.__sheet_max_column:
+            for i in range(self.__sheet_max_column, self.max_column):
+                value = self._merged_cells(row_index, column_index, None)
                 yield value
+
+    def _merged_cells(self, row, column, value):
+        ret = value
+        if self.__merged_cells:
+            merged_cell = self.__merged_cells.get("%s-%s" % (
+                row, column))
+            if merged_cell:
+                if merged_cell.value:
+                    ret = merged_cell.value
+                else:
+                    merged_cell.value = value
+        return ret
 
 
 class XLSXBook(BookReader):
