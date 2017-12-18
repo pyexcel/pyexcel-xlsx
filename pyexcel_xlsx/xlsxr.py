@@ -14,6 +14,32 @@ from pyexcel_io.sheet import SheetReader
 from pyexcel_io._compact import OrderedDict, irange
 
 
+class FastSheet(SheetReader):
+    """
+    Iterate through rows
+    """
+    @property
+    def name(self):
+        """sheet name"""
+        return self._native_sheet.title
+
+    def row_iterator(self):
+        """
+        openpyxl row iterator
+
+        http://openpyxl.readthedocs.io/en/default/optimized.html
+        """
+        for row in self._native_sheet.rows:
+            yield row
+
+    def column_iterator(self, row):
+        """
+        a generator for the values in a row
+        """
+        for cell in row:
+            yield cell.value
+
+
 class MergedCell(object):
     def __init__(self, cell_ranges_str):
         topleft, bottomright = cell_ranges_str.split(':')
@@ -41,33 +67,7 @@ def convert_coordinate(cell_coordinate_with_letter):
     return row, col
 
 
-class XLSXSheet(SheetReader):
-    """
-    Iterate through rows
-    """
-    @property
-    def name(self):
-        """sheet name"""
-        return self._native_sheet.title
-
-    def row_iterator(self):
-        """
-        openpyxl row iterator
-
-        http://openpyxl.readthedocs.io/en/default/optimized.html
-        """
-        for row in self._native_sheet.rows:
-            yield row
-
-    def column_iterator(self, row):
-        """
-        a generator for the values in a row
-        """
-        for cell in row:
-            yield cell.value
-
-
-class SlowSheet(XLSXSheet):
+class SlowSheet(FastSheet):
     """
     This sheet will be slower because it does not use readonly sheet
     """
@@ -184,7 +184,7 @@ class XLSXBook(BookReader):
         if self.skip_hidden_row_and_column or self.detect_merged_cells:
             sheet = SlowSheet(native_sheet, **self._keywords)
         else:
-            sheet = XLSXSheet(native_sheet, **self._keywords)
+            sheet = FastSheet(native_sheet, **self._keywords)
         return {sheet.name: sheet.to_array()}
 
     def close(self):
