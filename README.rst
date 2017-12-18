@@ -5,7 +5,7 @@ pyexcel-xlsx - Let you focus on data, instead of xlsx format
 .. image:: https://raw.githubusercontent.com/pyexcel/pyexcel.github.io/master/images/patreon.png
    :target: https://www.patreon.com/pyexcel
 
-.. image:: https://api.travis-ci.org/pyexcel/pyexcel-xlsx.svg?branch=master
+.. image:: https://travis-ci.org/pyexcel/pyexcel-xlsx.svg?branch=master
    :target: http://travis-ci.org/pyexcel/pyexcel-xlsx
 
 .. image:: https://codecov.io/gh/pyexcel/pyexcel-xlsx/branch/master/graph/badge.svg
