@@ -1,6 +1,6 @@
 import os
 from pyexcel_xlsx import get_data
-from pyexcel_xlsx.xlsxr import MergedCell
+from pyexcel_xlsx.xlsxr import MergedCell, convert_coordinate
 from nose.tools import eq_
 
 
@@ -81,6 +81,14 @@ def test_merged_cell_class():
                 '8-8', '8-9']
     eq_(keys, expected)
     eq_(merged_cell, test_dict['7-1'])
+    eq_(merged_cell.bottom_row(), 8)
+    eq_(merged_cell.right_column(), 10)
+
+
+def test_convert_coordinate():
+    result = convert_coordinate('B5')
+    expected = (5, 2)
+    eq_(result, expected)
 
 
 def get_fixture(file_name):
