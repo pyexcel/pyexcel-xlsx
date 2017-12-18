@@ -16,7 +16,6 @@ from pyexcel_io._compact import OrderedDict, irange
 
 class MergedCell(object):
     def __init__(self, cell_ranges_str):
-        print(cell_ranges_str)
         topleft, bottomright = cell_ranges_str.split(':')
         self.__rl, self.__cl = convert_coordinate(topleft)
         self.__rh, self.__ch = convert_coordinate(bottomright)
@@ -27,6 +26,12 @@ class MergedCell(object):
             for colx in irange(self.__cl, self.__ch+1):
                 key = "%s-%s" % (rowx, colx)
                 registry[key] = self
+
+    def bottom_row(self):
+        return self.__rh
+
+    def right_column(self):
+        return self.__ch
 
 
 def convert_coordinate(cell_coordinate_with_letter):
@@ -68,19 +73,28 @@ class SlowSheet(XLSXSheet):
     """
     def __init__(self, sheet, **keywords):
         SheetReader.__init__(self, sheet, **keywords)
-        print(sheet.max_row)
         self.__merged_cells = {}
+        self.max_row = 0
+        self.max_column = 0
         for ranges_str in sheet.merged_cell_ranges:
             merged_cells = MergedCell(ranges_str)
             merged_cells.register_cells(self.__merged_cells)
+            if self.max_row < merged_cells.bottom_row():
+                self.max_row = merged_cells.bottom_row()
+            if self.max_column < merged_cells.right_column():
+                self.max_column = merged_cells.right_column()
 
     def row_iterator(self):
         """
         skip hidden rows
         """
-        for row_index, row in enumerate(self._native_sheet.iter_rows(), 1):
+        for row_index, row in enumerate(self._native_sheet.rows, 1):
             if self._native_sheet.row_dimensions[row_index].hidden is False:
                 yield (row, row_index)
+        if self.max_row > self._native_sheet.max_row:
+            for i in range(self._native_sheet.max_row, self.max_row):
+                data = [None] * self._native_sheet.max_column
+                yield (data, i)
 
     def column_iterator(self, row_struct):
         """
@@ -90,7 +104,22 @@ class SlowSheet(XLSXSheet):
         for column_index, cell in enumerate(row, 1):
             letter = openpyxl.utils.get_column_letter(column_index)
             if self._native_sheet.column_dimensions[letter].hidden is False:
-                value = cell.value
+                if cell:
+                    value = cell.value
+                else:
+                    value = None
+                if self.__merged_cells:
+                    merged_cell = self.__merged_cells.get("%s-%s" % (
+                        row_index, column_index))
+                    if merged_cell:
+                        if merged_cell.value:
+                            value = merged_cell.value
+                        else:
+                            merged_cell.value = value
+                yield value
+        if self.max_column > self._native_sheet.max_column:
+            for i in range(self._native_sheet.max_column, self.max_column):
+                value = None
                 if self.__merged_cells:
                     merged_cell = self.__merged_cells.get("%s-%s" % (
                         row_index, column_index))
@@ -165,6 +194,9 @@ class XLSXBook(BookReader):
         read_only_flag = True
         if self.skip_hidden_row_and_column:
             read_only_flag = False
+        data_only_flag = True
+        if self.detect_merged_cells:
+            data_only_flag = False
         self._native_book = openpyxl.load_workbook(
-            filename=file_alike_object, data_only=True,
+            filename=file_alike_object, data_only=data_only_flag,
             read_only=read_only_flag)
