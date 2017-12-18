@@ -6,7 +6,7 @@ from nose.tools import eq_
 
 def test_merged_cells():
     data = get_data(
-        os.path.join("tests", "fixtures", "merged-cell-sheet.xlsx"),
+        get_fixture("merged-cell-sheet.xlsx"),
         detect_merged_cells=True,
         library="pyexcel-xlsx")
     expected = [[1, 2, 3], [1, 5, 6], [1, 8, 9], [10, 11, 11]]
@@ -15,7 +15,7 @@ def test_merged_cells():
 
 def test_complex_merged_cells():
     data = get_data(
-        os.path.join("tests", "fixtures", "complex-merged-cells-sheet.xlsx"),
+        get_fixture("complex-merged-cells-sheet.xlsx"),
         detect_merged_cells=True,
         library="pyexcel-xlsx")
     expected = [
@@ -28,9 +28,46 @@ def test_complex_merged_cells():
         [25, 25, 25, 25, 25, 25, 25, 25, 25, 25],
         [25, 25, 25, 25, 25, 25, 25, 25, 25, 25]
     ]
-    import pprint
-    pprint.pprint(data['Sheet1'])
     eq_(data['Sheet1'], expected)
+
+
+def test_exploration():
+    data = get_data(
+        get_fixture("merged-sheet-exploration.xlsx"),
+        detect_merged_cells=True,
+        library="pyexcel-xlsx")
+    expected_sheet1 = [
+        [1, 1, 1, 1, 1, 1],
+        [2],
+        [2],
+        [2],
+        [2],
+        [2],
+        [2],
+        [2],
+        [2],
+        [2]]
+    eq_(data['Sheet1'], expected_sheet1)
+    expected_sheet2 = [
+        [3],
+        [3],
+        [3],
+        [3, 4, 4, 4, 4, 4, 4],
+        [3],
+        [3],
+        [3]]
+    eq_(data['Sheet2'], expected_sheet2)
+    expected_sheet3 = [
+        ['', '', '', '', '', 2, 2, 2],
+        [],
+        [],
+        [],
+        ['', '', '', 5],
+        ['', '', '', 5],
+        ['', '', '', 5],
+        ['', '', '', 5],
+        ['', '', '', 5]]
+    eq_(data['Sheet3'], expected_sheet3)
 
 
 def test_merged_cell_class():
@@ -44,3 +81,7 @@ def test_merged_cell_class():
                 '8-8', '8-9']
     eq_(keys, expected)
     eq_(merged_cell, test_dict['7-1'])
+
+
+def get_fixture(file_name):
+    return os.path.join("tests", "fixtures", file_name)

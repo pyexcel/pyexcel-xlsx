@@ -96,7 +96,7 @@ class SlowSheet(XLSXSheet):
         if self.max_row > self.__sheet_max_row:
             for i in range(self.__sheet_max_row, self.max_row):
                 data = [None] * self.__sheet_max_column
-                yield (data, i)
+                yield (data, i+1)
 
     def column_iterator(self, row_struct):
         """
@@ -109,12 +109,14 @@ class SlowSheet(XLSXSheet):
                 if cell:
                     value = cell.value
                 else:
-                    value = None
+                    value = ''
+                if value is None:
+                    value = ''
                 value = self._merged_cells(row_index, column_index, value)
                 yield value
         if self.max_column > self.__sheet_max_column:
             for i in range(self.__sheet_max_column, self.max_column):
-                value = self._merged_cells(row_index, column_index, None)
+                value = self._merged_cells(row_index, i+1, '')
                 yield value
 
     def _merged_cells(self, row, column, value):
