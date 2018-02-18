@@ -78,7 +78,7 @@ class SlowSheet(FastSheet):
         self.max_column = 0
         self.__sheet_max_row = sheet.max_row
         self.__sheet_max_column = sheet.max_column
-        for ranges_str in sheet.merged_cell_ranges:
+        for ranges_str in sheet.merged_cells.ranges:
             merged_cells = MergedCell(ranges_str)
             merged_cells.register_cells(self.__merged_cells)
             if self.max_row < merged_cells.bottom_row():
