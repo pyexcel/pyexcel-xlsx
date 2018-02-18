@@ -41,10 +41,9 @@ class FastSheet(SheetReader):
 
 
 class MergedCell(object):
-    def __init__(self, cell_ranges_str):
-        topleft, bottomright = cell_ranges_str.split(':')
-        self.__rl, self.__cl = convert_coordinate(topleft)
-        self.__rh, self.__ch = convert_coordinate(bottomright)
+    def __init__(self, cell_ranges):
+        self.__rl, self.__cl = cell_ranges.bounds[:2]
+        self.__rh, self.__ch = cell_ranges.bounds[2:]
         self.value = None
 
     def register_cells(self, registry):
