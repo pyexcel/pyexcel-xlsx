@@ -22,3 +22,6 @@ targets:
   - "tests/test_stringio.py": "tests/test_stringio.py.jj2"
   - "tests/test_writer.py": "tests/test_writer.py.jj2"
   - "tests/base.py": "tests/base.py"
+  - output: CHANGELOG.rst
+    configuration: changelog.yml
+    template: CHANGELOG.rst.jj2
