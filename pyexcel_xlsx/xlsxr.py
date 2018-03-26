@@ -41,10 +41,8 @@ class FastSheet(SheetReader):
 
 
 class MergedCell(object):
-    def __init__(self, cell_ranges_str):
-        topleft, bottomright = cell_ranges_str.split(':')
-        self.__rl, self.__cl = convert_coordinate(topleft)
-        self.__rh, self.__ch = convert_coordinate(bottomright)
+    def __init__(self, cell_ranges):
+        self.__cl, self.__rl, self.__ch, self.__rh = cell_ranges.bounds
         self.value = None
 
     def register_cells(self, registry):
@@ -60,13 +58,6 @@ class MergedCell(object):
         return self.__ch
 
 
-def convert_coordinate(cell_coordinate_with_letter):
-    xy = openpyxl.utils.coordinate_from_string(cell_coordinate_with_letter)
-    col = openpyxl.utils.column_index_from_string(xy[0])
-    row = xy[1]
-    return row, col
-
-
 class SlowSheet(FastSheet):
     """
     This sheet will be slower because it does not use readonly sheet
@@ -78,8 +69,8 @@ class SlowSheet(FastSheet):
         self.max_column = 0
         self.__sheet_max_row = sheet.max_row
         self.__sheet_max_column = sheet.max_column
-        for ranges_str in sheet.merged_cell_ranges:
-            merged_cells = MergedCell(ranges_str)
+        for ranges in sheet.merged_cells.ranges[:]:
+            merged_cells = MergedCell(ranges)
             merged_cells.register_cells(self.__merged_cells)
             if self.max_row < merged_cells.bottom_row():
                 self.max_row = merged_cells.bottom_row()
@@ -155,7 +146,7 @@ class XLSXBook(BookReader):
         self._load_the_excel_file(file_stream)
 
     def read_sheet_by_name(self, sheet_name):
-        sheet = self._native_book.get_sheet_by_name(sheet_name)
+        sheet = self._native_book[sheet_name]
         if sheet is None:
             raise ValueError("%s cannot be found" % sheet_name)
         else:

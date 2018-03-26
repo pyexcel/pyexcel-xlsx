@@ -1,7 +1,8 @@
 import os
 from pyexcel_xlsx import get_data
-from pyexcel_xlsx.xlsxr import MergedCell, convert_coordinate
+from pyexcel_xlsx.xlsxr import MergedCell
 from nose.tools import eq_
+from openpyxl.worksheet.cell_range import CellRange
 
 
 def test_merged_cells():
@@ -72,7 +73,7 @@ def test_exploration():
 
 def test_merged_cell_class():
     test_dict = {}
-    merged_cell = MergedCell("A7:J8")
+    merged_cell = MergedCell(CellRange(range_string="A7:J8"))
     merged_cell.register_cells(test_dict)
     keys = sorted(list(test_dict.keys()))
     expected = ['7-1', '7-10', '7-2', '7-3', '7-4', '7-5',
@@ -83,12 +84,6 @@ def test_merged_cell_class():
     eq_(merged_cell, test_dict['7-1'])
     eq_(merged_cell.bottom_row(), 8)
     eq_(merged_cell.right_column(), 10)
-
-
-def test_convert_coordinate():
-    result = convert_coordinate('B5')
-    expected = (5, 2)
-    eq_(result, expected)
 
 
 def get_fixture(file_name):
