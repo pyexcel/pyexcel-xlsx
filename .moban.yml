@@ -4,7 +4,7 @@ configuration:
   - "commons/templates"
   - "setupmobans/templates"
   - ".moban.d"
-  configuration: pyexcel_xlsx.yaml
+  configuration: pyexcel-xlsx.yml
 targets:
   - README.rst: README.rst
   - setup.py: setup.py

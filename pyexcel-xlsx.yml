@@ -3,7 +3,7 @@ name: "pyexcel-xlsx"
 nick_name: xlsx
 version: 0.5.6
 current_version: 0.5.6
-release: 0.5.5
+release: 0.5.6
 file_type: xlsx
 dependencies:
   - openpyxl>=2.5.0
