@@ -7,17 +7,16 @@ from setuptools import setup, find_packages, Command
 
 NAME = 'pyexcel-xlsx'
 AUTHOR = 'C.W.'
-VERSION = '0.5.5'
+VERSION = '0.5.6'
 EMAIL = 'wangc_2011@hotmail.com'
 LICENSE = 'New BSD'
 DESCRIPTION = (
-    'A wrapper library to read, manipulate and write data in xlsx and xlsm ' +
-    'format' +
-    ''
+    'A wrapper library to read, manipulate and write data in xlsx and xlsm' +
+    'format'
 )
 URL = 'https://github.com/pyexcel/pyexcel-xlsx'
 DOWNLOAD_URL = '%s/archive/0.5.5.tar.gz' % URL
-FILES = ['README.rst',  'CHANGELOG.rst']
+FILES = ['README.rst', 'CHANGELOG.rst']
 KEYWORDS = [
     'xlsx'
     'python'
@@ -39,9 +38,10 @@ CLASSIFIERS = [
 ]
 
 INSTALL_REQUIRES = [
-    'openpyxl>=2.4.4',
+    'openpyxl>=2.5.0',
     'pyexcel-io>=0.5.3',
 ]
+SETUP_COMMANDS = {}
 
 
 PACKAGES = find_packages(exclude=['ez_setup', 'examples', 'tests'])
@@ -80,6 +80,8 @@ class PublishCommand(Command):
         try:
             self.status('Removing previous builds...')
             rmtree(os.path.join(HERE, 'dist'))
+            rmtree(os.path.join(HERE, 'build'))
+            rmtree(os.path.join(HERE, 'pyexcel_xlsx.egg-info'))
         except OSError:
             pass
 
@@ -94,6 +96,11 @@ class PublishCommand(Command):
                 self.status(UPLOAD_FAILED_MSG % PUBLISH_COMMAND)
 
         sys.exit()
+
+
+SETUP_COMMANDS.update({
+    'publish': PublishCommand
+})
 
 
 def has_gease():
@@ -169,7 +176,5 @@ if __name__ == '__main__':
         include_package_data=True,
         zip_safe=False,
         classifiers=CLASSIFIERS,
-        cmdclass={
-            'publish': PublishCommand,
-        }
+        cmdclass=SETUP_COMMANDS
     )
