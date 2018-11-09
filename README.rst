@@ -5,7 +5,10 @@ pyexcel-xlsx - Let you focus on data, instead of xlsx format
 .. image:: https://raw.githubusercontent.com/pyexcel/pyexcel.github.io/master/images/patreon.png
    :target: https://www.patreon.com/pyexcel
 
-.. image:: https://api.travis-ci.org/pyexcel/pyexcel-xlsx.svg?branch=master
+.. image:: https://api.bountysource.com/badge/team?team_id=288537
+   :target: https://salt.bountysource.com/teams/chfw-pyexcel
+
+.. image:: https://travis-ci.org/pyexcel/pyexcel-xlsx.svg?branch=master
    :target: http://travis-ci.org/pyexcel/pyexcel-xlsx
 
 .. image:: https://codecov.io/gh/pyexcel/pyexcel-xlsx/branch/master/graph/badge.svg
@@ -19,7 +22,12 @@ pyexcel-xlsx - Let you focus on data, instead of xlsx format
 
 **pyexcel-xlsx** is a tiny wrapper library to read, manipulate and write data in xlsx and xlsm fromat using openpyxl. You are likely to use it with `pyexcel <https://github.com/pyexcel/pyexcel>`__.
 
-Please note that `auto_detect_int` flag will not take effect because openpyxl detect integer in python 3 by default.
+Please note:
+
+1. `auto_detect_int` flag will not take effect because openpyxl detect integer in python 3 by default.
+2. `skip_hidden_row_and_column` will slow down the read operation.
+
+
 
 Known constraints
 ==================
@@ -49,12 +57,15 @@ Support the project
 ================================================================================
 
 If your company has embedded pyexcel and its components into a revenue generating
-product, please `support me on patreon <https://www.patreon.com/bePatron?u=5537627>`_ to
-maintain the project and develop it further.
+product, please support me on `patreon <https://www.patreon.com/bePatron?u=5537627>`_
+or `bounty source <https://salt.bountysource.com/teams/chfw-pyexcel>`_ to maintain
+the project and develop it further.
 
-If you are an individual, you are welcome to support me too on patreon and for however long
-you feel like. As a patreon, you will receive
+If you are an individual, you are welcome to support me too and for however long
+you feel like. As my backer, you will receive
 `early access to pyexcel related contents <https://www.patreon.com/pyexcel/posts>`_.
+
+And your issues will get prioritized if you would like to become my patreon as `pyexcel pro user`.
 
 With your financial support, I will be able to invest
 a little bit more time in coding, documentation and writing interesting posts.

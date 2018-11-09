@@ -11,7 +11,8 @@ class TestStringIO:
         create_sample_file1(testfile)
         with open(testfile, "rb") as f:
             content = f.read()
-            r = pyexcel.get_sheet(file_type="xlsx", file_content=content)
+            r = pyexcel.get_sheet(file_type="xlsx", file_content=content,
+                                  library="pyexcel-xlsx")
             result = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 1.1, 1]
             actual = list(r.enumerate())
             eq_(result, actual)
@@ -25,7 +26,8 @@ class TestStringIO:
         ]
         io = pyexcel.save_as(dest_file_type="xlsx",
                              array=data)
-        r = pyexcel.get_sheet(file_type="xlsx", file_content=io.getvalue())
+        r = pyexcel.get_sheet(file_type="xlsx", file_content=io.getvalue(),
+                              library="pyexcel-xlsx")
         result = [1, 2, 3, 4, 5, 6]
         actual = list(r.enumerate())
         eq_(result, actual)

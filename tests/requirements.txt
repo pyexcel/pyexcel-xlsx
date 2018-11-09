@@ -5,3 +5,6 @@ coverage
 flake8
 pyexcel
 pyexcel-xls
+moban
+black;python_version>="3.6"
+isort;python_version>="3.6"

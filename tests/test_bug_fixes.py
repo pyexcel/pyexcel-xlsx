@@ -9,7 +9,6 @@ import datetime
 from textwrap import dedent
 import pyexcel as pe
 from nose.tools import eq_
-from nose import SkipTest
 
 IN_TRAVIS = 'TRAVIS' in os.environ
 
@@ -101,9 +100,7 @@ def test_issue_8_hidden_sheet_2():
 
 
 def test_issue_20():
-    #if not IN_TRAVIS:
-    #    raise SkipTest()
-    pe.get_book(url="https://github.com/pyexcel/pyexcel-xlsx/raw/master/tests/fixtures/file_with_an_empty_sheet.xlsx");  # flake8: noqa
+    pe.get_book(url="https://github.com/pyexcel/pyexcel-xlsx/raw/master/tests/fixtures/file_with_an_empty_sheet.xlsx")  # noqa: E501
 
 
 def get_fixtures(file_name):
