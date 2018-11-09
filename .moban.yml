@@ -11,6 +11,7 @@ configuration:
   - ".moban.d"
   configuration: pyexcel_xlsx.yaml
 targets:
+  - Pipfile: Pipfile.jj2
   - README.rst: README.rst
   - setup.py: setup.py
   - "docs/source/conf.py": "docs/source/conf.py.jj2"

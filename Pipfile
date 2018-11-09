@@ -1,0 +1,11 @@
+[[source]]
+url = 'https://pypi.python.org/simple'
+verify_ssl = true
+name = 'pypi'
+
+[requires]
+python_version= '3.6'
+
+[packages]
+    openpyxl>=2.4.4
+    pyexcel-io>=0.5.3
