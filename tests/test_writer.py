@@ -1,7 +1,8 @@
 import os
-from pyexcel_xlsx.xlsxw import XLSXWriter as Writer
-from pyexcel_xlsx.xlsxr import XLSXBook as Reader
+
 from base import PyexcelWriterBase, PyexcelHatWriterBase
+from pyexcel_xlsx.xlsxr import XLSXBook as Reader
+from pyexcel_xlsx.xlsxw import XLSXWriter as Writer
 
 
 class TestNativeXLSXWriter:
@@ -9,7 +10,7 @@ class TestNativeXLSXWriter:
         self.content = {
             "Sheet1": [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3]],
             "Sheet2": [[4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6]],
-            "Sheet3": [[u'X', u'Y', u'Z'], [1, 4, 7], [2, 5, 8], [3, 6, 9]]
+            "Sheet3": [[u"X", u"Y", u"Z"], [1, 4, 7], [2, 5, 8], [3, 6, 9]],
         }
         self.testfile = "writer.xlsx"
         writer = Writer()

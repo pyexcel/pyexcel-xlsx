@@ -8,7 +8,6 @@ from shutil import rmtree
 
 from setuptools import Command, setup, find_packages
 
-
 NAME = 'pyexcel-xlsx'
 AUTHOR = 'C.W.'
 VERSION = '0.6.0'

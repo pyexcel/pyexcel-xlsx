@@ -8,7 +8,6 @@
     :license: New BSD License
 """
 import openpyxl
-
 from pyexcel_io.book import BookReader
 from pyexcel_io.sheet import SheetReader
 from pyexcel_io._compact import OrderedDict
@@ -18,6 +17,7 @@ class XLSXSheet(SheetReader):
     """
     Iterate through rows
     """
+
     @property
     def name(self):
         """sheet name"""
@@ -44,6 +44,7 @@ class SlowSheet(XLSXSheet):
     """
     This sheet will be slower because it does not use readonly sheet
     """
+
     def row_iterator(self):
         """
         skip hidden rows
@@ -66,6 +67,7 @@ class XLSXBook(BookReader):
     """
     Open xlsx as read only mode
     """
+
     def open(self, file_name, skip_hidden_sheets=True, **keywords):
         BookReader.open(self, file_name, **keywords)
         self.skip_hidden_sheets = skip_hidden_sheets
@@ -89,21 +91,21 @@ class XLSXBook(BookReader):
         if sheet_index < length:
             return self.read_sheet_by_name(names[sheet_index])
         else:
-            raise IndexError("Index %d of out bound %d" % (
-                sheet_index,
-                length))
+            raise IndexError(
+                "Index %d of out bound %d" % (sheet_index, length)
+            )
 
     def read_all(self):
         result = OrderedDict()
         for sheet in self._native_book:
-            if self.skip_hidden_sheets and sheet.sheet_state == 'hidden':
+            if self.skip_hidden_sheets and sheet.sheet_state == "hidden":
                 continue
             data_dict = self.read_sheet(sheet)
             result.update(data_dict)
         return result
 
     def read_sheet(self, native_sheet):
-        if self._keywords.get('skip_hidden_row_and_column', False) is True:
+        if self._keywords.get("skip_hidden_row_and_column", False) is True:
             sheet = SlowSheet(native_sheet, **self._keywords)
         else:
             sheet = XLSXSheet(native_sheet, **self._keywords)
@@ -115,8 +117,10 @@ class XLSXBook(BookReader):
 
     def _load_the_excel_file(self, file_alike_object):
         read_only_flag = True
-        if self._keywords.get('skip_hidden_row_and_column', False) is True:
+        if self._keywords.get("skip_hidden_row_and_column", False) is True:
             read_only_flag = False
         self._native_book = openpyxl.load_workbook(
-            filename=file_alike_object, data_only=True,
-            read_only=read_only_flag)
+            filename=file_alike_object,
+            data_only=True,
+            read_only=read_only_flag,
+        )
