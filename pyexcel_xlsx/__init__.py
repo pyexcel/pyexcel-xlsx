@@ -11,7 +11,7 @@ from pyexcel_io.plugins import IOPluginInfoChain
 from pyexcel_io.io import (
     get_data as read_data,
     isstream,
-    store_data as write_data,
+    save_data as write_data,
 )
 
 

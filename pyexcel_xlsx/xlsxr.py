@@ -8,6 +8,7 @@
     :license: New BSD License
 """
 import openpyxl
+
 from pyexcel_io.book import BookReader
 from pyexcel_io.sheet import SheetReader
 from pyexcel_io._compact import OrderedDict
