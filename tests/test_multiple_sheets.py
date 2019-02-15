@@ -1,8 +1,10 @@
 import os
 import sys
+
 import pyexcel
-from nose.tools import raises
 from base import PyexcelMultipleSheetBase
+
+from nose.tools import raises
 
 if sys.version_info[0] == 2 and sys.version_info[1] < 7:
     from ordereddict import OrderedDict
@@ -42,8 +44,7 @@ class TestAddBooks:
         3,3,3,3
         """
         self.rows = 3
-        pyexcel.save_book_as(bookdict=self.content,
-                             dest_file_name=file)
+        pyexcel.save_book_as(bookdict=self.content, dest_file_name=file)
 
     def setUp(self):
         self.testfile = "multiple3.xlsx"
@@ -54,16 +55,20 @@ class TestAddBooks:
         self._write_test_file(self.testfile2)
 
     def test_load_a_single_sheet(self):
-        b1 = pyexcel.get_book(file_name=self.testfile, sheet_name="Sheet1",
-                              library="pyexcel-xlsx")
+        b1 = pyexcel.get_book(
+            file_name=self.testfile,
+            sheet_name="Sheet1",
+            library="pyexcel-xlsx",
+        )
         assert len(b1.sheet_names()) == 1
-        assert b1['Sheet1'].to_array() == self.content['Sheet1']
+        assert b1["Sheet1"].to_array() == self.content["Sheet1"]
 
     def test_load_a_single_sheet2(self):
-        b1 = pyexcel.get_book(file_name=self.testfile, sheet_index=1,
-                              library="pyexcel-xlsx")
+        b1 = pyexcel.get_book(
+            file_name=self.testfile, sheet_index=1, library="pyexcel-xlsx"
+        )
         assert len(b1.sheet_names()) == 1
-        assert b1['Sheet2'].to_array() == self.content['Sheet2']
+        assert b1["Sheet2"].to_array() == self.content["Sheet2"]
 
     @raises(IndexError)
     def test_load_a_single_sheet3(self):
@@ -71,8 +76,11 @@ class TestAddBooks:
 
     @raises(KeyError)
     def test_load_a_single_sheet4(self):
-        pyexcel.get_book(file_name=self.testfile, sheet_name="Not exist",
-                         library="pyexcel-xlsx")
+        pyexcel.get_book(
+            file_name=self.testfile,
+            sheet_name="Not exist",
+            library="pyexcel-xlsx",
+        )
 
     def test_delete_sheets(self):
         b1 = pyexcel.load_book(self.testfile)
@@ -233,17 +241,17 @@ class TestMultiSheetReader:
         self.testfile = "file_with_an_empty_sheet.xlsx"
 
     def test_reader_with_correct_sheets(self):
-        r = pyexcel.BookReader(os.path.join("tests", "fixtures",
-                                            self.testfile))
+        r = pyexcel.BookReader(
+            os.path.join("tests", "fixtures", self.testfile)
+        )
         assert r.number_of_sheets() == 3
 
 
 def _produce_ordered_dict():
     data_dict = OrderedDict()
-    data_dict.update({
-        "Sheet1": [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3]]})
-    data_dict.update({
-        "Sheet2": [[4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6]]})
-    data_dict.update({
-        "Sheet3": [[u'X', u'Y', u'Z'], [1, 4, 7], [2, 5, 8], [3, 6, 9]]})
+    data_dict.update({"Sheet1": [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3]]})
+    data_dict.update({"Sheet2": [[4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6]]})
+    data_dict.update(
+        {"Sheet3": [[u"X", u"Y", u"Z"], [1, 4, 7], [2, 5, 8], [3, 6, 9]]}
+    )
     return data_dict

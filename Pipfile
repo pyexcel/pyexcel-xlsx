@@ -1,0 +1,18 @@
+[[source]]
+url = 'https://pypi.python.org/simple'
+verify_ssl = true
+name = 'pypi'
+
+[requires]
+python_version= '3.6'
+
+[packages]
+    openpyxl>=2.5.0,<2.6.0
+    pyexcel-io>=0.5.3
+
+[dev-packages]
+nose = "*"
+mock = "*"
+codecov = "*"
+coverage = "*"
+flake8 = "*"

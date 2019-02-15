@@ -1,11 +1,13 @@
 import os  # noqa
-import pyexcel
 import datetime  # noqa
-from nose.tools import raises, eq_  # noqa
+
+import pyexcel
+
+from nose.tools import eq_, raises  # noqa
 
 
 def create_sample_file1(file):
-    data = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 1.1, 1]
+    data = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", 1.1, 1]
     table = []
     table.append(data[:4])
     table.append(data[4:8])
@@ -17,10 +19,11 @@ class PyexcelHatWriterBase:
     """
     Abstract functional test for hat writers
     """
+
     content = {
         "X": [1, 2, 3, 4, 5],
         "Y": [6, 7, 8, 9, 10],
-        "Z": [11, 12, 13, 14, 15]
+        "Z": [11, 12, 13, 14, 15],
     }
 
     def test_series_table(self):
@@ -36,11 +39,12 @@ class PyexcelWriterBase:
     testfile and testfile2 have to be initialized before
     it is used for testing
     """
+
     content = [
         [1, 2, 3, 4, 5],
         [1, 2, 3, 4, 5],
         [1, 2, 3, 4, 5],
-        [1, 2, 3, 4, 5]
+        [1, 2, 3, 4, 5],
     ]
 
     def _create_a_file(self, file):
@@ -54,7 +58,6 @@ class PyexcelWriterBase:
 
 
 class PyexcelMultipleSheetBase:
-
     def _write_test_file(self, filename):
         pyexcel.save_book_as(bookdict=self.content, dest_file_name=filename)
 
@@ -80,7 +83,7 @@ class PyexcelMultipleSheetBase:
         expected = [[4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6]]
         assert data == expected
         data = list(b["Sheet3"].rows())
-        expected = [[u'X', u'Y', u'Z'], [1, 4, 7], [2, 5, 8], [3, 6, 9]]
+        expected = [[u"X", u"Y", u"Z"], [1, 4, 7], [2, 5, 8], [3, 6, 9]]
         assert data == expected
         sheet3 = b["Sheet3"]
         sheet3.name_columns_by_row(0)

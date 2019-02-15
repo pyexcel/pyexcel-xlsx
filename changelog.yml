@@ -4,6 +4,12 @@ releases:
 - changes:
   - action: Added
     details:
+    - 'pyexcel-io#66 pin openpyxl < 2.6.0'
+  date: 15.02.2019
+  version: 0.5.7
+- changes:
+  - action: Added
+    details:
     - '`#24`, remove deprecated warning from merged_cell_ranges and get_sheet_by_name'
   date: 26.03.2018
   version: 0.5.6

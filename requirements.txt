@@ -1,2 +1,2 @@
-openpyxl>=2.5.0
+openpyxl>=2.5.0,<2.6.0
 pyexcel-io>=0.5.3

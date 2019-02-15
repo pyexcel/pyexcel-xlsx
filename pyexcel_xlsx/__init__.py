@@ -9,18 +9,21 @@
 """
 from pyexcel_io.plugins import IOPluginInfoChain
 from pyexcel_io.io import (
-    get_data as read_data, isstream, store_data as write_data)
+    get_data as read_data,
+    isstream,
+    save_data as write_data,
+)
 
 
-__FILE_TYPE__ = 'xlsx'
+__FILE_TYPE__ = "xlsx"
 IOPluginInfoChain(__name__).add_a_reader(
-    relative_plugin_class_path='xlsxr.XLSXBook',
-    file_types=[__FILE_TYPE__, 'xlsm'],
-    stream_type='binary'
+    relative_plugin_class_path="xlsxr.XLSXBook",
+    file_types=[__FILE_TYPE__, "xlsm"],
+    stream_type="binary",
 ).add_a_writer(
-    relative_plugin_class_path='xlsxw.XLSXWriter',
-    file_types=[__FILE_TYPE__, 'xlsm'],
-    stream_type='binary'
+    relative_plugin_class_path="xlsxw.XLSXWriter",
+    file_types=[__FILE_TYPE__, "xlsm"],
+    stream_type="binary",
 )
 
 

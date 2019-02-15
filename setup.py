@@ -1,13 +1,31 @@
-# Template by setupmobans
+#!/usr/bin/env python3
+
+# Template by pypi-mobans
 import os
 import sys
 import codecs
+import locale
+import platform
 from shutil import rmtree
-from setuptools import setup, find_packages, Command
+
+from setuptools import Command, setup, find_packages
+
+# Work around mbcs bug in distutils.
+# http://bugs.python.org/issue10945
+# This work around is only if a project supports Python < 3.4
+
+# Work around for locale not being set
+try:
+    lc = locale.getlocale()
+    pf = platform.system()
+    if pf != 'Windows' and lc == (None, None):
+        locale.setlocale(locale.LC_ALL, 'C.UTF-8')
+except (ValueError, UnicodeError, locale.Error):
+    locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 NAME = 'pyexcel-xlsx'
 AUTHOR = 'C.W.'
-VERSION = '0.5.6'
+VERSION = '0.5.7'
 EMAIL = 'wangc_2011@hotmail.com'
 LICENSE = 'New BSD'
 DESCRIPTION = (
@@ -15,16 +33,14 @@ DESCRIPTION = (
     'format'
 )
 URL = 'https://github.com/pyexcel/pyexcel-xlsx'
-DOWNLOAD_URL = '%s/archive/0.5.6.tar.gz' % URL
+DOWNLOAD_URL = '%s/archive/0.5.7.tar.gz' % URL
 FILES = ['README.rst', 'CHANGELOG.rst']
 KEYWORDS = [
+    'python',
     'xlsx'
-    'python'
 ]
 
 CLASSIFIERS = [
-    'Topic :: Office/Business',
-    'Topic :: Utilities',
     'Topic :: Software Development :: Libraries',
     'Programming Language :: Python',
     'Intended Audience :: Developers',
@@ -38,7 +54,7 @@ CLASSIFIERS = [
 ]
 
 INSTALL_REQUIRES = [
-    'openpyxl>=2.5.0',
+    'openpyxl>=2.5.0,<2.6.0',
     'pyexcel-io>=0.5.3',
 ]
 SETUP_COMMANDS = {}
@@ -50,8 +66,8 @@ EXTRAS_REQUIRE = {
 # You do not need to read beyond this line
 PUBLISH_COMMAND = '{0} setup.py sdist bdist_wheel upload -r pypi'.format(
     sys.executable)
-GS_COMMAND = ('gs pyexcel-xlsx v0.5.6 ' +
-              "Find 0.5.6 in changelog for more details")
+GS_COMMAND = ('gs pyexcel-xlsx v0.5.7 ' +
+              "Find 0.5.7 in changelog for more details")
 NO_GS_MESSAGE = ('Automatic github release is disabled. ' +
                  'Please install gease to enable it.')
 UPLOAD_FAILED_MSG = (
@@ -127,7 +143,8 @@ def read_files(*files):
 
 def read(afile):
     """Read a file into setup"""
-    with codecs.open(afile, 'r', 'utf-8') as opened_file:
+    the_relative_file = os.path.join(HERE, afile)
+    with codecs.open(the_relative_file, 'r', 'utf-8') as opened_file:
         content = filter_out_test_code(opened_file)
         content = "".join(list(content))
         return content
@@ -159,6 +176,7 @@ def filter_out_test_code(file_handle):
 
 if __name__ == '__main__':
     setup(
+        test_suite="tests",
         name=NAME,
         author=AUTHOR,
         version=VERSION,
