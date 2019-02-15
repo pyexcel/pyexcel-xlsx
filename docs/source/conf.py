@@ -27,9 +27,9 @@ copyright = 'copyright 2015-2019 Onni Software Ltd.'
 author = 'Onni Software Ltd.'
 
 # The short X.Y version
-version = '0.6.0'
+version = '0.5.6'
 # The full version, including alpha/beta/rc tags
-release = '0.5.2'
+release = '0.5.6'
 
 
 # -- General configuration ---------------------------------------------------

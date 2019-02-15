@@ -25,7 +25,7 @@ except (ValueError, UnicodeError, locale.Error):
 
 NAME = 'pyexcel-xlsx'
 AUTHOR = 'C.W.'
-VERSION = '0.6.0'
+VERSION = '0.5.6'
 EMAIL = 'wangc_2011@hotmail.com'
 LICENSE = 'New BSD'
 DESCRIPTION = (
@@ -33,7 +33,7 @@ DESCRIPTION = (
     'format'
 )
 URL = 'https://github.com/pyexcel/pyexcel-xlsx'
-DOWNLOAD_URL = '%s/archive/0.5.2.tar.gz' % URL
+DOWNLOAD_URL = '%s/archive/0.5.6.tar.gz' % URL
 FILES = ['README.rst', 'CHANGELOG.rst']
 KEYWORDS = [
     'python',
@@ -54,7 +54,7 @@ CLASSIFIERS = [
 ]
 
 INSTALL_REQUIRES = [
-    'openpyxl>=2.4.4,<2.6.0',
+    'openpyxl>=2.5.0,<2.6.0',
     'pyexcel-io>=0.5.3',
 ]
 SETUP_COMMANDS = {}
@@ -66,8 +66,8 @@ EXTRAS_REQUIRE = {
 # You do not need to read beyond this line
 PUBLISH_COMMAND = '{0} setup.py sdist bdist_wheel upload -r pypi'.format(
     sys.executable)
-GS_COMMAND = ('gs pyexcel-xlsx v0.5.2 ' +
-              "Find 0.5.2 in changelog for more details")
+GS_COMMAND = ('gs pyexcel-xlsx v0.5.6 ' +
+              "Find 0.5.6 in changelog for more details")
 NO_GS_MESSAGE = ('Automatic github release is disabled. ' +
                  'Please install gease to enable it.')
 UPLOAD_FAILED_MSG = (
