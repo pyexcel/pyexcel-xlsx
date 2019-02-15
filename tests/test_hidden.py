@@ -1,7 +1,8 @@
 import os
 
-from nose.tools import eq_
 from pyexcel_xlsx import get_data
+
+from nose.tools import eq_
 
 
 def test_hidden_row():

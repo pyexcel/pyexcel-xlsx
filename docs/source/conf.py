@@ -4,12 +4,10 @@ DESCRIPTION = (
     'format' +
     ''
 )
-# -*- coding: utf-8 -*-
-#
 # Configuration file for the Sphinx documentation builder.
 #
-# This file does only contain a selection of the most common options. For a
-# full list see the documentation:
+# This file only contains a selection of the most common options. For a full
+# list see the documentation:
 # http://www.sphinx-doc.org/en/master/config
 
 # -- Path setup --------------------------------------------------------------
@@ -24,21 +22,17 @@ DESCRIPTION = (
 
 # -- Project information -----------------------------------------------------
 
-project = u'pyexcel-xlsx'
-copyright = u'2015-2018 Onni Software Ltd.'
-author = u'C.W.'
+project = 'pyexcel-xlsx'
+copyright = 'copyright 2015-2019 Onni Software Ltd.'
+author = 'Onni Software Ltd.'
 
 # The short X.Y version
-version = u'0.5.2'
+version = '0.6.0'
 # The full version, including alpha/beta/rc tags
-release = u'0.6.0'
+release = '0.5.2'
 
 
 # -- General configuration ---------------------------------------------------
-
-# If your documentation needs a minimal Sphinx version, state it here.
-#
-# needs_sphinx = '1.0'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
@@ -68,9 +62,6 @@ language = 'en'
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
-
-# The name of the Pygments (syntax highlighting) style to use.
-pygments_style = None
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -102,63 +93,6 @@ html_static_path = ['_static']
 # html_sidebars = {}
 
 
-# -- Options for HTMLHelp output ---------------------------------------------
-
-# Output file base name for HTML help builder.
-htmlhelp_basename = 'pyexcel-xlsxdoc'
-
-
-# -- Options for LaTeX output ------------------------------------------------
-
-latex_elements = {
-    # The paper size ('letterpaper' or 'a4paper').
-    #
-    # 'papersize': 'letterpaper',
-
-    # The font size ('10pt', '11pt' or '12pt').
-    #
-    # 'pointsize': '10pt',
-
-    # Additional stuff for the LaTeX preamble.
-    #
-    # 'preamble': '',
-
-    # Latex figure (float) alignment
-    #
-    # 'figure_align': 'htbp',
-}
-
-# Grouping the document tree into LaTeX files. List of tuples
-# (source start file, target name, title,
-#  author, documentclass [howto, manual, or own class]).
-latex_documents = [
-    (master_doc, 'pyexcel-xlsx.tex', u'pyexcel-xlsx Documentation',
-     u'Onni Software Ltd.', 'manual'),
-]
-
-
-# -- Options for manual page output ------------------------------------------
-
-# One entry per manual page. List of tuples
-# (source start file, name, description, authors, manual section).
-man_pages = [
-    (master_doc, 'pyexcel-xlsx', u'pyexcel-xlsx Documentation',
-     [author], 1)
-]
-
-
-# -- Options for Texinfo output ----------------------------------------------
-
-# Grouping the document tree into Texinfo files. List of tuples
-# (source start file, target name, title, author,
-#  dir menu entry, description, category)
-texinfo_documents = [
-    (master_doc, 'pyexcel-xlsx', u'pyexcel-xlsx Documentation',
-     author, 'pyexcel-xlsx', 'One line description of project.',
-     'Miscellaneous'),
-]
-
-
 # -- Options for Epub output -------------------------------------------------
 
 # Bibliographic Dublin Core info.
@@ -181,6 +115,7 @@ epub_exclude_files = ['search.html']
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/': None}
+
 # TODO: html_theme not configurable upstream
 html_theme = 'default'
 
