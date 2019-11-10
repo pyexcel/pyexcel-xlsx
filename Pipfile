@@ -7,8 +7,8 @@ name = 'pypi'
 python_version= '3.6'
 
 [packages]
-    openpyxl>=2.5.0,<2.6.0
-    pyexcel-io>=0.5.3
+openpyxl = '>=2.5.0,<2.6.0'
+pyexcel-io = '>=0.5.3'
 
 [dev-packages]
 nose = "*"
