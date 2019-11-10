@@ -3,7 +3,7 @@ configuration:
   configuration: pyexcel-xlsx.yml
 targets:
   - Pipfile: Pipfile.jj2
-  - README.rst: README.rst
+  - README.rst: custom_README.rst.jj2
   - setup.py: setup.py
   - "docs/source/conf.py": "docs/source/conf.py.jj2"
   - .travis.yml: travis.yml
