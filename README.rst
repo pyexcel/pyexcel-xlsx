@@ -36,6 +36,24 @@ Please note:
 
 
 
+Support the project
+================================================================================
+
+If your company has embedded pyexcel and its components into a revenue generating
+product, please support me on `github <https://github.com/sponsors/chfw>`_, `patreon <https://www.patreon.com/bePatron?u=5537627>`_
+or `bounty source <https://salt.bountysource.com/teams/chfw-pyexcel>`_ to maintain
+the project and develop it further.
+
+If you are an individual, you are welcome to support me too and for however long
+you feel like. As my backer, you will receive
+`early access to pyexcel related contents <https://www.patreon.com/pyexcel/posts>`_.
+
+And your issues will get prioritized if you would like to become my patreon as `pyexcel pro user`.
+
+With your financial support, I will be able to invest
+a little bit more time in coding, documentation and writing interesting posts.
+
+
 Known constraints
 ==================
 
@@ -59,24 +77,6 @@ or clone it and install it:
     $ git clone https://github.com/pyexcel/pyexcel-xlsx.git
     $ cd pyexcel-xlsx
     $ python setup.py install
-
-Support the project
-================================================================================
-
-If your company has embedded pyexcel and its components into a revenue generating
-product, please support me on `github <https://github.com/sponsors/chfw>`_, `patreon <https://www.patreon.com/bePatron?u=5537627>`_
-or `bounty source <https://salt.bountysource.com/teams/chfw-pyexcel>`_ to maintain
-the project and develop it further.
-
-If you are an individual, you are welcome to support me too and for however long
-you feel like. As my backer, you will receive
-`early access to pyexcel related contents <https://www.patreon.com/pyexcel/posts>`_.
-
-And your issues will get prioritized if you would like to become my patreon as `pyexcel pro user`.
-
-With your financial support, I will be able to invest
-a little bit more time in coding, documentation and writing interesting posts.
-
 
 Usage
 ================================================================================
