@@ -14,10 +14,14 @@ pyexcel-xlsx - Let you focus on data, instead of xlsx format
 .. image:: https://badge.fury.io/py/pyexcel-xlsx.svg
    :target: https://pypi.org/project/pyexcel-xlsx
 
+.. image:: https://anaconda.org/conda-forge/pyexcel-xlsx/badges/version.svg
+   :target: https://anaconda.org/conda-forge/pyexcel-xlsx
 
 .. image:: https://pepy.tech/badge/pyexcel-xlsx/month
    :target: https://pepy.tech/project/pyexcel-xlsx/month
 
+.. image:: https://anaconda.org/conda-forge/pyexcel-xlsx/badges/downloads.svg
+   :target: https://anaconda.org/conda-forge/pyexcel-xlsx
 
 .. image:: https://img.shields.io/gitter/room/gitterHQ/gitter.svg
    :target: https://gitter.im/pyexcel/Lobby

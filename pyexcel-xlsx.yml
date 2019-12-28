@@ -7,6 +7,7 @@ current_version: 0.5.8
 release: 0.5.8
 file_type: xlsx
 gitignore_language: Python
+is_on_conda: true
 dependencies:
   - openpyxl>=2.6.1
   - pyexcel-io>=0.5.3
