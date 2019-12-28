@@ -22,8 +22,6 @@ pyexcel-xlsx - Let you focus on data, instead of xlsx format
 .. image:: https://img.shields.io/gitter/room/gitterHQ/gitter.svg
    :target: https://gitter.im/pyexcel/Lobby
 
-.. image:: https://readthedocs.org/projects/pyexcel-xlsx/badge/?version=latest
-   :target: http://pyexcel-xlsx.readthedocs.org/en/latest/
 
 **pyexcel-xlsx** is a tiny wrapper library to read, manipulate and write data in xlsx and xlsm format using  `read_only` mode reader, `write_only` mode writer from openpyxl. You are likely to use it with `pyexcel <https://github.com/pyexcel/pyexcel>`__.
 

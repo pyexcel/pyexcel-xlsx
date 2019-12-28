@@ -1,5 +1,8 @@
 {%extends 'README.rst.jj2' %}
 
+{%block documentation_link%}
+{%endblock%}
+
 {%block description%}
 **{{name}}** is a tiny wrapper library to read, manipulate and write data in xlsx and xlsm format using  `read_only` mode reader, `write_only` mode writer from openpyxl. You are likely to use it with `pyexcel <https://github.com/pyexcel/pyexcel>`__.
 
