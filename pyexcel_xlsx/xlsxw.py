@@ -4,7 +4,7 @@
 
     Write xlsx file format using openpyxl
 
-    :copyright: (c) 2015-2017 by Onni Software Ltd & its contributors
+    :copyright: (c) 2015-2019 by Onni Software Ltd & its contributors
     :license: New BSD License
 """
 import openpyxl

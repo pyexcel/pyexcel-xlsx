@@ -4,7 +4,7 @@
 
     Read xlsx file format using openpyxl
 
-    :copyright: (c) 2015-2017 by Onni Software Ltd & its contributors
+    :copyright: (c) 2015-2019 by Onni Software Ltd & its contributors
     :license: New BSD License
 """
 import openpyxl
@@ -186,7 +186,6 @@ class XLSXBook(BookReader):
 
     def read_sheet(self, native_sheet):
         if self.skip_hidden_row_and_column or self.detect_merged_cells:
-
             sheet = SlowSheet(native_sheet, **self._keywords)
         else:
             sheet = FastSheet(native_sheet, **self._keywords)

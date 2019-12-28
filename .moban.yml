@@ -1,33 +1,12 @@
-requires:
-  - type: git
-    url: https://github.com/moremoban/pypi-mobans
-    submodule: true
-  - https://github.com/pyexcel/pyexcel-mobans
+overrides: "git://github.com/pyexcel/pyexcel-mobans!/mobanfile.yaml"
 configuration:
-  configuration_dir: "pyexcel-mobans:config"
-  template_dir:
-  - "pyexcel-mobans:templates"
-  - "pypi-mobans:templates"
-  - ".moban.d"
   configuration: pyexcel-xlsx.yml
 targets:
   - Pipfile: Pipfile.jj2
-  - README.rst: README.rst
+  - README.rst: custom_README.rst.jj2
   - setup.py: setup.py
   - "docs/source/conf.py": "docs/source/conf.py.jj2"
-  - .travis.yml: travis.yml
-  - requirements.txt: requirements.txt
-  - LICENSE: NEW_BSD_LICENSE.jj2
+  - .travis.yml: custom_travis.yml.jj2
   - MANIFEST.in: MANIFEST.in.jj2
   - .gitignore: gitignore.jj2
-  - test.sh: test.script.jj2
-  - test.bat: test.script.jj2
   - "tests/requirements.txt": "tests/requirements.txt"
-  - "tests/test_filter.py": "tests/test_filter.py.jj2"
-  - "tests/test_formatters.py": "tests/test_formatters.py"
-  - "tests/test_stringio.py": "tests/test_stringio.py.jj2"
-  - "tests/test_writer.py": "tests/test_writer.py.jj2"
-  - "tests/base.py": "tests/base.py"
-  - output: CHANGELOG.rst
-    configuration: changelog.yml
-    template: CHANGELOG.rst.jj2
