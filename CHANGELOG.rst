@@ -6,14 +6,16 @@ Change log
 
 **Updated**
 
-#. #34 pin openpyxl>=2.6.1
+#. `#34 <https://github.com/pyexcel/pyexcel-xlsx/issues/34>`_: pin
+   openpyxl>=2.6.1
 
 0.5.7 - 15.02.2019
 --------------------------------------------------------------------------------
 
 **Added**
 
-#. pyexcel-io#66 pin openpyxl < 2.6.0
+#. `pyexcel-io#66 <https://github.com/pyexcel/pyexcel-io/issues/66>`_ pin
+   openpyxl < 2.6.0
 
 0.5.6 - 26.03.2018
 --------------------------------------------------------------------------------
