@@ -11,4 +11,7 @@ is_on_conda: true
 dependencies:
   - openpyxl>=2.6.1
   - pyexcel-io>=0.5.3
+test_dependencies:
+  - pyexcel-xls
+  - pyexcel
 description: A wrapper library to read, manipulate and write data in xlsx and xlsm format
