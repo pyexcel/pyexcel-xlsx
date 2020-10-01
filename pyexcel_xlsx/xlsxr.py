@@ -8,13 +8,11 @@
     :license: New BSD License
 """
 import openpyxl
-
-from pyexcel_io.book import BookReader
-from pyexcel_io.sheet import SheetReader
-from pyexcel_io._compact import OrderedDict, irange
+from pyexcel_io._compact import OrderedDict
+from pyexcel_io.plugin_api.abstract_sheet import ISheet
 
 
-class FastSheet(SheetReader):
+class FastSheet(ISheet):
     """
     Iterate through rows
     """
@@ -47,8 +45,8 @@ class MergedCell(object):
         self.value = None
 
     def register_cells(self, registry):
-        for rowx in irange(self.__rl, self.__rh + 1):
-            for colx in irange(self.__cl, self.__ch + 1):
+        for rowx in range(self.__rl, self.__rh + 1):
+            for colx in range(self.__cl, self.__ch + 1):
                 key = "%s-%s" % (rowx, colx)
                 registry[key] = self
 
@@ -65,7 +63,8 @@ class SlowSheet(FastSheet):
     """
 
     def __init__(self, sheet, **keywords):
-        SheetReader.__init__(self, sheet, **keywords)
+        self._native_sheet = sheet
+        self._keywords = keywords
         self.__merged_cells = {}
         self.max_row = 0
         self.max_column = 0
@@ -124,72 +123,42 @@ class SlowSheet(FastSheet):
         return ret
 
 
-class XLSXBook(BookReader):
+class XLSXBook(object):
     """
     Open xlsx as read only mode
     """
 
-    def open(
+    def __init__(
         self,
-        file_name,
+        file_alike_object,
+        file_type,
         skip_hidden_sheets=True,
         detect_merged_cells=False,
         skip_hidden_row_and_column=True,
         **keywords
     ):
-
-        BookReader.open(self, file_name, **keywords)
         self.skip_hidden_sheets = skip_hidden_sheets
         self.skip_hidden_row_and_column = skip_hidden_row_and_column
         self.detect_merged_cells = detect_merged_cells
-        self._load_the_excel_file(file_name)
+        self.keywords = keywords
+        self._load_the_excel_file(file_alike_object)
 
-    def open_stream(
-        self,
-        file_stream,
-        skip_hidden_sheets=True,
-        detect_merged_cells=False,
-        skip_hidden_row_and_column=True,
-        **keywords
-    ):
-        BookReader.open_stream(self, file_stream, **keywords)
-        self.skip_hidden_sheets = skip_hidden_sheets
-        self.skip_hidden_row_and_column = skip_hidden_row_and_column
-        self.detect_merged_cells = detect_merged_cells
-        self._load_the_excel_file(file_stream)
-
-    def read_sheet_by_name(self, sheet_name):
-        sheet = self._native_book[sheet_name]
-        if sheet is None:
-            raise ValueError("%s cannot be found" % sheet_name)
+    def read_sheet(self, sheet_index):
+        native_sheet = self.content_array[sheet_index].sheet
+        if self.skip_hidden_row_and_column or self.detect_merged_cells:
+            sheet = SlowSheet(native_sheet, **self.keywords)
         else:
-            return self.read_sheet(sheet)
-
-    def read_sheet_by_index(self, sheet_index):
-        names = self._native_book.sheetnames
-        length = len(names)
-        if sheet_index < length:
-            return self.read_sheet_by_name(names[sheet_index])
-        else:
-            raise IndexError(
-                "Index %d of out bound %d" % (sheet_index, length)
-            )
+            sheet = FastSheet(native_sheet, **self.keywords)
+        return sheet
 
     def read_all(self):
         result = OrderedDict()
-        for sheet in self._native_book:
+        for index, sheet in enumerate(self._native_book):
             if self.skip_hidden_sheets and sheet.sheet_state == "hidden":
                 continue
-            data_dict = self.read_sheet(sheet)
-            result.update(data_dict)
+            sheet = self.read_sheet(index)
+            result.update({sheet.name: sheet.to_array()})
         return result
-
-    def read_sheet(self, native_sheet):
-        if self.skip_hidden_row_and_column or self.detect_merged_cells:
-            sheet = SlowSheet(native_sheet, **self._keywords)
-        else:
-            sheet = FastSheet(native_sheet, **self._keywords)
-        return {sheet.name: sheet.to_array()}
 
     def close(self):
         self._native_book.close()
@@ -207,3 +176,14 @@ class XLSXBook(BookReader):
             data_only=data_only_flag,
             read_only=read_only_flag,
         )
+        self.content_array = []
+        for sheet_name, sheet in zip(self._native_book.sheetnames, self._native_book):
+            if self.skip_hidden_sheets and sheet.sheet_state == "hidden":
+                continue
+            self.content_array.append(NameObject(sheet_name, sheet))
+
+
+class NameObject(object):
+    def __init__(self, name, sheet):
+        self.name = name
+        self.sheet = sheet

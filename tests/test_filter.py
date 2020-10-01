@@ -1,7 +1,8 @@
 import os
 
-from nose.tools import eq_
 from pyexcel_io import get_data, save_data
+
+from nose.tools import eq_
 
 
 class TestFilter:

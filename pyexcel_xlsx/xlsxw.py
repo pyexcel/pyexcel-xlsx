@@ -8,7 +8,6 @@
     :license: New BSD License
 """
 import openpyxl
-
 from pyexcel_io.book import BookWriter
 from pyexcel_io.sheet import SheetWriter
 
