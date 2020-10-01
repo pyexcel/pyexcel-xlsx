@@ -177,7 +177,9 @@ class XLSXBook(object):
             read_only=read_only_flag,
         )
         self.content_array = []
-        for sheet_name, sheet in zip(self._native_book.sheetnames, self._native_book):
+        for sheet_name, sheet in zip(
+            self._native_book.sheetnames, self._native_book
+        ):
             if self.skip_hidden_sheets and sheet.sheet_state == "hidden":
                 continue
             self.content_array.append(NameObject(sheet_name, sheet))
