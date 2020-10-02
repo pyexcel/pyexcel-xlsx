@@ -7,6 +7,8 @@
     :copyright: (c) 2015-2019 by Onni Software Ltd & its contributors
     :license: New BSD License
 """
+from io import BytesIO
+
 import openpyxl
 from pyexcel_io._compact import OrderedDict
 from pyexcel_io.plugin_api.abstract_sheet import ISheet
@@ -183,6 +185,16 @@ class XLSXBook(object):
             if self.skip_hidden_sheets and sheet.sheet_state == "hidden":
                 continue
             self.content_array.append(NameObject(sheet_name, sheet))
+
+
+class XLSXBookInContent(XLSXBook):
+    """
+    Open xlsx as read only mode
+    """
+
+    def __init__(self, file_content, file_type, **keywords):
+        io = BytesIO(file_content)
+        super().__init__(io, file_type, **keywords)
 
 
 class NameObject(object):
