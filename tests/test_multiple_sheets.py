@@ -74,7 +74,7 @@ class TestAddBooks:
     def test_load_a_single_sheet3(self):
         pyexcel.get_book(file_name=self.testfile, sheet_index=10000)
 
-    @raises(KeyError)
+    @raises(ValueError)
     def test_load_a_single_sheet4(self):
         pyexcel.get_book(
             file_name=self.testfile,

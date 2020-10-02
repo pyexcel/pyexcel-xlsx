@@ -2,8 +2,8 @@ overrides: "pyexcel.yaml"
 name: "pyexcel-xlsx"
 project: "pyexcel-xlsx"
 nick_name: xlsx
-version: 0.5.8
-current_version: 0.5.8
+version: 0.6.0
+current_version: 0.6.0
 release: 0.5.8
 file_type: xlsx
 gitignore_language: Python
@@ -11,4 +11,7 @@ is_on_conda: true
 dependencies:
   - openpyxl>=2.6.1
   - pyexcel-io>=0.5.3
+test_dependencies:
+  - pyexcel-xls
+  - pyexcel
 description: A wrapper library to read, manipulate and write data in xlsx and xlsm format

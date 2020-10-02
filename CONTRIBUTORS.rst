@@ -1,9 +1,10 @@
 
+
 3 contributors
 ================================================================================
 
 In alphabetical order:
 
-* `Benoit Pierre <https://api.github.com/users/benoit-pierre>`_
-* `John Vandenberg <https://api.github.com/users/jayvdb>`_
-* `Stephen J. Fuhry <https://api.github.com/users/fuhrysteve>`_
+* `Benoit Pierre <https://github.com/benoit-pierre>`_
+* `John Vandenberg <https://github.com/jayvdb>`_
+* `Stephen J. Fuhry <https://github.com/fuhrysteve>`_
