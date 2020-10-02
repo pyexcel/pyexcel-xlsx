@@ -19,6 +19,11 @@ IOPluginInfoChainV2(__name__).add_a_reader(
     locations=["file", "memory"],
     file_types=[__FILE_TYPE__, "xlsm"],
     stream_type="binary",
+).add_a_reader(
+    relative_plugin_class_path="xlsxr.XLSXBookInContent",
+    locations=["content"],
+    file_types=[__FILE_TYPE__, "xlsm"],
+    stream_type="binary",
 ).add_a_writer(
     relative_plugin_class_path="xlsxw.XLSXWriter",
     locations=["file", "memory"],
