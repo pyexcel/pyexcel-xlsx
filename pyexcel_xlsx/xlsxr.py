@@ -4,20 +4,23 @@
 
     Read xlsx file format using openpyxl
 
-    :copyright: (c) 2015-2019 by Onni Software Ltd & its contributors
+    :copyright: (c) 2015-2020 by Onni Software Ltd & its contributors
     :license: New BSD License
 """
 from io import BytesIO
+from collections import OrderedDict
 
 import openpyxl
-from pyexcel_io._compact import OrderedDict
-from pyexcel_io.plugin_api.abstract_sheet import ISheet
+from pyexcel_io.plugin_api import ISheet, IReader, NamedContent
 
 
 class FastSheet(ISheet):
     """
     Iterate through rows
     """
+
+    def __init__(self, sheet, **_):
+        self._native_sheet = sheet
 
     @property
     def name(self):
@@ -125,7 +128,7 @@ class SlowSheet(FastSheet):
         return ret
 
 
-class XLSXBook(object):
+class XLSXBook(IReader):
     """
     Open xlsx as read only mode
     """
@@ -146,7 +149,7 @@ class XLSXBook(object):
         self._load_the_excel_file(file_alike_object)
 
     def read_sheet(self, sheet_index):
-        native_sheet = self.content_array[sheet_index].sheet
+        native_sheet = self.content_array[sheet_index].payload
         if self.skip_hidden_row_and_column or self.detect_merged_cells:
             sheet = SlowSheet(native_sheet, **self.keywords)
         else:
@@ -184,7 +187,7 @@ class XLSXBook(object):
         ):
             if self.skip_hidden_sheets and sheet.sheet_state == "hidden":
                 continue
-            self.content_array.append(NameObject(sheet_name, sheet))
+            self.content_array.append(NamedContent(sheet_name, sheet))
 
 
 class XLSXBookInContent(XLSXBook):
@@ -195,9 +198,3 @@ class XLSXBookInContent(XLSXBook):
     def __init__(self, file_content, file_type, **keywords):
         io = BytesIO(file_content)
         super().__init__(io, file_type, **keywords)
-
-
-class NameObject(object):
-    def __init__(self, name, sheet):
-        self.name = name
-        self.sheet = sheet

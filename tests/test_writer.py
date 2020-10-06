@@ -1,6 +1,8 @@
 import os
+from collections import OrderedDict
 
 from base import PyexcelWriterBase, PyexcelHatWriterBase
+from pyexcel_io.reader import EncapsulatedSheetReader
 from pyexcel_xlsx.xlsxr import XLSXBook as Reader
 from pyexcel_xlsx.xlsxw import XLSXWriter as Writer
 
@@ -17,7 +19,7 @@ class TestNativeXLSXWriter:
         writer.write(self.content)
         writer.close()
         reader = Reader(self.testfile, "xlsx")
-        content = reader.read_all()
+        content = read_all(reader)
         for key in content.keys():
             content[key] = list(content[key])
         assert content == self.content
@@ -47,3 +49,16 @@ class TestxlsxHatWriter(PyexcelHatWriterBase):
     def tearDown(self):
         if os.path.exists(self.testfile):
             os.unlink(self.testfile)
+
+
+def read_all(reader):
+    result = OrderedDict()
+    for index, sheet in enumerate(reader.content_array):
+        result.update(
+            {
+                sheet.name: EncapsulatedSheetReader(
+                    reader.read_sheet(index)
+                ).to_array()
+            }
+        )
+    return result
