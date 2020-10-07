@@ -1,5 +1,4 @@
 import os
-from collections import OrderedDict
 
 from base import PyexcelWriterBase, PyexcelHatWriterBase
 from pyexcel_xlsx import get_data
