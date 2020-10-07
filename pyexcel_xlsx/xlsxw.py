@@ -43,9 +43,7 @@ class XLSXWriter(IWriter):
         self._native_book = openpyxl.Workbook(write_only=True)
 
     def create_sheet(self, name):
-        return XLSXSheetWriter(
-            self._native_book.create_sheet(), name
-        )
+        return XLSXSheetWriter(self._native_book.create_sheet(), name)
 
     def close(self):
         """
