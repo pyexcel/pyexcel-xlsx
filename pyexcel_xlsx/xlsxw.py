@@ -17,12 +17,10 @@ class XLSXSheetWriter(ISheetWriter):
     Write data into xlsx sheet
     """
 
-    def __init__(self, xlsx_book, xlsx_sheet, sheet_name, **keywords):
+    def __init__(self, xlsx_sheet, sheet_name):
         if sheet_name is None:
             sheet_name = constants.DEFAULT_SHEET_NAME
-        self._xlsx_book = xlsx_book
         self._xlsx_sheet = xlsx_sheet
-        self._keywords = keywords
         self._xlsx_sheet.title = sheet_name
 
     def write_row(self, array):
@@ -46,7 +44,7 @@ class XLSXWriter(IWriter):
 
     def create_sheet(self, name):
         return XLSXSheetWriter(
-            self._native_book, self._native_book.create_sheet(), name
+            self._native_book.create_sheet(), name
         )
 
     def close(self):
