@@ -8,7 +8,6 @@
     :license: New BSD License
 """
 from io import BytesIO
-from collections import OrderedDict
 
 import openpyxl
 from pyexcel_io.plugin_api import ISheet, IReader, NamedContent
