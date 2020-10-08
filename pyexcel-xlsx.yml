@@ -15,3 +15,4 @@ test_dependencies:
   - pyexcel-xls
   - pyexcel
 description: A wrapper library to read, manipulate and write data in xlsx and xlsm format
+moban_command: false

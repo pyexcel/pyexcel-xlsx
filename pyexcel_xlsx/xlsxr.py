@@ -4,14 +4,14 @@
 
     Read xlsx file format using openpyxl
 
-    :copyright: (c) 2015-2019 by Onni Software Ltd & its contributors
+    :copyright: (c) 2015-2020 by Onni Software Ltd & its contributors
     :license: New BSD License
 """
 from io import BytesIO
+from collections import OrderedDict
 
 import openpyxl
-from pyexcel_io._compact import OrderedDict
-from pyexcel_io.plugin_api.abstract_sheet import ISheet
+from pyexcel_io.plugin_api import ISheet, IReader, NamedContent
 
 
 class FastSheet(ISheet):
@@ -19,10 +19,13 @@ class FastSheet(ISheet):
     Iterate through rows
     """
 
+    def __init__(self, sheet, **_):
+        self.xlsx_sheet = sheet
+
     @property
     def name(self):
         """sheet name"""
-        return self._native_sheet.title
+        return self.xlsx_sheet.title
 
     def row_iterator(self):
         """
@@ -30,7 +33,7 @@ class FastSheet(ISheet):
 
         http://openpyxl.readthedocs.io/en/default/optimized.html
         """
-        for row in self._native_sheet.rows:
+        for row in self.xlsx_sheet.rows:
             yield row
 
     def column_iterator(self, row):
@@ -65,7 +68,7 @@ class SlowSheet(FastSheet):
     """
 
     def __init__(self, sheet, **keywords):
-        self._native_sheet = sheet
+        self.xlsx_sheet = sheet
         self._keywords = keywords
         self.__merged_cells = {}
         self.max_row = 0
@@ -84,8 +87,8 @@ class SlowSheet(FastSheet):
         """
         skip hidden rows
         """
-        for row_index, row in enumerate(self._native_sheet.rows, 1):
-            if self._native_sheet.row_dimensions[row_index].hidden is False:
+        for row_index, row in enumerate(self.xlsx_sheet.rows, 1):
+            if self.xlsx_sheet.row_dimensions[row_index].hidden is False:
                 yield (row, row_index)
         if self.max_row > self.__sheet_max_row:
             for i in range(self.__sheet_max_row, self.max_row):
@@ -99,7 +102,7 @@ class SlowSheet(FastSheet):
         row, row_index = row_struct
         for column_index, cell in enumerate(row, 1):
             letter = openpyxl.utils.get_column_letter(column_index)
-            if self._native_sheet.column_dimensions[letter].hidden is False:
+            if self.xlsx_sheet.column_dimensions[letter].hidden is False:
                 if cell:
                     value = cell.value
                 else:
@@ -125,7 +128,7 @@ class SlowSheet(FastSheet):
         return ret
 
 
-class XLSXBook(object):
+class XLSXBook(IReader):
     """
     Open xlsx as read only mode
     """
@@ -146,7 +149,7 @@ class XLSXBook(object):
         self._load_the_excel_file(file_alike_object)
 
     def read_sheet(self, sheet_index):
-        native_sheet = self.content_array[sheet_index].sheet
+        native_sheet = self.content_array[sheet_index].payload
         if self.skip_hidden_row_and_column or self.detect_merged_cells:
             sheet = SlowSheet(native_sheet, **self.keywords)
         else:
@@ -155,7 +158,7 @@ class XLSXBook(object):
 
     def read_all(self):
         result = OrderedDict()
-        for index, sheet in enumerate(self._native_book):
+        for index, sheet in enumerate(self.xlsx_book):
             if self.skip_hidden_sheets and sheet.sheet_state == "hidden":
                 continue
             sheet = self.read_sheet(index)
@@ -163,8 +166,8 @@ class XLSXBook(object):
         return result
 
     def close(self):
-        self._native_book.close()
-        self._native_book = None
+        self.xlsx_book.close()
+        self.xlsx_book = None
 
     def _load_the_excel_file(self, file_alike_object):
         read_only_flag = True
@@ -173,18 +176,18 @@ class XLSXBook(object):
         data_only_flag = True
         if self.detect_merged_cells:
             data_only_flag = False
-        self._native_book = openpyxl.load_workbook(
+        self.xlsx_book = openpyxl.load_workbook(
             filename=file_alike_object,
             data_only=data_only_flag,
             read_only=read_only_flag,
         )
         self.content_array = []
         for sheet_name, sheet in zip(
-            self._native_book.sheetnames, self._native_book
+            self.xlsx_book.sheetnames, self.xlsx_book
         ):
             if self.skip_hidden_sheets and sheet.sheet_state == "hidden":
                 continue
-            self.content_array.append(NameObject(sheet_name, sheet))
+            self.content_array.append(NamedContent(sheet_name, sheet))
 
 
 class XLSXBookInContent(XLSXBook):
@@ -195,9 +198,3 @@ class XLSXBookInContent(XLSXBook):
     def __init__(self, file_content, file_type, **keywords):
         io = BytesIO(file_content)
         super().__init__(io, file_type, **keywords)
-
-
-class NameObject(object):
-    def __init__(self, name, sheet):
-        self.name = name
-        self.sheet = sheet
