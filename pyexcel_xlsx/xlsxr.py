@@ -22,11 +22,6 @@ class FastSheet(ISheet):
     def __init__(self, sheet, **_):
         self.xlsx_sheet = sheet
 
-    @property
-    def name(self):
-        """sheet name"""
-        return self.xlsx_sheet.title
-
     def row_iterator(self):
         """
         openpyxl row iterator
@@ -155,15 +150,6 @@ class XLSXBook(IReader):
         else:
             sheet = FastSheet(native_sheet, **self.keywords)
         return sheet
-
-    def read_all(self):
-        result = OrderedDict()
-        for index, sheet in enumerate(self.xlsx_book):
-            if self.skip_hidden_sheets and sheet.sheet_state == "hidden":
-                continue
-            sheet = self.read_sheet(index)
-            result.update({sheet.name: sheet.to_array()})
-        return result
 
     def close(self):
         self.xlsx_book.close()

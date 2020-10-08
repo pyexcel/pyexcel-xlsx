@@ -4,13 +4,13 @@ project: "pyexcel-xlsx"
 nick_name: xlsx
 version: 0.6.0
 current_version: 0.6.0
-release: 0.5.8
+release: 0.6.0
 file_type: xlsx
 gitignore_language: Python
 is_on_conda: true
 dependencies:
   - openpyxl>=2.6.1
-  - pyexcel-io>=0.5.3
+  - pyexcel-io>=0.6.2
 test_dependencies:
   - pyexcel-xls
   - pyexcel

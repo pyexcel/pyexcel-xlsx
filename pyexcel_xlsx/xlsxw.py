@@ -17,9 +17,7 @@ class XLSXSheetWriter(ISheetWriter):
     Write data into xlsx sheet
     """
 
-    def __init__(self, xlsx_sheet, sheet_name):
-        if sheet_name is None:
-            sheet_name = constants.DEFAULT_SHEET_NAME
+    def __init__(self, xlsx_sheet, sheet_name=constants.DEFAULT_SHEET_NAME):
         self._xlsx_sheet = xlsx_sheet
         self._xlsx_sheet.title = sheet_name
 

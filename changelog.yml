@@ -5,7 +5,7 @@ releases:
   - action: Updated
     details:
     - 'New style xlsx plugins, promoted by pyexcel-io v0.6.0.'
-  date: tbd
+  date: 9.10.2020
   version: 0.6.0
 - changes:
   - action: Updated
