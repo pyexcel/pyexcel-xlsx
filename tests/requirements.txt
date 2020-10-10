@@ -3,8 +3,11 @@ mock;python_version<"3"
 codecov
 coverage
 flake8
-pyexcel
-pyexcel-xls
+black
+isort
+collective.checkdocs
+pygments
 moban
-black;python_version>="3.6"
-isort;python_version>="3.6"
+moban_jinja2_github
+pyexcel-xls
+pyexcel

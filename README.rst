@@ -5,6 +5,9 @@ pyexcel-xlsx - Let you focus on data, instead of xlsx format
 .. image:: https://raw.githubusercontent.com/pyexcel/pyexcel.github.io/master/images/patreon.png
    :target: https://www.patreon.com/chfw
 
+.. image:: https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg
+   :target: https://awesome-python.com/#specific-formats-processing
+
 .. image:: https://travis-ci.org/pyexcel/pyexcel-xlsx.svg?branch=master
    :target: http://travis-ci.org/pyexcel/pyexcel-xlsx
 
@@ -26,6 +29,11 @@ pyexcel-xlsx - Let you focus on data, instead of xlsx format
 .. image:: https://img.shields.io/gitter/room/gitterHQ/gitter.svg
    :target: https://gitter.im/pyexcel/Lobby
 
+.. image:: https://img.shields.io/static/v1?label=continuous%20templating&message=%E6%A8%A1%E7%89%88%E6%9B%B4%E6%96%B0&color=blue&style=flat-square
+    :target: https://moban.readthedocs.io/en/latest/#at-scale-continous-templating-for-open-source-projects
+
+.. image:: https://img.shields.io/static/v1?label=coding%20style&message=black&color=black&style=flat-square
+    :target: https://github.com/psf/black
 
 **pyexcel-xlsx** is a tiny wrapper library to read, manipulate and write data in xlsx and xlsm format using  `read_only` mode reader, `write_only` mode writer from openpyxl. You are likely to use it with `pyexcel <https://github.com/pyexcel/pyexcel>`__.
 
@@ -40,7 +48,7 @@ Support the project
 ================================================================================
 
 If your company has embedded pyexcel and its components into a revenue generating
-product, please support me on `github <https://github.com/sponsors/chfw>`_, `patreon <https://www.patreon.com/bePatron?u=5537627>`_
+product, please support me on github, `patreon <https://www.patreon.com/bePatron?u=5537627>`_
 or `bounty source <https://salt.bountysource.com/teams/chfw-pyexcel>`_ to maintain
 the project and develop it further.
 
@@ -363,22 +371,6 @@ Please run::
 
 so as to beautify your code otherwise travis-ci may fail your unit test.
 
-
-And make sure you would have run moban command
----------------------------------------------------------
-
-Additional steps are required:
-
-#. pip install moban
-#. make your changes in `.moban.d` directory, then issue command `moban`
-#. moban
-
-otherwise travis-ci may also fail your unit test.
-
-What is .moban.d
----------------------------------
-
-`.moban.d` stores the specific meta data for the library.
 
 
 .. testcode::

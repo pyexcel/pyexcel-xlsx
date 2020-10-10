@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 
-# Template by pypi-mobans
+"""
+Template by pypi-mobans
+"""
+
+import os
+import sys
 import codecs
 import locale
-import os
 import platform
-import sys
 from shutil import rmtree
 
-from setuptools import Command, find_packages, setup
+from setuptools import Command, setup, find_packages
 
 
 # Work around mbcs bug in distutils.
@@ -25,8 +28,8 @@ except (ValueError, UnicodeError, locale.Error):
     locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
 
 NAME = "pyexcel-xlsx"
-AUTHOR = "C.W."
-VERSION = "0.5.8"
+AUTHOR = "chfw"
+VERSION = "0.6.0"
 EMAIL = "info@pyexcel.org"
 LICENSE = "New BSD"
 DESCRIPTION = (
@@ -34,7 +37,7 @@ DESCRIPTION = (
     "format"
 )
 URL = "https://github.com/pyexcel/pyexcel-xlsx"
-DOWNLOAD_URL = "%s/archive/0.5.8.tar.gz" % URL
+DOWNLOAD_URL = "%s/archive/0.6.0.tar.gz" % URL
 FILES = ["README.rst", "CHANGELOG.rst"]
 KEYWORDS = [
     "python",
@@ -45,34 +48,33 @@ CLASSIFIERS = [
     "Topic :: Software Development :: Libraries",
     "Programming Language :: Python",
     "Intended Audience :: Developers",
-    "Programming Language :: Python :: 2.6",
-    "Programming Language :: Python :: 2.7",
-    "Programming Language :: Python :: 3.3",
-    "Programming Language :: Python :: 3.4",
-    "Programming Language :: Python :: 3.5",
+
+    "Programming Language :: Python :: 3 :: Only",
+
+
+
     "Programming Language :: Python :: 3.6",
-
     "Programming Language :: Python :: 3.7",
-
     "Programming Language :: Python :: 3.8",
 
     'Programming Language :: Python :: Implementation :: PyPy'
 ]
 
+PYTHON_REQUIRES = ">=3.6"
+
 INSTALL_REQUIRES = [
     "openpyxl>=2.6.1",
-    "pyexcel-io>=0.5.3",
+    "pyexcel-io>=0.6.2",
 ]
 SETUP_COMMANDS = {}
 
-
-PACKAGES = find_packages(exclude=["ez_setup", "examples", "tests"])
+PACKAGES = find_packages(exclude=["ez_setup", "examples", "tests", "tests.*"])
 EXTRAS_REQUIRE = {
 }
 # You do not need to read beyond this line
 PUBLISH_COMMAND = "{0} setup.py sdist bdist_wheel upload -r pypi".format(sys.executable)
-GS_COMMAND = ("gs pyexcel-xlsx v0.5.8 " +
-              "Find 0.5.8 in changelog for more details")
+GS_COMMAND = ("gs pyexcel-xlsx v0.6.0 " +
+              "Find 0.6.0 in changelog for more details")
 NO_GS_MESSAGE = ("Automatic github release is disabled. " +
                  "Please install gease to enable it.")
 UPLOAD_FAILED_MSG = (
@@ -192,6 +194,7 @@ if __name__ == "__main__":
         long_description=read_files(*FILES),
         license=LICENSE,
         keywords=KEYWORDS,
+        python_requires=PYTHON_REQUIRES,
         extras_require=EXTRAS_REQUIRE,
         tests_require=["nose"],
         install_requires=INSTALL_REQUIRES,

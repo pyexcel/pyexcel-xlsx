@@ -4,13 +4,19 @@ releases:
 - changes:
   - action: Updated
     details:
-    - '#34 pin openpyxl>=2.6.1'
+    - 'New style xlsx plugins, promoted by pyexcel-io v0.6.2.'
+  date: 10.10.2020
+  version: 0.6.0
+- changes:
+  - action: Updated
+    details:
+    - '`#34`: pin openpyxl>=2.6.1'
   date: 28.12.2019
   version: 0.5.8
 - changes:
   - action: Added
     details:
-    - 'pyexcel-io#66 pin openpyxl < 2.6.0'
+    - '`pyexcel-io#66` pin openpyxl < 2.6.0'
   date: 15.02.2019
   version: 0.5.7
 - changes:
