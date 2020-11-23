@@ -10,14 +10,14 @@ jobs:
             python-version: [3.6, 3.7, 3.8, 3.9]
             os: [macOs-latest, ubuntu-latest, windows-latest]
 
-    runs-on: ${{ matrix.os }}
+    runs-on:  ${{ matrix.os }} 
     name: run tests
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v1
         with:
-            python-version: ${{ matrix.python-version }}
+            python-version:  ${{ matrix.python-version }}
       - name: install
         run: |
           pip install -r requirements.txt
@@ -25,5 +25,4 @@ jobs:
       - name: test
         run: |
           pip freeze
-          nosetests --with-coverage --cover-package pyexcel --cover-package tests tests --with-doctest --doctest-extension=.rst  docs/source pyexcel
-        
+          nosetests --with-coverage --cover-package pyexcel_xlsx --cover-package tests tests --with-doctest --doctest-extension=.rst README.rst docs/source pyexcel_xlsx
