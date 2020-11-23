@@ -10,7 +10,7 @@ jobs:
             python-version: [3.6, 3.7, 3.8, 3.9]
             os: [macOs-latest, ubuntu-latest, windows-latest]
 
-    runs-on:  ${{ matrix.os }} 
+    runs-on:  ${{ matrix.os }}
     name: run tests
     steps:
       - uses: actions/checkout@v2
@@ -26,3 +26,7 @@ jobs:
         run: |
           pip freeze
           nosetests --with-coverage --cover-package pyexcel_xlsx --cover-package tests tests --with-doctest --doctest-extension=.rst README.rst docs/source pyexcel_xlsx
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
+        with:
+          name:  ${{ matrix.os }} Python ${{ matrix.python-version }}
