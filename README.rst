@@ -8,8 +8,8 @@ pyexcel-xlsx - Let you focus on data, instead of xlsx format
 .. image:: https://raw.githubusercontent.com/pyexcel/pyexcel-mobans/master/images/awesome-badge.svg
    :target: https://awesome-python.com/#specific-formats-processing
 
-.. image:: https://travis-ci.org/pyexcel/pyexcel-xlsx.svg?branch=master
-   :target: http://travis-ci.org/pyexcel/pyexcel-xlsx
+.. image:: https://github.com/pyexcel/pyexcel-xlsx/workflows/run_tests/badge.svg
+   :target: http://github.com/pyexcel/pyexcel-xlsx/actions
 
 .. image:: https://codecov.io/gh/pyexcel/pyexcel-xlsx/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/pyexcel/pyexcel-xlsx

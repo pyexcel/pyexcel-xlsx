@@ -1,8 +1,0 @@
-{% extends "travis.yml.jj2" %}
-
-{%block custom_python_versions%}
-python:
-  - 3.8
-  - 3.7
-  - 3.6
-{%endblock%}
