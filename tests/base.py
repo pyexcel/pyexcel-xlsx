@@ -83,7 +83,7 @@ class PyexcelMultipleSheetBase:
         expected = [[4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6]]
         assert data == expected
         data = list(b["Sheet3"].rows())
-        expected = [[u"X", u"Y", u"Z"], [1, 4, 7], [2, 5, 8], [3, 6, 9]]
+        expected = [["X", "Y", "Z"], [1, 4, 7], [2, 5, 8], [3, 6, 9]]
         assert data == expected
         sheet3 = b["Sheet3"]
         sheet3.name_columns_by_row(0)
