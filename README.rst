@@ -8,9 +8,6 @@ pyexcel-xlsx - Let you focus on data, instead of xlsx format
 .. image:: https://raw.githubusercontent.com/pyexcel/pyexcel-mobans/master/images/awesome-badge.svg
    :target: https://awesome-python.com/#specific-formats-processing
 
-.. image:: https://github.com/pyexcel/pyexcel-xlsx/workflows/run_tests/badge.svg
-   :target: http://github.com/pyexcel/pyexcel-xlsx/actions
-
 .. image:: https://codecov.io/gh/pyexcel/pyexcel-xlsx/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/pyexcel/pyexcel-xlsx
 
@@ -20,8 +17,7 @@ pyexcel-xlsx - Let you focus on data, instead of xlsx format
 .. image:: https://anaconda.org/conda-forge/pyexcel-xlsx/badges/version.svg
    :target: https://anaconda.org/conda-forge/pyexcel-xlsx
 
-.. image:: https://pepy.tech/badge/pyexcel-xlsx/month
-   :target: https://pepy.tech/project/pyexcel-xlsx
+
 
 .. image:: https://anaconda.org/conda-forge/pyexcel-xlsx/badges/downloads.svg
    :target: https://anaconda.org/conda-forge/pyexcel-xlsx
@@ -136,7 +132,7 @@ Here's the sample code:
     >>> from pyexcel_xlsx import get_data
     >>> data = get_data("your_file.xlsx")
     >>> import json
-    >>> print(json.dumps(data, default=str))
+    >>> print(json.dumps(data))
     {"Sheet 1": [[1, 2, 3], [4, 5, 6]], "Sheet 2": [["row 1", "row 2", "row 3"]]}
 
 
@@ -171,7 +167,7 @@ Continue from previous example:
     >>> # In reality, you might deal with xlsx file upload
     >>> # where you will read from requests.FILES['YOUR_XLSX_FILE']
     >>> data = get_data(io)
-    >>> print(json.dumps(data, default=str))
+    >>> print(json.dumps(data))
     {"Sheet 1": [[1, 2, 3], [4, 5, 6]], "Sheet 2": [[7, 8, 9], [10, 11, 12]]}
 
 
@@ -202,7 +198,7 @@ And let's pretend to read partial data:
 .. code-block:: python
 
    >>> partial_data = get_data("huge_file.xlsx", start_row=2, row_limit=3)
-   >>> print(json.dumps(partial_data, default=str))
+   >>> print(json.dumps(partial_data))
    {"huge": [[3, 23, 33], [4, 24, 34], [5, 25, 35]]}
 
 And you could as well do the same for columns:
@@ -210,7 +206,7 @@ And you could as well do the same for columns:
 .. code-block:: python
 
    >>> partial_data = get_data("huge_file.xlsx", start_column=1, column_limit=2)
-   >>> print(json.dumps(partial_data, default=str))
+   >>> print(json.dumps(partial_data))
    {"huge": [[21, 31], [22, 32], [23, 33], [24, 34], [25, 35], [26, 36]]}
 
 Obvious, you could do both at the same time:
@@ -220,7 +216,7 @@ Obvious, you could do both at the same time:
    >>> partial_data = get_data("huge_file.xlsx",
    ...     start_row=2, row_limit=3,
    ...     start_column=1, column_limit=2)
-   >>> print(json.dumps(partial_data, default=str))
+   >>> print(json.dumps(partial_data))
    {"huge": [[23, 33], [24, 34], [25, 35]]}
 
 .. testcode::
@@ -340,7 +336,7 @@ Then install relevant development requirements:
 #. pip install -r tests/requirements.txt
 
 Once you have finished your changes, please provide test case(s), relevant documentation
-and update CHANGELOG.rst.
+and update changelog.yml
 
 .. note::
 
@@ -359,7 +355,7 @@ On Linux/Unix systems, please launch your tests like this::
 
     $ make
 
-On Windows systems, please issue this command::
+On Windows, please issue this command::
 
     > test.bat
 
@@ -371,7 +367,7 @@ Please run::
 
     $ make format
 
-so as to beautify your code otherwise travis-ci may fail your unit test.
+so as to beautify your code otherwise your build may fail your unit test.
 
 
 
