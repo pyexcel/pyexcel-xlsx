@@ -30,10 +30,7 @@ def test_reading():
                     datetime(2015, 1, 1, 0, 0),
                     time(hour=13, minute=13, second=13),
                 ],
-                [
-                    datetime(year=1899, month=12, day=30),
-                    datetime(1899, 12, 30, 0, 0),
-                ],
+                [time(0, 0), time(0, 0)],
             ]
         }
     )

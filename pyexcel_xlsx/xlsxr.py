@@ -1,12 +1,13 @@
 """
-    pyexcel_xlsx.xlsxr
-    ~~~~~~~~~~~~~~~~~~~
+pyexcel_xlsx.xlsxr
+~~~~~~~~~~~~~~~~~~~
 
-    Read xlsx file format using openpyxl
+Read xlsx file format using openpyxl
 
-    :copyright: (c) 2015-2020 by Onni Software Ltd & its contributors
-    :license: New BSD License
+:copyright: (c) 2015-2020 by Onni Software Ltd & its contributors
+:license: New BSD License
 """
+
 from io import BytesIO
 
 import openpyxl
