@@ -12,7 +12,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v1
         with:
-          python-version: '3.7'
+          python-version: '3.11'
       - name: check changes
         run: |
           pip install markupsafe==2.0.1
