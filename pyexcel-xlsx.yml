@@ -12,6 +12,7 @@ dependencies:
   - openpyxl>=2.6.1
   - pyexcel-io>=0.6.2
 test_dependencies:
+  - xlrd==1.2.0
   - pyexcel-xls
   - pyexcel
 description: A wrapper library to read, manipulate and write data in xlsx and xlsm format
