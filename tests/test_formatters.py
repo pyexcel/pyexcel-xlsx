@@ -26,8 +26,8 @@ class TestDateFormat:
         assert isinstance(r[1, 1], datetime.time) is True
         assert r[1, 1].strftime("%H:%M:%S") == "11:11:11"
         value = r[4, 0].isoformat()
-        eq_(value, "1899-12-30T00:00:00")
-        eq_(r[4, 1].isoformat(), "1899-12-30T00:00:00")
+        eq_(value, "00:00:00")
+        eq_(r[4, 1].isoformat(), "00:00:00")
 
     def test_writing_date_format(self):
         import datetime

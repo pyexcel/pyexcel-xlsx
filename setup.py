@@ -28,8 +28,8 @@ except (ValueError, UnicodeError, locale.Error):
     locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
 
 NAME = "pyexcel-xlsx"
-AUTHOR = "chfw"
-VERSION = "0.6.0"
+AUTHOR = "C.W."
+VERSION = "0.6.1"
 EMAIL = "info@pyexcel.org"
 LICENSE = "New BSD"
 DESCRIPTION = (
@@ -37,7 +37,7 @@ DESCRIPTION = (
     "format"
 )
 URL = "https://github.com/pyexcel/pyexcel-xlsx"
-DOWNLOAD_URL = "%s/archive/0.6.0.tar.gz" % URL
+DOWNLOAD_URL = "%s/archive/0.6.1.tar.gz" % URL
 FILES = ["README.rst", "CHANGELOG.rst"]
 KEYWORDS = [
     "python",
@@ -73,13 +73,14 @@ EXTRAS_REQUIRE = {
 }
 # You do not need to read beyond this line
 PUBLISH_COMMAND = "{0} setup.py sdist bdist_wheel upload -r pypi".format(sys.executable)
-GS_COMMAND = ("gs pyexcel-xlsx v0.6.0 " +
-              "Find 0.6.0 in changelog for more details")
+HERE = os.path.abspath(os.path.dirname(__file__))
+
+GS_COMMAND = ("gease pyexcel-xlsx v0.6.1 " +
+              "Find 0.6.1 in changelog for more details")
 NO_GS_MESSAGE = ("Automatic github release is disabled. " +
                  "Please install gease to enable it.")
 UPLOAD_FAILED_MSG = (
     'Upload failed. please run "%s" yourself.' % PUBLISH_COMMAND)
-HERE = os.path.abspath(os.path.dirname(__file__))
 
 
 class PublishCommand(Command):
@@ -124,7 +125,6 @@ class PublishCommand(Command):
 SETUP_COMMANDS.update({
     "publish": PublishCommand
 })
-
 
 def has_gease():
     """

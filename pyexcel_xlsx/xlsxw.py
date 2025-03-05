@@ -1,12 +1,13 @@
 """
-    pyexcel_xlsx.xlsxw
-    ~~~~~~~~~~~~~~~~~~~
+pyexcel_xlsx.xlsxw
+~~~~~~~~~~~~~~~~~~~
 
-    Write xlsx file format using openpyxl
+Write xlsx file format using openpyxl
 
-    :copyright: (c) 2015-2020 by Onni Software Ltd & its contributors
-    :license: New BSD License
+:copyright: (c) 2015-2020 by Onni Software Ltd & its contributors
+:license: New BSD License
 """
+
 import openpyxl
 from pyexcel_io import constants
 from pyexcel_io.plugin_api import IWriter, ISheetWriter

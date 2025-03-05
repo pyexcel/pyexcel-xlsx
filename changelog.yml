@@ -4,6 +4,12 @@ releases:
 - changes:
   - action: Updated
     details:
+    - 'Compatability with openpyxl 3.1.0 and later'
+  date: 10.11.2024
+  version: 0.6.1
+- changes:
+  - action: Updated
+    details:
     - 'New style xlsx plugins, promoted by pyexcel-io v0.6.2.'
   date: 10.10.2020
   version: 0.6.0

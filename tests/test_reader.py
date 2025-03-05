@@ -1,17 +1,17 @@
 import os
-from datetime import datetime, time
-
-from nose.tools import eq_
-from pyexcel_io._compact import OrderedDict
+from datetime import time, datetime
 
 from pyexcel_xlsx import get_data
+from pyexcel_io._compact import OrderedDict
+
+from nose.tools import eq_
 
 
 def test_reading():
     data = get_data(
         os.path.join("tests", "fixtures", "date_field.xlsx"),
         library="pyexcel-xlsx",
-        skip_hidden_row_and_column=False
+        skip_hidden_row_and_column=False,
     )
     expected = OrderedDict()
     expected.update(
@@ -30,10 +30,7 @@ def test_reading():
                     datetime(2015, 1, 1, 0, 0),
                     time(hour=13, minute=13, second=13),
                 ],
-                [
-                    datetime(year=1899, month=12, day=30),
-                    datetime(1899, 12, 30, 0, 0),
-                ],
+                [time(0, 0), time(0, 0)],
             ]
         }
     )

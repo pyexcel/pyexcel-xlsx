@@ -1,12 +1,13 @@
 """
-    pyexcel_xlsx.xlsxr
-    ~~~~~~~~~~~~~~~~~~~
+pyexcel_xlsx.xlsxr
+~~~~~~~~~~~~~~~~~~~
 
-    Read xlsx file format using openpyxl
+Read xlsx file format using openpyxl
 
-    :copyright: (c) 2015-2020 by Onni Software Ltd & its contributors
-    :license: New BSD License
+:copyright: (c) 2015-2020 by Onni Software Ltd & its contributors
+:license: New BSD License
 """
+
 from io import BytesIO
 
 import openpyxl
@@ -69,7 +70,7 @@ class SlowSheet(FastSheet):
         self.max_column = 0
         self.__sheet_max_row = sheet.max_row
         self.__sheet_max_column = sheet.max_column
-        for ranges in sheet.merged_cells.ranges[:]:
+        for ranges in list(sheet.merged_cells.ranges)[:]:
             merged_cells = MergedCell(ranges)
             merged_cells.register_cells(self.__merged_cells)
             if self.max_row < merged_cells.bottom_row():
