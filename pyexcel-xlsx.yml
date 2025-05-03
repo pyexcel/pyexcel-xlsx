@@ -2,8 +2,8 @@ overrides: "pyexcel.yaml"
 name: "pyexcel-xlsx"
 project: "pyexcel-xlsx"
 nick_name: xlsx
-version: 0.6.1
-current_version: 0.6.1
+version: 0.7.0
+current_version: 0.7.0
 release: 0.6.1
 file_type: xlsx
 gitignore_language: Python

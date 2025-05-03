@@ -4,6 +4,12 @@ releases:
 - changes:
   - action: Updated
     details:
+    - '`#56`: to add a csv file as sheet to a xlsx file'
+  date: 10.05.2025
+  version: 0.7.0
+- changes:
+  - action: Updated
+    details:
     - 'Compatability with openpyxl 3.1.0 and later'
   date: 10.11.2024
   version: 0.6.1
