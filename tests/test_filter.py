@@ -1,9 +1,9 @@
 import os
+from unittest import TestCase
 
 from pyexcel_io import get_data, save_data
 
 from .nose_tools import eq_
-from unittest import TestCase
 
 
 class TestFilter(TestCase):

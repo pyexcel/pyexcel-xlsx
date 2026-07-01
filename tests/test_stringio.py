@@ -1,10 +1,10 @@
 import os
+from unittest import TestCase
 
 import pyexcel
-from .base import create_sample_file1
 
+from .base import create_sample_file1
 from .nose_tools import eq_
-from unittest import TestCase
 
 
 class TestStringIO(TestCase):

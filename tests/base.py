@@ -1,10 +1,10 @@
 import os  # noqa
 import datetime  # noqa
+from unittest import TestCase
 
 import pyexcel
 
 from .nose_tools import eq_, raises  # noqa
-from unittest import TestCase
 
 
 def create_sample_file1(file):
@@ -67,7 +67,7 @@ class PyexcelMultipleSheetBase(TestCase):
 
     def tearDown(self):
         self._clean_up()
-    
+
     def _write_test_file(self, filename):
         pyexcel.save_book_as(bookdict=self.content, dest_file_name=filename)
 

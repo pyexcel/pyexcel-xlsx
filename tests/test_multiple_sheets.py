@@ -1,12 +1,11 @@
 import os
+from unittest import TestCase
 from collections import OrderedDict
 
 import pyexcel
+
 from . import base
-
 from .nose_tools import raises
-from unittest import TestCase
-
 
 
 class TestXlsNXlsxMultipleSheets(base.PyexcelMultipleSheetBase):

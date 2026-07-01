@@ -1,9 +1,10 @@
 import os
+from unittest import TestCase
 
-from . import base
 from pyexcel_xlsx import get_data
 from pyexcel_xlsx.xlsxw import XLSXWriter as Writer
-from unittest import TestCase
+
+from . import base
 
 
 class TestNativeXLSXWriter(TestCase):
