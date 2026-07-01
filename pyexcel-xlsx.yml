@@ -20,4 +20,4 @@ description: A wrapper library to read, manipulate and write data in xlsx and xl
 moban_command: false
 python_requires: ">=3.6"
 min_python_version: "3.6"
-use_pytest: use
+use_pytest: true
