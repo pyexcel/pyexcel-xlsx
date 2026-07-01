@@ -1,6 +1,5 @@
 import os
 from unittest import TestCase
-from collections import OrderedDict
 
 import pyexcel
 
@@ -12,7 +11,7 @@ class TestXlsNXlsxMultipleSheets(base.PyexcelMultipleSheetBase):
     def setUp(self):
         self.testfile = "multiple1.xlsm"
         self.testfile2 = "multiple1.xlsx"
-        self.content = _produce_ordered_dict()
+        self.content = base._produce_ordered_dict()
         self._write_test_file(self.testfile)
 
     def tearDown(self):
@@ -35,7 +34,7 @@ class TestAddBooks(TestCase):
         self.testfile = "multiple3.xlsx"
         self.testfile2 = "multiple1.xlsx"
         self.testfile3 = "multiple2.xlsx"
-        self.content = _produce_ordered_dict()
+        self.content = base._produce_ordered_dict()
         self._write_test_file(self.testfile)
         self._write_test_file(self.testfile2)
 
@@ -230,13 +229,3 @@ class TestMultiSheetReader:
             os.path.join("tests", "fixtures", self.testfile)
         )
         assert r.number_of_sheets() == 3
-
-
-def _produce_ordered_dict():
-    data_dict = OrderedDict()
-    data_dict.update({"Sheet1": [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3]]})
-    data_dict.update({"Sheet2": [[4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6]]})
-    data_dict.update(
-        {"Sheet3": [["X", "Y", "Z"], [1, 4, 7], [2, 5, 8], [3, 6, 9]]}
-    )
-    return data_dict

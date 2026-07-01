@@ -1,9 +1,7 @@
 import os
-from datetime import time, datetime
 
 from pyexcel_xlsx import get_data
 from pyexcel_xlsx.book import Book
-from pyexcel_io._compact import OrderedDict
 
 from .nose_tools import eq_
 
