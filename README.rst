@@ -5,9 +5,6 @@ pyexcel-xlsx - Let you focus on data, instead of xlsx format
 .. image:: https://raw.githubusercontent.com/pyexcel/pyexcel.github.io/master/images/patreon.png
    :target: https://www.patreon.com/chfw
 
-.. image:: https://raw.githubusercontent.com/pyexcel/pyexcel-mobans/master/images/awesome-badge.svg
-   :target: https://awesome-python.com/#specific-formats-processing
-
 .. image:: https://codecov.io/gh/pyexcel/pyexcel-xlsx/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/pyexcel/pyexcel-xlsx
 
@@ -23,9 +20,6 @@ pyexcel-xlsx - Let you focus on data, instead of xlsx format
 
 .. image:: https://anaconda.org/conda-forge/pyexcel-xlsx/badges/downloads.svg
    :target: https://anaconda.org/conda-forge/pyexcel-xlsx
-
-.. image:: https://img.shields.io/gitter/room/gitterHQ/gitter.svg
-   :target: https://gitter.im/pyexcel/Lobby
 
 .. image:: https://img.shields.io/static/v1?label=continuous%20templating&message=%E6%A8%A1%E7%89%88%E6%9B%B4%E6%96%B0&color=blue&style=flat-square
     :target: https://moban.readthedocs.io/en/latest/#at-scale-continous-templating-for-open-source-projects
@@ -322,8 +316,7 @@ Then install relevant development requirements:
 #. pip install -r requirements.txt
 #. pip install -r tests/requirements.txt
 
-Once you have finished your changes, please provide test case(s), relevant documentation
-and update changelog.yml
+Once you have finished your changes, please provide test case(s), relevant documentation.
 
 .. note::
 
@@ -359,6 +352,10 @@ Please run::
 
 so as to beautify your code otherwise your build may fail your unit test.
 
+Before you raise pull request
+--------------------------------------------------------------------------------
+
+Please edit 'changelog.yml' and record your changes
 
 
 .. testcode::

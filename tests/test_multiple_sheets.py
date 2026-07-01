@@ -1,35 +1,24 @@
 import os
-from collections import OrderedDict
+from unittest import TestCase
 
 import pyexcel
-from base import PyexcelMultipleSheetBase
 
-from nose.tools import raises
+from . import base
+from .nose_tools import raises
 
 
-class TestXlsmNxlsMultipleSheets(PyexcelMultipleSheetBase):
+class TestXlsNXlsxMultipleSheets(base.PyexcelMultipleSheetBase):
     def setUp(self):
         self.testfile = "multiple1.xlsm"
         self.testfile2 = "multiple1.xlsx"
-        self.content = _produce_ordered_dict()
+        self.content = base._produce_ordered_dict()
         self._write_test_file(self.testfile)
 
     def tearDown(self):
         self._clean_up()
 
 
-class TestXlsNXlsxMultipleSheets(PyexcelMultipleSheetBase):
-    def setUp(self):
-        self.testfile = "multiple1.xlsm"
-        self.testfile2 = "multiple1.xlsx"
-        self.content = _produce_ordered_dict()
-        self._write_test_file(self.testfile)
-
-    def tearDown(self):
-        self._clean_up()
-
-
-class TestAddBooks:
+class TestAddBooks(TestCase):
     def _write_test_file(self, file):
         """
         Make a test file as:
@@ -45,7 +34,7 @@ class TestAddBooks:
         self.testfile = "multiple3.xlsx"
         self.testfile2 = "multiple1.xlsx"
         self.testfile3 = "multiple2.xlsx"
-        self.content = _produce_ordered_dict()
+        self.content = base._produce_ordered_dict()
         self._write_test_file(self.testfile)
         self._write_test_file(self.testfile2)
 
@@ -232,7 +221,7 @@ class TestAddBooks:
 
 
 class TestMultiSheetReader:
-    def setUp(self):
+    def setup_method(self):
         self.testfile = "file_with_an_empty_sheet.xlsx"
 
     def test_reader_with_correct_sheets(self):
@@ -240,13 +229,3 @@ class TestMultiSheetReader:
             os.path.join("tests", "fixtures", self.testfile)
         )
         assert r.number_of_sheets() == 3
-
-
-def _produce_ordered_dict():
-    data_dict = OrderedDict()
-    data_dict.update({"Sheet1": [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3]]})
-    data_dict.update({"Sheet2": [[4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6]]})
-    data_dict.update(
-        {"Sheet3": [["X", "Y", "Z"], [1, 4, 7], [2, 5, 8], [3, 6, 9]]}
-    )
-    return data_dict

@@ -1,9 +1,11 @@
 import os  # noqa
 import datetime  # noqa
+from unittest import TestCase
+from collections import OrderedDict
 
 import pyexcel
 
-from nose.tools import eq_, raises  # noqa
+from .nose_tools import eq_, raises  # noqa
 
 
 def create_sample_file1(file):
@@ -15,7 +17,7 @@ def create_sample_file1(file):
     pyexcel.save_as(array=table, dest_file_name=file)
 
 
-class PyexcelHatWriterBase:
+class PyexcelHatWriterBase(TestCase):
     """
     Abstract functional test for hat writers
     """
@@ -32,7 +34,7 @@ class PyexcelHatWriterBase:
         eq_(r.dict, self.content)
 
 
-class PyexcelWriterBase:
+class PyexcelWriterBase(TestCase):
     """
     Abstract functional test for writers
 
@@ -57,7 +59,16 @@ class PyexcelWriterBase:
         assert actual == self.content
 
 
-class PyexcelMultipleSheetBase:
+class PyexcelMultipleSheetBase(TestCase):
+    def setUp(self):
+        self.testfile = "multiple1.xlsm"
+        self.testfile2 = "multiple1.xlsx"
+        self.content = _produce_ordered_dict()
+        self._write_test_file(self.testfile)
+
+    def tearDown(self):
+        self._clean_up()
+
     def _write_test_file(self, filename):
         pyexcel.save_book_as(bookdict=self.content, dest_file_name=filename)
 
@@ -90,3 +101,13 @@ class PyexcelMultipleSheetBase:
         data = list(b["Sheet3"].rows())
         expected = [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
         assert data == expected
+
+
+def _produce_ordered_dict():
+    data_dict = OrderedDict()
+    data_dict.update({"Sheet1": [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3]]})
+    data_dict.update({"Sheet2": [[4, 4, 4, 4], [5, 5, 5, 5], [6, 6, 6, 6]]})
+    data_dict.update(
+        {"Sheet3": [["X", "Y", "Z"], [1, 4, 7], [2, 5, 8], [3, 6, 9]]}
+    )
+    return data_dict

@@ -1,11 +1,13 @@
 import os
+from unittest import TestCase
 
-from base import PyexcelWriterBase, PyexcelHatWriterBase
 from pyexcel_xlsx import get_data
 from pyexcel_xlsx.xlsxw import XLSXWriter as Writer
 
+from . import base
 
-class TestNativeXLSXWriter:
+
+class TestNativeXLSXWriter(TestCase):
     def test_write_book(self):
         self.content = {
             "Sheet1": [[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3]],
@@ -26,7 +28,7 @@ class TestNativeXLSXWriter:
             os.unlink(self.testfile)
 
 
-class TestxlsxnCSVWriter(PyexcelWriterBase):
+class TestxlsxnCSVWriter(base.PyexcelWriterBase):
     def setUp(self):
         self.testfile = "test.xlsx"
         self.testfile2 = "test.csv"
@@ -38,7 +40,7 @@ class TestxlsxnCSVWriter(PyexcelWriterBase):
             os.unlink(self.testfile2)
 
 
-class TestxlsxHatWriter(PyexcelHatWriterBase):
+class TestxlsxHatWriter(base.PyexcelHatWriterBase):
     def setUp(self):
         self.testfile = "test.xlsx"
 

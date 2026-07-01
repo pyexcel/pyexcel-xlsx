@@ -1,11 +1,12 @@
 import os
+from unittest import TestCase
 
 from pyexcel_io import get_data, save_data
 
-from nose.tools import eq_
+from .nose_tools import eq_
 
 
-class TestFilter:
+class TestFilter(TestCase):
     def setUp(self):
         self.test_file = "test_filter.xlsx"
         sample = [

@@ -1,5 +1,3 @@
-nose
-mock;python_version<"3"
 codecov
 coverage
 flake8
@@ -12,3 +10,4 @@ moban_jinja2_github
 xlrd==1.2.0
 pyexcel-xls
 pyexcel
+pytest

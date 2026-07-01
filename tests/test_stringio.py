@@ -1,12 +1,13 @@
 import os
+from unittest import TestCase
 
 import pyexcel
-from base import create_sample_file1
 
-from nose.tools import eq_
+from .base import create_sample_file1
+from .nose_tools import eq_
 
 
-class TestStringIO:
+class TestStringIO(TestCase):
     def test_xlsx_stringio(self):
         testfile = "cute.xlsx"
         create_sample_file1(testfile)

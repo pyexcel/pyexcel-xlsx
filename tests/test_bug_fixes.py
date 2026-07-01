@@ -11,10 +11,7 @@ from textwrap import dedent
 
 import pyexcel as pe
 
-from nose.tools import eq_
-
-IN_TRAVIS = "TRAVIS" in os.environ
-
+from .nose_tools import eq_
 
 PY36_ABOVE = sys.version_info[0] == 3 and sys.version_info[1] >= 6
 
