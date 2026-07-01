@@ -15,7 +15,9 @@ test_dependencies:
   - xlrd==1.2.0
   - pyexcel-xls
   - pyexcel
+  - pytest
 description: A wrapper library to read, manipulate and write data in xlsx and xlsm format
 moban_command: false
 python_requires: ">=3.6"
 min_python_version: "3.6"
+use_pytest: use

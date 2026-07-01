@@ -2,12 +2,14 @@ import os
 from collections import OrderedDict
 
 import pyexcel
-from base import PyexcelMultipleSheetBase
+from . import base
 
-from nose.tools import raises
+from .nose_tools import raises
+from unittest import TestCase
 
 
-class TestXlsmNxlsMultipleSheets(PyexcelMultipleSheetBase):
+
+class TestXlsNXlsxMultipleSheets(base.PyexcelMultipleSheetBase):
     def setUp(self):
         self.testfile = "multiple1.xlsm"
         self.testfile2 = "multiple1.xlsx"
@@ -18,18 +20,7 @@ class TestXlsmNxlsMultipleSheets(PyexcelMultipleSheetBase):
         self._clean_up()
 
 
-class TestXlsNXlsxMultipleSheets(PyexcelMultipleSheetBase):
-    def setUp(self):
-        self.testfile = "multiple1.xlsm"
-        self.testfile2 = "multiple1.xlsx"
-        self.content = _produce_ordered_dict()
-        self._write_test_file(self.testfile)
-
-    def tearDown(self):
-        self._clean_up()
-
-
-class TestAddBooks:
+class TestAddBooks(TestCase):
     def _write_test_file(self, file):
         """
         Make a test file as:
@@ -232,7 +223,7 @@ class TestAddBooks:
 
 
 class TestMultiSheetReader:
-    def setUp(self):
+    def setup_method(self):
         self.testfile = "file_with_an_empty_sheet.xlsx"
 
     def test_reader_with_correct_sheets(self):

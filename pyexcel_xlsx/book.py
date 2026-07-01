@@ -1,10 +1,10 @@
 """
-pyexcel_xlsx.xlsxr
+pyexcel_xlsx.book
 ~~~~~~~~~~~~~~~~~~~
 
 Read xlsx file format using openpyxl
 
-:copyright: (c) 2015-2025 by Onni Software Ltd & its contributors
+:copyright: (c) 2025 by Onni Software Ltd & its contributors
 :license: New BSD License
 """
 

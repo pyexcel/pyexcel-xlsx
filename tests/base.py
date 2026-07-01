@@ -3,7 +3,8 @@ import datetime  # noqa
 
 import pyexcel
 
-from nose.tools import eq_, raises  # noqa
+from .nose_tools import eq_, raises  # noqa
+from unittest import TestCase
 
 
 def create_sample_file1(file):
@@ -15,7 +16,7 @@ def create_sample_file1(file):
     pyexcel.save_as(array=table, dest_file_name=file)
 
 
-class PyexcelHatWriterBase:
+class PyexcelHatWriterBase(TestCase):
     """
     Abstract functional test for hat writers
     """
@@ -32,7 +33,7 @@ class PyexcelHatWriterBase:
         eq_(r.dict, self.content)
 
 
-class PyexcelWriterBase:
+class PyexcelWriterBase(TestCase):
     """
     Abstract functional test for writers
 
@@ -57,7 +58,16 @@ class PyexcelWriterBase:
         assert actual == self.content
 
 
-class PyexcelMultipleSheetBase:
+class PyexcelMultipleSheetBase(TestCase):
+    def setUp(self):
+        self.testfile = "multiple1.xlsm"
+        self.testfile2 = "multiple1.xlsx"
+        self.content = _produce_ordered_dict()
+        self._write_test_file(self.testfile)
+
+    def tearDown(self):
+        self._clean_up()
+    
     def _write_test_file(self, filename):
         pyexcel.save_book_as(bookdict=self.content, dest_file_name=filename)
 
